@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="skinex_background">#EE171E2C</color>
+    <color name="skinex_idpw">#2C3D45</color>
+    <color name="visiter">#9C0A83DF</color>
+
+<!--    <color name="colorPrimary">#000000</color>-->
+<!--    <color name="colorPrimaryDark">#34469b</color>-->
+<!--    <color name="colorAccent">#D81B60</color>-->
+
+    <!-- Black ~ White -->
+<!--    <color name="white">#ffffff</color>-->
+    <color name="white_two">#f2f2f2</color>
+    <color name="warm_grey">#9A9A9A</color>
+    <color name="warm_grey_three">#8f8f8f</color>
+    <color name="warm_grey_two">#777777</color>
+    <color name="greyish_brown">#444444</color>
+    <color name="progress">#33000000</color>
+<!--    <color name="black">#000000</color>-->
+
+    <color name="cornflower_blue">#5494D2</color>
+    <color name="seafoam_blue">#66d2bb</color>
+    <color name="dark_sky_blue">#2ca3dd</color>
+    <color name="denim_blue">#34469b</color>
+    <color name="light_navy_blue">#33499d</color>
+    <color name="pale_grey">#eaecf5</color>
+    <color name="salmon_pink">#fe7274</color>
+    <color name="dark_sky_blue_two">#25b0e7</color>
+    <color name="dark_sky_blue_three">#2fb1e5</color>
+    <color name="dark_sky_blue_four">#50bfeb</color>
+    <color name="dark_sky_blue_five">#27b0e7</color>
+    <color name="light_blue_grey">#DAE7F0</color>
+    <color name="emerald">#00E78D</color>
+
+    <!--  버튼색  -->
+    <color name="windows_blue">#3a97d2</color>
+    <color name="easter_purple">#a463fd</color>
+    <color name="pale_red">#d23a3a</color>
+    <color name="white_three">#DCDCDC</color>
+    <color name="ocean_blue">#006fb9</color>
+</resources>

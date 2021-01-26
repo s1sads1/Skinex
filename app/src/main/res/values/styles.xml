@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Theme.Skinex" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:screenOrientation">portrait</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/skinex_background</item>
+        <item name="colorPrimaryDark">@color/skinex_background</item>
+        <item name="colorAccent">@color/skinex_background</item>
+        <!-- 타이틀 바 없애기 -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!-- 배경색 -->
+        <!--        <item name="android:windowBackground">@color/colorPrimary</item>-->
+    </style>
+
+    <!--    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">-->
+    <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--        <item name="colorAccent">@color/colorAccent</item>-->
+
+    <!--        <item name="background">@color/colorPrimary</item>-->
+    <!--        <item name="android:windowBackground">@drawable/splash</item>-->
+    <!--        <item name="android:screenOrientation">portrait</item>-->
+    <!--    </style>-->
+
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<shape android:shape="rectangle"-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android" >-->
+
+<!--    <solid android:color="@color/skinex_background"/>-->
+
+<!--    <corners android:radius="25dp"/>-->
+
+<!--    <stroke android:color="@color/white" android:width="1dp"/>-->
+<!--    <item android:state_pressed="true">-->
+
+<!--        <solid android:color="#EE171E2C"/>-->
+
+<!--        <corners android:radius="25dp"/>-->
+
+<!--        <stroke android:color="@color/white" android:width="1dp"/>-->
+
+<!--    </item>-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true">
+
+        <!--image대신 직접 selector를 그리겠다고 선언한다. -->
+        <shape >
+
+            <!--도형안에 채워질 색을 정의한다.-->
+            <solid android:color="#EE171E2C"/>
+
+            <!--각 모서리의 라운드 처리 - 값이 클수록 라운드의 각이 커진다.-->
+            <corners android:radius="25dp"/>
+
+        </shape>
+    </item>
+
+    <!--위와 동일하다.
+    -->
+    <item android:state_pressed="false">
+        <shape >
+
+            <gradient android:angle="270" android:color="#EE171E2C" android:startColor="#EE171E2C"/>
+
+            <stroke android:width="1dp" android:color="#EE171E2C"/>
+
+            <corners android:radius="25dp"/>
+        </shape>
+    </item>
+</selector>
+
+
+
+
+
+<!--</shape>-->
