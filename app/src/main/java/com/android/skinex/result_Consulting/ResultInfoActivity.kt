@@ -1,48 +1,112 @@
 package com.android.skinex.result_Consulting
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.convertTo
 import androidx.core.net.toUri
 import com.android.skinex.R
-import com.android.skinex.camera2Api.CameraX
 import com.android.skinex.camera2Api.CameraXDetail
 import com.android.skinex.camera2Api.CameraXReturn
 import com.android.skinex.databinding.ResultInfoBinding
-import com.android.skinex.databinding.UserInfoBinding
-import com.android.skinex.publicObject.Validation
+import com.android.skinex.dataclass.AnalyInfo
 import com.android.skinex.publicObject.Visiter
+import com.android.skinex.restApi.ApiUtill
+import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideBuilder
+import com.davemorrissey.labs.subscaleview.ImageSource
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.guide.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.POST
 import java.io.File
 import java.io.FileInputStream
+import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
+
 
 class ResultInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ResultInfoBinding
 
+    var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
+
+    var testString = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-29-16-24-03-995.jpg?alt=media&token=a98ce762-caa4-4640-82f1-d063b8a8ff49"
     var MYyear = 0
     var MYmonth = 0
     var MYday = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ResultInfoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+
         info()
         goguide()
         imageUp()
         recapture()
         resultsubmit()
+        sshConnect()
+
+
     }
+
+    fun sshConnect() {
+
+        binding.btnSsh.setOnClickListener {
+            ApiUtill().getSshConnection().sshConnect(testString, "10", "12", "40", "35")
+                .enqueue(object : Callback<AnalyInfo> {
+
+                    override fun onResponse(call: Call<AnalyInfo>, response: Response<AnalyInfo>) {
+
+                        Log.d("response.body", response.body().toString())
+                        if (response.isSuccessful) {
+                            var sshresponse = response.body()
+                            var degree_output = sshresponse!!.degree_output[0].hashCode().toString()
+                            Log.d("Ssh", sshresponse.toString())
+                            var degreeToString = Objects.toString(degree_output)
+
+                            Log.d("degree_output", degree_output.toString())
+                            Log.d("degreeToString",degreeToString.toString())
+                            Toast.makeText(this@ResultInfoActivity, "성공!!", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(this@ResultInfoActivity, "실패", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AnalyInfo>, t: Throwable) {
+                        Log.d("sshConnect()","sshConnect()")
+
+                        Toast.makeText(
+                            this@ResultInfoActivity,
+                            t.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        }
+    }
+
 
     fun info() {
         var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -64,7 +128,14 @@ class ResultInfoActivity : AppCompatActivity() {
         binding.patientBirth.setText(Visiter.Visi.birth)
         binding.patientBurnday.setText(Visiter.Visi.burndate)
         //binding.patientInputDay.setText("${year}-${(month).toString().padStart(2,'0')}-${day.toString().padStart(2, '0')}")
-        binding.patientInputDay.setText("$MYyear-${MYmonth.toString().padStart(2,'0')}-${MYday.toString().padStart(2,'0')}")
+        binding.patientInputDay.setText(
+            "$MYyear-${MYmonth.toString().padStart(2, '0')}-${
+                MYday.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
         //binding.genderRadioGroup.check(Visiter.Visi.gender)
 
         var idBirth = Visiter.Visi.birth
@@ -72,21 +143,34 @@ class ResultInfoActivity : AppCompatActivity() {
         var reMYyear = MYyear.toString()
         reMYyear = reMYyear.replace("20", "")
         reMYyear = reMYyear.replace("19", "")
-        Log.d("xxoo년도 중 xx를 잘라서 받아옴 : " , reMYyear )
+        Log.d("xxoo년도 중 xx를 잘라서 받아옴 : ", reMYyear)
         //.toString().padStart(2,'0') 를 쓴 이유는 MYmonth 가 01인 경우에 저걸 안쓰면 1만 가져옴 01이아님
-        binding.patientNum.setText(idBirth+"$reMYyear${MYmonth.toString().padStart(2,'0')}${MYday.toString().padStart(2,'0')}")
+        binding.patientNum.setText(
+            idBirth + "$reMYyear${MYmonth.toString().padStart(2, '0')}${
+                MYday.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
     }
 
     //촬영 클릭시 전체촬영 이벤트
     fun goguide(){
         binding.goguide.setOnClickListener {
             startActivity(Intent(this, GuideActivity::class.java))
+
+            var storage = Firebase.storage.reference.child(Visiter.Visi.camerauri2).downloadUrl
+            Log.d("CameraXBasic: ", "${storage}")
         }
     }
 
     fun imageUp() {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
-        binding.longDistanceShot4.setImageURI((Visiter.Visi.camerauri2.toUri()))
+//        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
+            binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+
+
     }
 
     fun recapture() {
@@ -104,6 +188,7 @@ class ResultInfoActivity : AppCompatActivity() {
             fileUpload()
         }
     }
+
     fun fileUpload() {
 //Log.d("Basic", savedUri.toString() + photoFile.toString())
         val stream = FileInputStream(File(Visiter.Visi.camerauri1))

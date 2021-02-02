@@ -100,4 +100,13 @@ class ApiRequest {
 
         return retrofit
     }
+
+    fun getSshResponse() : Retrofit? {
+
+        retrofit = Retrofit.Builder()
+            .baseUrl("http://100.105.100.61:3000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit
+    }
 }
