@@ -8,6 +8,8 @@ package com.android.skinex.restApi
 //import com.phonegap.WPIAS.dataClass.*
 //import com.phonegap.WPIAS.doctor_Question.DoctorNewQuestionActivity
 //import okhttp3.ResponseBody
+import android.net.Uri
+import com.android.skinex.dataclass.AnalyInfo
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,6 +17,22 @@ interface ApiInterface {
 
     // **************************** U S E R ****************************
 
+
+    @FormUrlEncoded
+    @POST("sshconnect")
+    fun sshConnect(
+        @Field("IMGURL") IMGURL:String,
+        @Field("XTL") XTL:String,
+        @Field("YTL")  YTL:String,
+        @Field("XBR") XBR:String,
+        @Field("YBR") YBR:String
+    ):Call<AnalyInfo>
+
+//    //sshConnect
+//    @FormUrlEncoded
+//    @POST("posts/sshConnect")
+//    fun requestPostLogin(@Field reqLoginData:ReqLoginData)
+//    :Call<ResLoginData>
     // 회원가입
     @POST("https://172.24.192.1:5000/INSERT_VISITER")
     @FormUrlEncoded

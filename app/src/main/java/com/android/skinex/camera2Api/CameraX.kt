@@ -20,6 +20,8 @@ import com.android.skinex.databinding.ActivityCameraBinding
 import com.android.skinex.databinding.ActivityDetailcameraBinding
 import com.android.skinex.databinding.UserInfoBinding
 import com.android.skinex.publicObject.Visiter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -107,10 +109,13 @@ class CameraX :AppCompatActivity(){
         val imageCapture = imageCapture ?: return
 
         // 이미지를 보관할 타임 스탬프 출력 파일 만들기
+        var time = SimpleDateFormat(FILENAME_FORMAT, Locale.US
+        ).format(System.currentTimeMillis())
         photoFile = File(
             outputDirectory,
-            SimpleDateFormat(FILENAME_FORMAT, Locale.US
-            ).format(System.currentTimeMillis()) + ".jpg")
+            time + ".jpg")
+        Log.d(TAG, "${time}")
+
 
         // 파일 + 메타 데이터를 포함하는 출력 옵션 개체 만들기
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -127,6 +132,8 @@ class CameraX :AppCompatActivity(){
                     val msg = "사진 촬영 성공: $savedUri"
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+                    Log.d(TAG,"$photoFile")
+                    Log.d(TAG,"$FILENAME_FORMAT")
                     Visiter.Visi.camerauri1 = photoFile.toString()
                 }
             })

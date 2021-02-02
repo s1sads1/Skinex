@@ -1,11 +1,18 @@
 package com.android.skinex.restApi
 
 import android.util.Log
+import retrofit2.create
 
 //import com.phonegap.WPIAS.restApi.ApiInterface
 
 class ApiUtill {
 
+
+
+
+    fun getSshConnection() : ApiInterface {
+        return ApiRequest().getSshResponse()!!.create(ApiInterface::class.java)
+    }
     // **************************** U S E R ****************************
 
     // 회원가입

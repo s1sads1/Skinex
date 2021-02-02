@@ -106,12 +106,12 @@ class CameraXDetail :AppCompatActivity(){
         val imageCapture = imageCapture ?: return
 
         // 이미지를 보관할 타임 스탬프 출력 파일 만들기
+        var time = SimpleDateFormat(FILENAME_FORMAT, Locale.US
+        ).format(System.currentTimeMillis())
         photoFile = File(
             outputDirectory,
-            SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
-            ).format(System.currentTimeMillis()) + ".jpg"
-        )
+            time + ".jpg")
+        Log.d(TAG, "${time}")
 
         // 파일 + 메타 데이터를 포함하는 출력 옵션 개체 만들기
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
