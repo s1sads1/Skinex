@@ -102,6 +102,8 @@ class ResultInfoActivity : AppCompatActivity() {
     fun resultsubmit() {
         binding.resultsubmit.setOnClickListener {
             fileUpload()
+            val intent = Intent(this, ResultActivity::class.java)
+            startActivity(intent)
         }
     }
     fun fileUpload() {

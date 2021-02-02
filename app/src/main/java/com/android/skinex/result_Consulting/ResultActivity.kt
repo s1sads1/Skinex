@@ -1,0 +1,81 @@
+package com.android.skinex.result_Consulting
+
+import android.graphics.Color
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.android.skinex.R
+import com.android.skinex.databinding.ResultInfo2Binding
+import com.android.skinex.publicObject.Visiter
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
+
+class ResultActivity : AppCompatActivity() {
+
+    private lateinit var binding: ResultInfo2Binding
+
+    var pieChart: PieChart? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ResultInfo2Binding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        //setContentView(R.layout.result_info2)
+
+        pieChart = findViewById<View>(R.id.piechart) as PieChart?
+        pieChart!!.setUsePercentValues(true)
+        pieChart!!.description.isEnabled = false
+        pieChart!!.setExtraOffsets(5f, 10f, 5f, 5f)
+        pieChart!!.dragDecelerationFrictionCoef = 0.95f
+        pieChart!!.isDragDecelerationEnabled = false
+        pieChart!!.setTouchEnabled(true)
+        pieChart!!.isDrawHoleEnabled = false
+        pieChart!!.setHoleColor(Color.WHITE)
+        pieChart!!.transparentCircleRadius = 61f
+
+        val yValues = ArrayList<PieEntry>()
+        yValues.add(PieEntry(25f, "중간 2도"))
+        yValues.add(PieEntry(25f, "깊은 2도"))
+        yValues.add(PieEntry(25f,"물집"));
+        yValues.add(PieEntry(25f, "3도 이상"))
+        yValues.add(PieEntry(25f, "표면 2도"))
+        //        yValues.add(new PieEntry(40f,"Korea"));
+
+        val description = Description()
+        description.text = "화상 심도 " //라벨
+        description.textSize = 15f
+        pieChart!!.description = description
+        pieChart!!.animateY(1000, Easing.EasingOption.EaseInOutCubic) //애니메이션
+
+        val dataSet = PieDataSet(yValues, "화상심도")
+        dataSet.sliceSpace = 3f
+        dataSet.selectionShift = 5f
+        dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+
+        val data = PieData(dataSet)
+        data.setValueTextSize(10f)
+        data.setValueTextColor(Color.BLACK)
+        pieChart!!.data = data
+
+        info()
+
+    }
+
+    fun info() {
+        binding.patientName77.setText(Visiter.Visi.name)
+        binding.patientGender77.setText(Visiter.Visi.gender)
+        binding.patientBirth77.setText(Visiter.Visi.birth)
+        binding.patientBurnday77.setText(Visiter.Visi.burndate)
+    }
+}

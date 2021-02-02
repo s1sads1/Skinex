@@ -1,5 +1,6 @@
 package com.android.skinex.user_Consulting
 
+
 //import com.phonegap.WPIAS.camera2Api.CameraActivity
 //import com.phonegap.WPIAS.dataClass.CityInfo
 //import com.phonegap.WPIAS.dataClass.DistrictInfo
@@ -55,6 +56,7 @@ import com.android.skinex.user_Consulting.adapters.CauseOfBurnedAdapter
 import com.android.skinex.user_Consulting.adapters.PartListAdapter
 import com.android.skinex.user_Consulting.adapters.RPartListAdapter
 import com.android.skinex.user_Consulting.adapters.ReturningAdapter
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
@@ -113,64 +115,15 @@ class  ReturningInfoActivity : AppCompatActivity() {
     var waist = arrayListOf("좌측 허리", "우측 허리", "허리 전체", "기타")
     var fArms = arrayListOf("좌측 팔뚝", "우측 팔뚝", "팔뚝 전체", "좌측 하박", "우측 하박", "하박 전체", "기타")
     var bArms = arrayListOf("좌측 팔뚝", "우측 팔뚝", "팔뚝 전체", "좌측 하박", "우측 하박", "하박 전체", "기타")
-    var fHands = arrayListOf(
-        "좌측 손바닥",
-        "우측 손바닥",
-        "양쪽 손바닥",
-        "좌측 손등",
-        "우측 손등",
-        "양쪽 손등",
-        "좌측 손가락",
-        "우측 손가락",
-        "양쪽 손가락",
-        "기타"
-    )
-    var bHands = arrayListOf(
-        "좌측 손바닥",
-        "우측 손바닥",
-        "양쪽 손바닥",
-        "좌측 손등",
-        "우측 손등",
-        "양쪽 손등",
-        "좌측 손가락",
-        "우측 손가락",
-        "양쪽 손가락",
-        "기타"
-    )
+    var fHands = arrayListOf("좌측 손바닥", "우측 손바닥", "양쪽 손바닥", "좌측 손등", "우측 손등", "양쪽 손등", "좌측 손가락", "우측 손가락", "양쪽 손가락", "기타")
+    var bHands = arrayListOf("좌측 손바닥", "우측 손바닥", "양쪽 손바닥", "좌측 손등", "우측 손등", "양쪽 손등", "좌측 손가락", "우측 손가락", "양쪽 손가락", "기타")
     var privatePart = arrayListOf("음부", "기타")
     var hip = arrayListOf("좌측 엉덩이", "우측 엉덩이", "엉덩이 전체", "기타")
     var fLegs = arrayListOf("좌측 허벅지", "우측 허벅지", "양쪽 허벅지", "좌측 종아리", "우측 종아리", "양쪽 종아리", "기타")
     var bLegs = arrayListOf("좌측 허벅지", "우측 허벅지", "양쪽 허벅지", "좌측 종아리", "우측 종아리", "양쪽 종아리", "기타")
-    var fFoot = arrayListOf(
-        "좌측 발등",
-        "우측 발등",
-        "양쪽 발등",
-        "좌측 발가락",
-        "우측 발가락",
-        "양쪽 발가락",
-        "좌측 발바닥",
-        "우측 발바닥",
-        "양쪽 발바닥",
-        "좌측 뒤꿈치",
-        "우측 뒤꿈치",
-        "양쪽 뒤꿈치",
-        "기타"
-    )
-    var bFoot = arrayListOf(
-        "좌측 발등",
-        "우측 발등",
-        "양쪽 발등",
-        "좌측 발가락",
-        "우측 발가락",
-        "양쪽 발가락",
-        "좌측 발바닥",
-        "우측 발바닥",
-        "양쪽 발바닥",
-        "좌측 뒤꿈치",
-        "우측 뒤꿈치",
-        "양쪽 뒤꿈치",
-        "기타"
-    )
+    var fFoot = arrayListOf("좌측 발등","우측 발등","양쪽 발등","좌측 발가락","우측 발가락","양쪽 발가락","좌측 발바닥","우측 발바닥","양쪽 발바닥","좌측 뒤꿈치","우측 뒤꿈치", "양쪽 뒤꿈치","기타")
+    var bFoot = arrayListOf("좌측 발등", "우측 발등", "양쪽 발등", "좌측 발가락", "우측 발가락", "양쪽 발가락", "좌측 발바닥", "우측 발바닥", "양쪽 발바닥", "좌측 뒤꿈치", "우측 뒤꿈치", "양쪽 뒤꿈치", "기타")
+
     var respiratory = arrayListOf("호흡기", "기타")
     var m_insertUserMap = HashMap<String, String>()
     //액티비티 초기화될때 validation 전역 변수들을 초기화 시켜준다
@@ -192,6 +145,10 @@ class  ReturningInfoActivity : AppCompatActivity() {
             applicationContext,
             VisitDatabase::class.java, "VisitDatabase"
         ).build()
+
+//        binding.result.setOnClickListener {
+//            IntentIntegrator(this).initiateScan()
+//        }
 
         binding.submit.setOnClickListener{
             GlobalScope.launch {
@@ -217,22 +174,15 @@ class  ReturningInfoActivity : AppCompatActivity() {
 //            var select :Array<Visit> = db.VisitDao().getBirthDay("박선호입니다요")
 
         binding.select.setOnClickListener {
-
             binding.returningRecyclerView.layoutManager = LinearLayoutManager(
                 this,
                 RecyclerView.VERTICAL,
                 false
             )
-
             GlobalScope.launch {
-
                 var select: Array<Visit> = db.VisitDao().getBirthDay("박선호입니다요")
-
 //                var adbDao =  db.VisitDao().getBirthDay("박선호입니다요")
-
-
                 var returningAdapter = ReturningAdapter(select)
-
                 launch(Dispatchers.Main) {
                     binding.returningRecyclerView.adapter = returningAdapter
                 }
@@ -243,7 +193,6 @@ class  ReturningInfoActivity : AppCompatActivity() {
 //                        binding.selectText.text = db.VisitDao().getBirthDay("박선호입니다요")[0].birthDay
 //                    }
 //                }
-
         }
 
         //test용 곧 삭제할것
@@ -265,14 +214,11 @@ class  ReturningInfoActivity : AppCompatActivity() {
 //
 //        Log.d("come", "Ok")
 //        Log.d("partString", partString)
-
 //var part = PartListAdapter.arr
 //var position = partListAdapter.onBindViewHolder
 //        binding.bodyPartRecyclerView.adapter.bindViewHolder()
 //        selectArrFront(binding.bodyPartRecyclerView.adapter)
-
 //            }
-
 //            setContentView(R.layout.user_info)
 //            SetTransparentBar()
 //            setTitle()
@@ -293,6 +239,33 @@ class  ReturningInfoActivity : AppCompatActivity() {
         eventInit()
         Setting()
         radiobuutonset()
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        //큐알 코드 결과값
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if(result!=null){
+            //결과 값이 존재한다면 토스트를 띄운다
+            if(result.contents!=null){
+                val toast = Toast.makeText(applicationContext, result.contents, Toast.LENGTH_SHORT)
+                toast.show()
+            }
+            else{
+                val toast = Toast.makeText(applicationContext, "값이 없습니다", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+        }
+        else{
+            val toast = Toast.makeText(applicationContext, "값이 없습니다", Toast.LENGTH_SHORT)
+            toast.show()
+        }
 
     }
 

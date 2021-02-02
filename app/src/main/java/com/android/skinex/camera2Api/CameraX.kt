@@ -38,20 +38,16 @@ import java.util.concurrent.Executors
 class CameraX :AppCompatActivity(){
 
 //   private lateinit var storage: FirebaseStorage
-
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var photoFile: File
     private lateinit var savedUri :Uri
-
     private lateinit var binding: ActivityCameraBinding
 
     var REQUEST_TAKE_PHOTO_10 =1
     var REQUEST_TAKE_PHOTO_20 =2
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -75,7 +71,12 @@ class CameraX :AppCompatActivity(){
 //
 //        cameraExecutor = Executors.newSingleThreadExecutor()
 //        goDetailCamera()
-
+        info()
+    }
+    fun info() {
+        binding.getnamemsg.setText(Visiter.Visi.name)
+        binding.getgendermsg.setText(Visiter.Visi.gender)
+        binding.getbirthmsg.setText(Visiter.Visi.birth)
     }
 
     override fun onStart() {
@@ -213,7 +214,22 @@ class CameraX :AppCompatActivity(){
         }
     }
 
-    /**firebase Storage Reference*/
+
+    //촬영 클릭시 전체촬영 이벤트
+    fun goDetailCamera(){
+        binding.godetailcamera.setOnClickListener {
+//           var NAME = intent.getStringExtra("NAME")
+//            Intent(this, CameraDetailActivity::class.java).putExtra("NAME", NAME)
+            val intent = Intent(this, CameraXDetail::class.java)
+            startActivity(intent)
+//            startActivityForResult(Intent(this, CameraXDetail::class.java), REQUEST_TAKE_PHOTO_20)
+        }
+    }
+
+}
+
+
+//          /**firebase Storage Reference*/
 //    private fun includesForCreateReference() {
 //        val storage = Firebase.storage
 //
@@ -337,16 +353,3 @@ class CameraX :AppCompatActivity(){
 //
 //
 //    }
-
-    //촬영 클릭시 전체촬영 이벤트
-    fun goDetailCamera(){
-        binding.godetailcamera.setOnClickListener {
-//           var NAME = intent.getStringExtra("NAME")
-//            Intent(this, CameraDetailActivity::class.java).putExtra("NAME", NAME)
-            val intent = Intent(this, CameraXDetail::class.java)
-            startActivity(intent)
-//            startActivityForResult(Intent(this, CameraXDetail::class.java), REQUEST_TAKE_PHOTO_20)
-        }
-    }
-
-}
