@@ -49,6 +49,11 @@ android {
 }
 
 dependencies {
+    // 그래프
+    implementation 'com.github.PhilJay:MpAndroidChart:v3.0.2'
+
+    // zxing 이거 추가
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.0"

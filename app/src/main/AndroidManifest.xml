@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Skinex"
+        android:hardwareAccelerated="true"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name="com.android.skinex.activity.LoginActivity">
             <intent-filter>
@@ -34,10 +35,7 @@
         <activity android:name="com.android.skinex.user_Consulting.UserInfoActivity"></activity>
         <activity android:name="com.android.skinex.user_Consulting.ReturningInfoActivity"></activity>
         <activity android:name="com.android.skinex.activity.SeclectVisiter"></activity>
-        <activity android:name=".result_Consulting.ResultInfoActivity">
-
-
-        </activity>
+        <activity android:name=".result_Consulting.ResultInfoActivity"></activity>
         <activity android:name=".result_Consulting.GuideActivity"></activity>
 
         <activity android:name=".camera2Api.CameraX"

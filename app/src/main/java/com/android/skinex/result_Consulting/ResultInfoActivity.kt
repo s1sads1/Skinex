@@ -123,7 +123,7 @@ class ResultInfoActivity : AppCompatActivity() {
     fun imageUp() {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
-            binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+        binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
     }
 
     fun recapture() {
