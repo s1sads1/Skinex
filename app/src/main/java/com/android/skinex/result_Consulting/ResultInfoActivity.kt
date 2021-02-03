@@ -156,7 +156,11 @@ class ResultInfoActivity : AppCompatActivity() {
             Log.d("XTL", XTL)
             Log.d("binding.text.x", binding.text.x.toString())
             Log.d("image.text.x", binding.longDistanceShot4.x.toString())
-            Log.d("standard.tex.x", binding.textstandard.x.toString())
+            Log.d("standard.text.x", binding.textstandard.x.toString())
+            Log.d("YTL", YTL)
+            Log.d("binding.text.y", binding.text.y.toString())
+            Log.d("image.text.y", binding.longDistanceShot4.y.toString())
+            Log.d("standard.text.y", binding.textstandard.y.toString())
             ApiUtill().getSshConnection().sshConnect(storageUrl, XTL, YTL, XBR, YBR)
                 .enqueue(object : Callback<AnalyInfo> {
 

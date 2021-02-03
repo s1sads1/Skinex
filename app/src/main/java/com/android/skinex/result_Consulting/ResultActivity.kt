@@ -42,7 +42,7 @@ class ResultActivity : AppCompatActivity() {
         pieChart!!.setExtraOffsets(5f, 10f, 5f, 5f)
         pieChart!!.dragDecelerationFrictionCoef = 0.95f
         pieChart!!.isDragDecelerationEnabled = false
-        pieChart!!.setTouchEnabled(true)
+        pieChart!!.setTouchEnabled(false)
         pieChart!!.isDrawHoleEnabled = false
         pieChart!!.setHoleColor(Color.WHITE)
         pieChart!!.transparentCircleRadius = 61f
@@ -68,7 +68,7 @@ class ResultActivity : AppCompatActivity() {
         dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
 
         val data = PieData(dataSet)
-        data.setValueTextSize(10f)
+        data.setValueTextSize(25f)
         data.setValueTextColor(Color.BLACK)
         pieChart!!.data = data
 

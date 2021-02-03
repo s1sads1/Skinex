@@ -104,7 +104,7 @@ class ApiRequest {
     fun getSshResponse() : Retrofit? {
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://100.105.100.61:3000/")
+            .baseUrl("https://skinex.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         return retrofit
