@@ -112,6 +112,7 @@ class CameraXDetail :AppCompatActivity(){
             outputDirectory,
             time + ".jpg")
         Log.d(TAG, "${time}")
+        Visiter.Visi.firebaseurl = time.toString()
 
         // 파일 + 메타 데이터를 포함하는 출력 옵션 개체 만들기
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()

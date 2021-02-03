@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
-data class AnalyInfo(@SerializedName("degree_output") @Expose var degree_output: ArrayList<Map<String, Double>>,
+data class AnalyInfo(@SerializedName("degree_output") @Expose var degree_output: Array<Map<String, Double>>,
                       @SerializedName("status") @Expose var status : String,
                      @SerializedName("중간2도") @Expose var result3 : String,
                      @SerializedName("깊은2도") @Expose var result4 : String,

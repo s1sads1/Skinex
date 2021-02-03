@@ -83,16 +83,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
+
         <TextView
             android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="130dp"
             android:background="#46E47575"
-            android:text="           "
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/btn_recapture2"
+            app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
             app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
+
+        <TextView
+            android:id="@+id/textstandard"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="108dp"
+            android:background="#46E47575"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
+            app:layout_constraintTop_toBottomOf="@+id/text" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
@@ -288,21 +298,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="testSsh" />
+                android:text="분석값 받아오기" />
 
             <Button
                 android:id="@+id/resultsubmit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="결과 저장 및 분석" />
+                android:text="사진 저장" />
 
             <Button
-                android:id="@+id/goguide"
+                android:id="@+id/save"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="안내" />
+                android:text="결과 값 보기" />
         </LinearLayout>
 
         <Button

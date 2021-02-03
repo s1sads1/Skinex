@@ -8,5 +8,6 @@ data class VisiterInfo(
     var birth : String,
     var burndate : String,
     var camerauri1 : String,
-    var camerauri2 : String
+    var camerauri2 : String,
+    var firebaseurl : String
 )

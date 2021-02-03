@@ -28,6 +28,9 @@ allprojects {
         maven {
             url "http://dl.bintray.com/piasy/maven"
         }
+
+        //그래프
+        maven {url "https://jitpack.io"}
     }
 }
 

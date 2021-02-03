@@ -3,28 +3,19 @@ package com.android.skinex.result_Consulting
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
-import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.convertTo
 import androidx.core.net.toUri
-import com.android.skinex.R
 import com.android.skinex.camera2Api.CameraXDetail
 import com.android.skinex.camera2Api.CameraXReturn
 import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.dataclass.AnalyInfo
+import com.android.skinex.publicObject.Analy
 import com.android.skinex.publicObject.Visiter
 import com.android.skinex.restApi.ApiUtill
-import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideBuilder
 import com.davemorrissey.labs.subscaleview.ImageSource
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -32,25 +23,20 @@ import kotlinx.android.synthetic.main.guide.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.POST
 import java.io.File
 import java.io.FileInputStream
-import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
 
-class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
+class ResultInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ResultInfoBinding
 
-    internal var oldXvalue:Float = 0.toFloat()
-    internal var oldYvalue:Float = 0.toFloat()
-
     var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
 
-    var testString = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-29-16-24-03-995.jpg?alt=media&token=a98ce762-caa4-4640-82f1-d063b8a8ff49"
+    var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F${Visiter.Visi.firebaseurl}.jpg?alt=media"
     var MYyear = 0
     var MYmonth = 0
     var MYday = 0
@@ -61,7 +47,6 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
         binding = ResultInfoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        binding.text.setOnTouchListener(this)
 
 
 
@@ -70,83 +55,25 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
         imageUp()
         recapture()
         resultsubmit()
-        sshConnect()
-
+        getXY()
 
     }
 
-   override fun onTouch(v:View, event:MotionEvent):Boolean {
-        val width = (v.getParent() as ViewGroup).getWidth() - v.getWidth()
-        val height = (v.getParent() as ViewGroup).getHeight() - v.getHeight()
-        if (event.getAction() === MotionEvent.ACTION_DOWN)
-        {
-            oldXvalue = event.getX()
-            oldYvalue = event.getY()
-            // Log.i("Tag1", "Action Down X" + event.getX() + "," + event.getY());
-            Log.i("Tag1", "Action Down rX " + event.getRawX() + "," + event.getRawY())
-        }
-        else if (event.getAction() === MotionEvent.ACTION_MOVE)
-        {
-            v.setX(event.getRawX() - oldXvalue)
-            v.setY(event.getRawY() - (oldYvalue + v.getHeight()))
-            // Log.i("Tag2", "Action Down " + me.getRawX() + "," + me.getRawY());
-        }
-        else if (event.getAction() === MotionEvent.ACTION_UP)
-        {
-            if (v.getX() > width && v.getY() > height)
-            {
-                v.setX(width.toFloat())
-                v.setY(height.toFloat())
-            }
-            else if (v.getX() < 0 && v.getY() > height)
-            {
-                v.setX(0.toFloat())
-                v.setY(height.toFloat())
-            }
-            else if (v.getX() > width && v.getY() < 0)
-            {
-                v.setX(width.toFloat())
-                v.setY(0.toFloat())
-            }
-            else if (v.getX() < 0 && v.getY() < 0)
-            {
-                v.setX(0.toFloat())
-                v.setY(0.toFloat())
-            }
-            else if (v.getX() < 0 || v.getX() > width)
-            {
-                if (v.getX() < 0)
-                {
-                    v.setX(0.toFloat())
-                    v.setY(event.getRawY() - oldYvalue - v.getHeight())
-                }
-                else
-                {
-                    v.setX(width.toFloat())
-                    v.setY(event.getRawY() - oldYvalue - v.getHeight())
-                }
-            }
-            else if (v.getY() < 0 || v.getY() > height)
-            {
-                if (v.getY() < 0)
-                {
-                    v.setX(event.getRawX() - oldXvalue)
-                    v.setY(0.toFloat())
-                }
-                else
-                {
-                    v.setX(event.getRawX() - oldXvalue)
-                    v.setY(height.toFloat())
-                }
-            }
-        }
-        return true
-    }
+    fun getXY() {
 
+    }
     fun sshConnect() {
 
         binding.btnSsh.setOnClickListener {
-            ApiUtill().getSshConnection().sshConnect(testString, "10", "12", "40", "35")
+            var XTL  = (binding.text.x - binding.longDistanceShot4.x).toString()
+            var YTL  = (binding.text.y - binding.longDistanceShot4.y).toString()
+            var XBR  = (binding.textstandard.x - binding.longDistanceShot4.x).toString()
+            var YBR  = (binding.textstandard.y - binding.longDistanceShot4.y).toString()
+            Log.d("XTL", XTL)
+            Log.d("binding.text.x", binding.text.x.toString())
+            Log.d("image.text.x", binding.longDistanceShot4.x.toString())
+            Log.d("standard.tex.x", binding.textstandard.x.toString())
+            ApiUtill().getSshConnection().sshConnect(storageUrl, XTL, YTL, XBR, YBR)
                 .enqueue(object : Callback<AnalyInfo> {
 
                     override fun onResponse(call: Call<AnalyInfo>, response: Response<AnalyInfo>) {
@@ -154,13 +81,72 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
                         Log.d("response.body", response.body().toString())
                         if (response.isSuccessful) {
                             var sshresponse = response.body()
-                            var degree_output = sshresponse!!.degree_output[0].getValue("정상")
+                            var degree_output_key = sshresponse!!.degree_output[0].keys.toString()
+                            var degree_output_key2 = sshresponse!!.degree_output[1].keys.toString()
+                            var degree_output_key3 = sshresponse!!.degree_output[2].keys.toString()
+                            var degree_output_key4 = sshresponse!!.degree_output[3].keys.toString()
+                            var degree_output_key5 = sshresponse!!.degree_output[4].keys.toString()
+                            var degree_output_key6 = sshresponse!!.degree_output[5].keys.toString()
+                            var degree_split = degree_output_key.substring(
+                                1,
+                                degree_output_key.length - 1
+                            )
+                            var degree_split2 = degree_output_key2.substring(
+                                1,
+                                degree_output_key2.length - 1
+                            )
+                            var degree_split3 = degree_output_key3.substring(
+                                1,
+                                degree_output_key3.length - 1
+                            )
+                            var degree_split4 = degree_output_key4.substring(
+                                1,
+                                degree_output_key4.length - 1
+                            )
+                            var degree_split5 = degree_output_key5.substring(
+                                1,
+                                degree_output_key5.length - 1
+                            )
+                            var degree_split6 = degree_output_key6.substring(
+                                1,
+                                degree_output_key6.length - 1
+                            )
+                            var degree_output =
+                                sshresponse!!.degree_output[0].getValue(degree_split).toString()
+                            var degree_output2 = sshresponse!!.degree_output[1].getValue(
+                                degree_split2
+                            ).toString()
+                            var degree_output3 = sshresponse!!.degree_output[2].getValue(
+                                degree_split3
+                            ).toString()
+                            var degree_output4 = sshresponse!!.degree_output[3].getValue(
+                                degree_split4
+                            ).toString()
+                            var degree_output5 = sshresponse!!.degree_output[4].getValue(
+                                degree_split5
+                            ).toString()
+                            var degree_output6 = sshresponse!!.degree_output[5].getValue(
+                                degree_split6
+                            ).toString()
+                            Analy.Analy.degree_key = degree_split
+                            Analy.Analy.degree_key2 = degree_split2
+                            Analy.Analy.degree_key3 = degree_split3
+                            Analy.Analy.degree_key4 = degree_split4
+                            Analy.Analy.degree_key5 = degree_split5
+                            Analy.Analy.degree_key6 = degree_split6
+                            Analy.Analy.degree_value = degree_output
+                            Analy.Analy.degree_value2 = degree_output2
+                            Analy.Analy.degree_value3 = degree_output3
+                            Analy.Analy.degree_value4 = degree_output4
+                            Analy.Analy.degree_value5 = degree_output5
+                            Analy.Analy.degree_value6 = degree_output6
                             Log.d("Ssh", sshresponse.toString())
-                            var degreeToString = Objects.toString(degree_output)
+//                            var degreeToString = Objects.toString(degree_output)
 
                             Log.d("degree_output", degree_output.toString())
-                            Log.d("degreeToString",degreeToString.toString())
-                            Log.d("degree_정상", degree_output.toString())
+//                            Log.d("degreeToString",degreeToString.toString())
+//                            Log.d("degree_정상", degree_output.toString())
+                            Log.d("degree: ", degree_output_key2 + degree_output2)
                             Toast.makeText(this@ResultInfoActivity, "성공!!", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
@@ -170,7 +156,7 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
                     }
 
                     override fun onFailure(call: Call<AnalyInfo>, t: Throwable) {
-                        Log.d("sshConnect()","sshConnect()")
+                        Log.d("sshConnect()", "sshConnect()")
 
                         Toast.makeText(
                             this@ResultInfoActivity,
@@ -232,11 +218,9 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
 
     //촬영 클릭시 전체촬영 이벤트
     fun goguide(){
-        binding.goguide.setOnClickListener {
-            startActivity(Intent(this, GuideActivity::class.java))
-
-            var storage = Firebase.storage.reference.child(Visiter.Visi.camerauri2).downloadUrl
-            Log.d("CameraXBasic: ", "${storage}")
+        binding.save.setOnClickListener {
+            val intent = Intent(this, ResultActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -244,8 +228,6 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
             binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
-
-
     }
 
     fun recapture() {
@@ -261,6 +243,9 @@ class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
     fun resultsubmit() {
         binding.resultsubmit.setOnClickListener {
             fileUpload()
+            sshConnect()
+
+
         }
     }
 
