@@ -57,6 +57,7 @@ class ResultActivity : AppCompatActivity() {
 
         val description = Description()
         description.text = "화상 심도 " //라벨
+
         description.textSize = 15f
         pieChart!!.description = description
         pieChart!!.animateY(1000, Easing.EasingOption.EaseInOutCubic) //애니메이션

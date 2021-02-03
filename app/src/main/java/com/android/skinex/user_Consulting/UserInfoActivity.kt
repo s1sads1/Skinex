@@ -152,53 +152,12 @@ class  UserInfoActivity : AppCompatActivity() {
             val view = binding.root
             setContentView(view)
 
-
-
-
-
-            //test용 곧 삭제할것
-//            fun frontActivated() {
-//                var partListAdapter =
-//                    PartListAdapter(bodyPartFront)
-//                binding.bodyPartRecyclerView.layoutManager = LinearLayoutManager(
-//                    this,
-//                    RecyclerView.VERTICAL,
-//                    false
-//                )
-//                binding.bodyPartRecyclerView.adapter = partListAdapter
-//
-//                binding.bodyImage.setImageResource(R.drawable.f)
-//        val intent = intent
-//        var partString= intent.getStringExtra("part")
-//
-//        selectArrFront(partString)
-//
-//        Log.d("come", "Ok")
-//        Log.d("partString", partString)
-
-//var part = PartListAdapter.arr
-//var position = partListAdapter.onBindViewHolder
-//        binding.bodyPartRecyclerView.adapter.bindViewHolder()
-//        selectArrFront(binding.bodyPartRecyclerView.adapter)
-
-//            }
-
-//            setContentView(R.layout.user_info)
-//            SetTransparentBar()
-//            setTitle()
             birthCalendar()
             popupCalendar()
-//            burnedHistory()
             bodyPartCheck()
-//            val partString = Validation.vali.homeAreaV.toString()
-//            selectArrFront(partString)
             genderTouch()
-//            ageSpinnerPopup()
             causeRecyclerViewActivated()
-//            deptRecyclerViewActivated()
-//            questionRecyclerViewActivated()
             photoGraphingAlert()
-            submitBurnConsulting()
             setDescendentViews(window.decorView.rootView)
             eventInit()
             Setting()
@@ -249,9 +208,6 @@ class  UserInfoActivity : AppCompatActivity() {
             Log.d("Check", binding.bodyFront.isChecked.toString())
 
         }
-
-        //앞 뒤 구분 버튼 체크 이벤트
-        //버튼 및 버튼 글자 색 변환이 이벤트에 걸려있음
 
     //생년월일 시기 캘린더 팝업 이벤트
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -454,113 +410,7 @@ class  UserInfoActivity : AppCompatActivity() {
         m_insertUserMap["CAMERAURL2"] = "CAMERAURL2"
         m_insertUserMap["RESULT"] = "RESULT"
 
-
-        //이전버튼으로 데이터 submit 임시변경
-//        binding.submit.setOnClickListener{ userInfoSubmit() }
     }
-
-
-    fun userInfoSubmit() {
-
-        //        ApiUtill().getINSERT_VISITER().insert_visiter(m_insertUserMap).enqueue(object : Callback<String> {
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                Toast.makeText(this@UserInfoActivity, t.message.toString(), Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//
-//                Log.d("response.body", response.body().toString())
-//                if(response.body() == "S"){
-//
-//                    Toast.makeText(this@UserInfoActivity, "성공!!", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(this@UserInfoActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        })
-
-    }
-
-
-
-
-
-//        //성별 버튼 터치 펑션
-//        fun genderTouch() {
-//            binding.male.setOnCheckedChangeListener { buttonView, isChecked ->
-//                if (isChecked) {
-//                    buttonView.setTextColor(ContextCompat.getColor(this,
-//                            R.color.white
-//                    ))
-//                    female.setTextColor(ContextCompat.getColor(this,
-//                            R.color.ocean_blue
-//                    ))
-//                    Validation.vali.genderV = "M"
-//                } else {
-//                    buttonView.setTextColor(ContextCompat.getColor(this,
-//                            R.color.ocean_blue
-//                    ))
-//                    female.setTextColor(ContextCompat.getColor(this,
-//                            R.color.white
-//                    ))
-//                }
-//            }
-//
-//            female.setOnCheckedChangeListener { buttonView, isChecked ->
-//                if (isChecked) {
-//                    buttonView.setTextColor(ContextCompat.getColor(this,
-//                            R.color.white
-//                    ))
-//                    male.setTextColor(ContextCompat.getColor(this,
-//                            R.color.ocean_blue
-//                    ))
-//                    Validation.vali.genderV = "F"
-//                } else {
-//                    buttonView.setTextColor(ContextCompat.getColor(this,
-//                            R.color.ocean_blue
-//                    ))
-//                    male.setTextColor(ContextCompat.getColor(this,
-//                            R.color.white
-//                    ))
-//                }
-//            }
-//        }
-
-        //연령 spinner 펑션
-//        fun ageSpinnerPopup() {
-//            var arrayAdapter: ArrayAdapter<String>? = null
-//            var generation = arrayListOf("", "0~3세", "4~6세", "7~15세", "16~20세", "21~30세", "31~40세", "41~50세", "51~60세", "61세이상")
-//
-//            arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, generation)
-//            age.adapter = arrayAdapter
-//            age.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//                override fun onNothingSelected(parent: AdapterView<*>?) {
-//                }
-//
-//                override fun onItemSelected(
-//                        parent: AdapterView<*>?,
-//                        view: View?,
-//                        position: Int,
-//                        id: Long
-//                ) {
-//                    Validation.vali.ageV = if (position == 0) {
-//                        ""
-//                    } else {
-//                        age.selectedItem.toString()
-//                    }
-//                }
-//            }
-//        }
-
-
-        //나이 구하는 펑션
-//        fun getAge(birthYear: String): Int {
-//            var current = Calendar.getInstance()
-//            var currentYear = current.get(Calendar.YEAR)
-//            var age = currentYear - birthYear.split('-')[0].toInt()
-//
-//            return age
-//        }
 
         //화상 원인 버튼 카테고리 뿌려주는 펑션
         fun causeRecyclerViewActivated() {
@@ -570,65 +420,6 @@ class  UserInfoActivity : AppCompatActivity() {
                     causeCategory
                 )
         }
-
-        //최종적으로 글 올리는 펑션
-        //inputStream 배열에 imageUri를 다 넣은다음 imageuri와 imageurlv를 초기화 한다
-        @SuppressLint("SimpleDateFormat")
-        fun submitBurnConsulting() {
-
-//            binding.submit.setOnClickListener {
-
-//                if (validationConsulting()) {
-//                    inputStreamArr.add(contentResolver.openInputStream(imageUri)!!)
-//                    inputStreamArr.add(contentResolver.openInputStream(imageUri2)!!)
-//
-//                    imageUri = Uri.EMPTY
-//                    imageUri2 = Uri.EMPTY
-//                    Validation.vali.imageUrl1V = ""
-//                    Validation.vali.imageUrl2V = ""
-//
-//                    for (inputStream in inputStreamArr) {
-//                        imageLengthArr.add(inputStream.available())
-//                    }
-//
-//
-//                    AzureAsyncTask(
-//                            this,
-//                            inputStreamArr,
-//                            imageLengthArr
-//                    ).execute(storageConnectionString)
-//
-//                } else {
-//                    when {
-//                        Validation.vali.imageUrl1V.isEmpty() -> failAlert("상세사진 촬영을 진행해주세요")
-//                        Validation.vali.imageUrl2V.isEmpty() -> failAlert("전체사진 촬영을 진행해주세요")
-//                        Validation.vali.scarStyleV.isEmpty() -> failAlert("화상 시기를 확인해주세요")
-//                        Validation.vali.burnDateV.isEmpty() -> failAlert("화상입은 날짜를 확인해주세요")
-//                        Validation.vali.bodyStyleV.isEmpty() -> failAlert("신체부위를 확인해주세요")
-//                        Validation.vali.bodyDetailV.isEmpty() -> failAlert("상세 촬영부위를 확인해주세요")
-////                    Validation.vali.bodyGitaV.isEmpty() -> Toast.makeText(this, "신체부위 기타를 확인해주세요", Toast.LENGTH_LONG).show()
-//                        Validation.vali.burnStyleV.isEmpty() -> failAlert("화상원인을 선택해주세요")
-//                        Validation.vali.burnDetailV.isEmpty() -> failAlert("자세한 화상원인을 선택해주세요")
-////                    Validation.vali.burnGitaV.isEmpty() -> Toast.makeText(this, "화상 기타를 확인해주세요", Toast.LENGTH_LONG).show()
-//                        Validation.vali.careStyleV.isEmpty() -> failAlert("최근에 치료받은곳을 선택해주세요")
-//                        Validation.vali.genderV.isEmpty() -> failAlert("성별을 확인해주세요")
-//                        Validation.vali.ageV.isEmpty() -> failAlert("연령을 확인해주세요")
-//                        Validation.vali.consultingTitleV.isEmpty() -> failAlert("상담 제목을 입력해주세요")
-//                        Validation.vali.contentsV.isEmpty() -> failAlert("상담 내용을 입력해주세요")
-//                    }
-//                }
-//            }
-        }
-
-        //등록하기전 app 내 validation 체크
-//        fun validationConsulting(): Boolean {
-//            return Validation.vali.consultingTitleV.isNotEmpty() && Validation.vali.burnDateV.isNotEmpty() && Validation.vali.ageV.isNotEmpty()
-//                    && Validation.vali.genderV.isNotEmpty() && (Validation.vali.bodyDetailV.isNotEmpty() || Validation.vali.bodyGitaV.isNotEmpty())
-//                    && Validation.vali.burnStyleV.isNotEmpty() && (Validation.vali.burnDetailV.isNotEmpty() || Validation.vali.burnGitaV.isNotEmpty())
-//                    && (Validation.vali.careStyleV.isNotEmpty() || Validation.vali.careGitaV.isNotEmpty()) && Validation.vali.scarStyleV.isNotEmpty()
-//                    && Validation.vali.proStatusV.isNotEmpty() && Validation.vali.imageUrl1V.isNotEmpty() && Validation.vali.imageUrl2V.isNotEmpty()
-//                    && Validation.vali.contentsV.isNotEmpty()
-//        }
 
         //업로드 실패 알럿
         fun failAlert(ment: String) {
@@ -668,14 +459,6 @@ class  UserInfoActivity : AppCompatActivity() {
 //            dialog.show()
 
         }
-
-        //타이틀바 set Text 펑션
-//        fun setTitle() {
-//            txt_title.text = "상처상담하기"
-//            btn_back.setOnClickListener {
-//                onBackPressed()
-//            }
-//        }
 
 
         //에딧 텍스트 아닌 부분 클릭시 키보드 사라지는 펑션
@@ -719,19 +502,6 @@ class  UserInfoActivity : AppCompatActivity() {
             }
         }
 
-//    fun genderTouch() {
-//        binding.genderMan.setOnCheckedChangeListener {  radioGroup, checkId ->
-//            if(checkId){
-//                Visiter.Visi.gender = 1
-//            }
-//        }
-//        binding.genderWoman.setOnCheckedChangeListener { radioGroup, checkId ->
-//            if (checkId) {
-//                Visiter.Visi.gender = 2
-//            }
-//        }
-//
-//    }
 
     //라디오버튼 성별 클릭시 하나만 나머지 해제
     fun genderTouch() {

@@ -377,42 +377,16 @@
             app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView">
 
             <Button
-                android:id="@+id/submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="이전" />
-
-            <Button
                 android:id="@+id/longDistanceShot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="촬영시작" />
-            <Button
-                android:id="@+id/select"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="select"/>
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <TextView
-        android:id="@+id/selectText"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:hint="여기에 나타날것"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:gravity="center_horizontal"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/returningRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        />
-<!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/bodyPartRecyclerView"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="0dp"-->

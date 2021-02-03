@@ -55,6 +55,7 @@ class ResultInfoActivity : AppCompatActivity() {
         imageUp()
         recapture()
         resultsubmit()
+        sshConnect()
         getXY()
 
     }
@@ -62,6 +63,89 @@ class ResultInfoActivity : AppCompatActivity() {
     fun getXY() {
 
     }
+
+
+    fun info() {
+        var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate.now().toString()
+        } else {
+            SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
+        }
+
+        var year = now.split("-")[0]
+        var month = (now.split("-")[1]).padStart(2, '0')
+        var day = now.split("-")[2].padStart(2, '0')
+
+        MYyear = year.toInt()
+        MYmonth = month.toInt()
+        MYday = day.toInt()
+
+        binding.patientName.setText(Visiter.Visi.name)
+        binding.patientGender.setText(Visiter.Visi.gender)
+        binding.patientBirth.setText(Visiter.Visi.birth)
+        binding.patientBurnday.setText(Visiter.Visi.burndate)
+        //binding.patientInputDay.setText("${year}-${(month).toString().padStart(2,'0')}-${day.toString().padStart(2, '0')}")
+        binding.patientInputDay.setText(
+            "$MYyear-${MYmonth.toString().padStart(2, '0')}-${
+                MYday.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
+        //binding.genderRadioGroup.check(Visiter.Visi.gender)
+
+        var idBirth = Visiter.Visi.birth
+        idBirth = idBirth.replace("-", "")
+        var reMYyear = MYyear.toString()
+        reMYyear = reMYyear.replace("20", "")
+        reMYyear = reMYyear.replace("19", "")
+        Log.d("xxoo년도 중 xx를 잘라서 받아옴 : ", reMYyear)
+        //.toString().padStart(2,'0') 를 쓴 이유는 MYmonth 가 01인 경우에 저걸 안쓰면 1만 가져옴 01이아님
+        binding.patientNum.setText(
+            idBirth + "$reMYyear${MYmonth.toString().padStart(2, '0')}${
+                MYday.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
+    }
+
+    //촬영 클릭시 전체촬영 이벤트
+    fun goguide(){
+        binding.save.setOnClickListener {
+            val intent = Intent(this, ResultActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun imageUp() {
+        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
+//        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
+            binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+    }
+
+    fun recapture() {
+        binding.btnRecapture1.setOnClickListener{
+            startActivity(Intent(this, CameraXReturn::class.java))
+        }
+
+        binding.btnRecapture2.setOnClickListener {
+            startActivity(Intent(this, CameraXDetail::class.java))
+        }
+    }
+
+    fun resultsubmit() {
+        binding.resultsubmit.setOnClickListener {
+            fileUpload()
+
+            Toast.makeText(this@ResultInfoActivity, "잠시만 기다려주세요",
+                Toast.LENGTH_LONG).show()
+
+        }
+    }
+
     fun sshConnect() {
 
         binding.btnSsh.setOnClickListener {
@@ -165,87 +249,6 @@ class ResultInfoActivity : AppCompatActivity() {
                         ).show()
                     }
                 })
-        }
-    }
-
-
-    fun info() {
-        var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LocalDate.now().toString()
-        } else {
-            SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
-        }
-
-        var year = now.split("-")[0]
-        var month = (now.split("-")[1]).padStart(2, '0')
-        var day = now.split("-")[2].padStart(2, '0')
-
-        MYyear = year.toInt()
-        MYmonth = month.toInt()
-        MYday = day.toInt()
-
-        binding.patientName.setText(Visiter.Visi.name)
-        binding.patientGender.setText(Visiter.Visi.gender)
-        binding.patientBirth.setText(Visiter.Visi.birth)
-        binding.patientBurnday.setText(Visiter.Visi.burndate)
-        //binding.patientInputDay.setText("${year}-${(month).toString().padStart(2,'0')}-${day.toString().padStart(2, '0')}")
-        binding.patientInputDay.setText(
-            "$MYyear-${MYmonth.toString().padStart(2, '0')}-${
-                MYday.toString().padStart(
-                    2,
-                    '0'
-                )
-            }"
-        )
-        //binding.genderRadioGroup.check(Visiter.Visi.gender)
-
-        var idBirth = Visiter.Visi.birth
-        idBirth = idBirth.replace("-", "")
-        var reMYyear = MYyear.toString()
-        reMYyear = reMYyear.replace("20", "")
-        reMYyear = reMYyear.replace("19", "")
-        Log.d("xxoo년도 중 xx를 잘라서 받아옴 : ", reMYyear)
-        //.toString().padStart(2,'0') 를 쓴 이유는 MYmonth 가 01인 경우에 저걸 안쓰면 1만 가져옴 01이아님
-        binding.patientNum.setText(
-            idBirth + "$reMYyear${MYmonth.toString().padStart(2, '0')}${
-                MYday.toString().padStart(
-                    2,
-                    '0'
-                )
-            }"
-        )
-    }
-
-    //촬영 클릭시 전체촬영 이벤트
-    fun goguide(){
-        binding.save.setOnClickListener {
-            val intent = Intent(this, ResultActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    fun imageUp() {
-        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
-//        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
-            binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
-    }
-
-    fun recapture() {
-        binding.btnRecapture1.setOnClickListener{
-            startActivity(Intent(this, CameraXReturn::class.java))
-        }
-
-        binding.btnRecapture2.setOnClickListener {
-            startActivity(Intent(this, CameraXDetail::class.java))
-        }
-    }
-
-    fun resultsubmit() {
-        binding.resultsubmit.setOnClickListener {
-            fileUpload()
-            sshConnect()
-
-
         }
     }
 
