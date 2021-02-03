@@ -61,6 +61,7 @@ class CameraX :AppCompatActivity(){
         binding = ActivityCameraBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        getinfo()
 
 //        // 카메라 권한 요청
 //        if (allPermissionsGranted()) {
@@ -79,6 +80,7 @@ class CameraX :AppCompatActivity(){
 //        goDetailCamera()
 
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -99,6 +101,13 @@ class CameraX :AppCompatActivity(){
         cameraExecutor = Executors.newSingleThreadExecutor()
         goDetailCamera()
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show()
+    }
+
+    fun getinfo() {
+        binding.getnamemsg.setText(Visiter.Visi.name)
+        binding.getgendermsg.setText(Visiter.Visi.gender)
+        binding.getbirthmsg.setText((Visiter.Visi.birth))
+
     }
 
     private fun takePhoto() {
