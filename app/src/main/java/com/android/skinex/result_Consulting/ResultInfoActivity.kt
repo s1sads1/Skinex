@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -39,9 +41,12 @@ import java.time.LocalDate
 import java.util.*
 
 
-class ResultInfoActivity : AppCompatActivity() {
+class ResultInfoActivity : AppCompatActivity(), View.OnTouchListener {
 
     private lateinit var binding: ResultInfoBinding
+
+    internal var oldXvalue:Float = 0.toFloat()
+    internal var oldYvalue:Float = 0.toFloat()
 
     var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
 
@@ -56,6 +61,7 @@ class ResultInfoActivity : AppCompatActivity() {
         binding = ResultInfoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        binding.text.setOnTouchListener(this)
 
 
 
@@ -69,6 +75,74 @@ class ResultInfoActivity : AppCompatActivity() {
 
     }
 
+   override fun onTouch(v:View, event:MotionEvent):Boolean {
+        val width = (v.getParent() as ViewGroup).getWidth() - v.getWidth()
+        val height = (v.getParent() as ViewGroup).getHeight() - v.getHeight()
+        if (event.getAction() === MotionEvent.ACTION_DOWN)
+        {
+            oldXvalue = event.getX()
+            oldYvalue = event.getY()
+            // Log.i("Tag1", "Action Down X" + event.getX() + "," + event.getY());
+            Log.i("Tag1", "Action Down rX " + event.getRawX() + "," + event.getRawY())
+        }
+        else if (event.getAction() === MotionEvent.ACTION_MOVE)
+        {
+            v.setX(event.getRawX() - oldXvalue)
+            v.setY(event.getRawY() - (oldYvalue + v.getHeight()))
+            // Log.i("Tag2", "Action Down " + me.getRawX() + "," + me.getRawY());
+        }
+        else if (event.getAction() === MotionEvent.ACTION_UP)
+        {
+            if (v.getX() > width && v.getY() > height)
+            {
+                v.setX(width.toFloat())
+                v.setY(height.toFloat())
+            }
+            else if (v.getX() < 0 && v.getY() > height)
+            {
+                v.setX(0.toFloat())
+                v.setY(height.toFloat())
+            }
+            else if (v.getX() > width && v.getY() < 0)
+            {
+                v.setX(width.toFloat())
+                v.setY(0.toFloat())
+            }
+            else if (v.getX() < 0 && v.getY() < 0)
+            {
+                v.setX(0.toFloat())
+                v.setY(0.toFloat())
+            }
+            else if (v.getX() < 0 || v.getX() > width)
+            {
+                if (v.getX() < 0)
+                {
+                    v.setX(0.toFloat())
+                    v.setY(event.getRawY() - oldYvalue - v.getHeight())
+                }
+                else
+                {
+                    v.setX(width.toFloat())
+                    v.setY(event.getRawY() - oldYvalue - v.getHeight())
+                }
+            }
+            else if (v.getY() < 0 || v.getY() > height)
+            {
+                if (v.getY() < 0)
+                {
+                    v.setX(event.getRawX() - oldXvalue)
+                    v.setY(0.toFloat())
+                }
+                else
+                {
+                    v.setX(event.getRawX() - oldXvalue)
+                    v.setY(height.toFloat())
+                }
+            }
+        }
+        return true
+    }
+
     fun sshConnect() {
 
         binding.btnSsh.setOnClickListener {
@@ -80,12 +154,13 @@ class ResultInfoActivity : AppCompatActivity() {
                         Log.d("response.body", response.body().toString())
                         if (response.isSuccessful) {
                             var sshresponse = response.body()
-                            var degree_output = sshresponse!!.degree_output[0].hashCode().toString()
+                            var degree_output = sshresponse!!.degree_output[0].getValue("정상")
                             Log.d("Ssh", sshresponse.toString())
                             var degreeToString = Objects.toString(degree_output)
 
                             Log.d("degree_output", degree_output.toString())
                             Log.d("degreeToString",degreeToString.toString())
+                            Log.d("degree_정상", degree_output.toString())
                             Toast.makeText(this@ResultInfoActivity, "성공!!", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
