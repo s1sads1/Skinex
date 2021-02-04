@@ -55,25 +55,23 @@
 
             <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                 android:id="@+id/longDistanceShot4"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="177dp"
+                android:layout_height="188dp"
+                android:layout_marginTop="24dp"
                 android:rotation="90"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" >
+                app:layout_constraintEnd_toEndOf="@+id/textView18"
+                app:layout_constraintStart_toStartOf="@+id/textView18"
+                app:layout_constraintTop_toBottomOf="@+id/textView18">
 
             </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/shortDistanceShot2"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
+                android:layout_width="175dp"
+                android:layout_height="192dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView17"
+                app:layout_constraintStart_toStartOf="@+id/textView17"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 
@@ -237,6 +235,7 @@
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
                 android:layout_marginTop="16dp"
                 android:lineHeight="24dp"
                 android:text="전체 부위"
@@ -249,19 +248,20 @@
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="60dp"
                 android:lineHeight="24dp"
                 android:text="상세 부위"
                 android:textColor="@color/white"
                 android:textSize="25dp"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/shortDistanceShot2" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="311dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="25dp"
                 android:background="#3D4FB3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

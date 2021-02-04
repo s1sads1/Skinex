@@ -60,12 +60,14 @@
 
         <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
             android:id="@+id/longDistanceShot4"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+
             android:rotation="90"
+            android:adjustViewBounds= "true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +76,7 @@
 
         <ImageView
             android:id="@+id/shortDistanceShot2"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
@@ -91,9 +93,9 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:layout_marginTop="170dp"
-            android:layout_marginEnd="130dp"
-            android:background="#46E47575"
+            android:background="@drawable/cameraline"
             app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
 
         <TextView

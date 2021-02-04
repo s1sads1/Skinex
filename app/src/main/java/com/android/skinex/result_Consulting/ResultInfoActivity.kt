@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -56,11 +57,6 @@ class ResultInfoActivity : AppCompatActivity() {
         recapture()
         resultsubmit()
         sshConnect()
-        getXY()
-
-    }
-
-    fun getXY() {
 
     }
 

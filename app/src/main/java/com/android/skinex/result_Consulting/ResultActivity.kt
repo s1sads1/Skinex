@@ -39,13 +39,14 @@ class ResultActivity : AppCompatActivity() {
         pieChart = findViewById<View>(R.id.piechart) as PieChart?
         pieChart!!.setUsePercentValues(true)
         pieChart!!.description.isEnabled = false
-        pieChart!!.setExtraOffsets(5f, 10f, 5f, 5f)
+        pieChart!!.setExtraOffsets(5f, 10f, 5f, 10f)
         pieChart!!.dragDecelerationFrictionCoef = 0.95f
         pieChart!!.isDragDecelerationEnabled = false
         pieChart!!.setTouchEnabled(false)
-        pieChart!!.isDrawHoleEnabled = false
+        pieChart!!.isDrawHoleEnabled = true
         pieChart!!.setHoleColor(Color.WHITE)
-        pieChart!!.transparentCircleRadius = 61f
+        pieChart!!.setCenterTextSize(25f)
+        pieChart!!.transparentCircleRadius = 65f
 
         val yValues = ArrayList<PieEntry>()
         yValues.add(PieEntry(Analy.Analy.degree_value.toFloat(), Analy.Analy.degree_key))
@@ -53,19 +54,22 @@ class ResultActivity : AppCompatActivity() {
         yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat(),Analy.Analy.degree_key3));
         yValues.add(PieEntry(Analy.Analy.degree_value4.toFloat(), Analy.Analy.degree_key4))
         yValues.add(PieEntry(Analy.Analy.degree_value5.toFloat(), Analy.Analy.degree_key5))
+        yValues.add(PieEntry(Analy.Analy.degree_value6.toFloat(), Analy.Analy.degree_key6))
         //        yValues.add(new PieEntry(40f,"Korea"));
 
         val description = Description()
         description.text = "화상 심도 " //라벨
 
-        description.textSize = 15f
+        description.textSize = 25f
+        description.textColor = Color.WHITE
         pieChart!!.description = description
         pieChart!!.animateY(1000, Easing.EasingOption.EaseInOutCubic) //애니메이션
 
         val dataSet = PieDataSet(yValues, "화상심도")
-        dataSet.sliceSpace = 3f
-        dataSet.selectionShift = 5f
-        dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+        dataSet.sliceSpace = 8f
+        dataSet.selectionShift = 8f
+        dataSet.valueTextColor = Color.RED
+        dataSet.setColors(*ColorTemplate.VORDIPLOM_COLORS)
 
         val data = PieData(dataSet)
         data.setValueTextSize(25f)
