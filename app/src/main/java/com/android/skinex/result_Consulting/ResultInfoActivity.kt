@@ -1,6 +1,8 @@
 package com.android.skinex.result_Consulting
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -29,6 +31,7 @@ import java.io.FileInputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
+import kotlin.math.log
 
 
 class ResultInfoActivity : AppCompatActivity() {
@@ -57,6 +60,10 @@ class ResultInfoActivity : AppCompatActivity() {
         recapture()
         resultsubmit()
         sshConnect()
+
+        var r = Resources.getSystem()
+        var config = r.getConfiguration()
+        onConfigurationChanged(config)
 
     }
 
@@ -119,9 +126,15 @@ class ResultInfoActivity : AppCompatActivity() {
     fun imageUp() {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
-        binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
     }
 
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//
+//        binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+//
+//    }
     fun recapture() {
         binding.btnRecapture1.setOnClickListener{
             startActivity(Intent(this, CameraXReturn::class.java))
@@ -142,14 +155,40 @@ class ResultInfoActivity : AppCompatActivity() {
         }
     }
 
+//    fun onTouchXY() {
+//        binding.scrollLayout.setOnTouchListener { v, event ->
+//            val action = event.getAction()
+//            val curX = event.getX() //눌린 곳의 X좌표
+//            val curY = event.getY() //눌린 곳의 Y좌표
+//            if (action == MotionEvent.ACTION_DOWN) { //처음 눌렸을 때
+//                Log.d("Touch", "손가락 눌림 : " + curX + ", " + curY)
+//            } else if (action == MotionEvent.ACTION_MOVE) { //누르고 움직였을 때
+//                Log.d("Touch", "손가락 움직임 : " + curX + ", " + curY)
+//            } else if (action == MotionEvent.ACTION_UP) { //누른걸 뗐을 때
+//                Log.d("Touch", "손가락 뗌 : " + curX + ", " + curY)
+//            }
+//            true
+//        }
+//    }
+
     fun sshConnect() {
 
         binding.btnSsh.setOnClickListener {
-            var XTL  = (binding.text.x - binding.longDistanceShot4.x).toString()
-            var YTL  = (binding.text.y - binding.longDistanceShot4.y).toString()
-            var XBR  = (binding.textstandard.x - binding.longDistanceShot4.x).toString()
-            var YBR  = (binding.textstandard.y - binding.longDistanceShot4.y).toString()
+
+
+//            var XTL  = (binding.text.x - binding.longDistanceShot4.x).toString()
+            var XTL  = "150"
+//            var YTL  = (binding.text.y - binding.longDistanceShot4.y).toString()
+           var YTL = "260"
+//            var XBR  = (binding.textstandard.x - binding.longDistanceShot4.x).toString()
+            var XBR = "410"
+//            var YBR  = (binding.textstandard.y - binding.longDistanceShot4.y).toString()
+            var YBR ="490"
             Log.d("XTL", XTL)
+            Log.d("binding.longDistanceShot4.left",binding.longDistanceShot4.left.toString())
+            Log.d("binding.longDistanceShot4.right",binding.longDistanceShot4.right.toString())
+            Log.d("binding.longDistanceShot4.top",binding.longDistanceShot4.top.toString())
+            Log.d("binding.longDistanceShot4.bottom",binding.longDistanceShot4.bottom.toString())
             Log.d("binding.text.x", binding.text.x.toString())
             Log.d("image.text.x", binding.longDistanceShot4.x.toString())
             Log.d("standard.text.x", binding.textstandard.x.toString())

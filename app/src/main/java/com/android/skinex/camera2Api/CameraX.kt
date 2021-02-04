@@ -77,10 +77,8 @@ class CameraX :AppCompatActivity(){
         info()
     }
     fun info() {
-        binding.getnamemsg.setText(Visiter.Visi.name)
-        binding.getgendermsg.setText(Visiter.Visi.gender)
-        binding.getbirthmsg.setText(Visiter.Visi.birth)
-    }
+        binding.getgendermsg.text = "${Visiter.Visi.name} - ${Visiter.Visi.gender} - ${Visiter.Visi.birth}"
+       }
 
 
     override fun onStart() {
@@ -105,9 +103,8 @@ class CameraX :AppCompatActivity(){
     }
 
     fun getinfo() {
-        binding.getnamemsg.setText(Visiter.Visi.name)
         binding.getgendermsg.setText(Visiter.Visi.gender)
-        binding.getbirthmsg.setText((Visiter.Visi.birth))
+
 
     }
 

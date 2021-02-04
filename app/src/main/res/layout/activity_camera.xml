@@ -15,9 +15,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="0dp"
             android:layout_weight="5"
             android:drawableLeft="@drawable/mulm" />
@@ -35,107 +35,51 @@
             android:text="Result" />
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout41"
-        android:layout_width="412dp"
-        android:layout_height="65dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/angle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout43"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout44"
-        app:layout_constraintEnd_toStartOf="@+id/angle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout41" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout44"
         android:layout_width="414dp"
         android:layout_height="19dp"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/angle" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout44"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/angle"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout41" />
 
     <TextView
         android:id="@+id/textView97"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:background="@color/skinex_background"
+        android:layout_marginTop="10dp"
         android:text="화상 부위 전체"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/getgendermsg" />
 
     <TextView
         android:id="@+id/getgendermsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:background="@color/skinex_background"
-        android:text="성별"
+        android:layout_marginTop="30dp"
+        android:text="이름-성별-생일"
         android:textColor="@color/white"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/getbirthmsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:background="@color/skinex_background"
-        android:text="0000.01.01"
-        android:textColor="@color/white"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/getgendermsg"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/getnamemsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:background="@color/skinex_background"
-        android:text="이름"
-        android:textColor="@color/white"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/getgendermsg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/angle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
+
         android:background="@drawable/bg_angle"
-        app:layout_constraintDimensionRatio="1"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout44"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView97">
@@ -153,25 +97,26 @@
 
     <Button
         android:id="@+id/godetailcamera"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="107dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/nextcam"
+        android:text="촬영 사진 확인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_capture_button" />
 
     <TextView
         android:id="@+id/constraintLayout60"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="#FFFFFF"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:text="마커 인식 후 사진이 자동으로 촬영됩니다"
         android:gravity="center"
         android:textColor="@color/black"
@@ -182,10 +127,10 @@
     </TextView>
 
     <Button
-         android:id="@+id/camera_capture_button"
+        android:id="@+id/camera_capture_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Test용 사진찍기"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout60"
         tools:layout_editor_absoluteX="16dp" />

@@ -70,6 +70,7 @@ class CameraXDetail :AppCompatActivity(){
 //
 //        cameraExecutor = Executors.newSingleThreadExecutor()
 //        goResultInfo()
+        info()
 
     }
 
@@ -97,6 +98,9 @@ class CameraXDetail :AppCompatActivity(){
         cameraExecutor = Executors.newSingleThreadExecutor()
         goResultInfo()
         Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show()
+    }
+    fun info() {
+        binding.getgendermsg.text = "${Visiter.Visi.name} - ${Visiter.Visi.gender} - ${Visiter.Visi.birth}"
     }
 
     private fun takePhoto() {

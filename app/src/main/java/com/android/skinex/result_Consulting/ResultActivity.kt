@@ -43,7 +43,7 @@ class ResultActivity : AppCompatActivity() {
         pieChart!!.dragDecelerationFrictionCoef = 0.95f
         pieChart!!.isDragDecelerationEnabled = false
         pieChart!!.setTouchEnabled(false)
-        pieChart!!.isDrawHoleEnabled = true
+        pieChart!!.isDrawHoleEnabled = false
         pieChart!!.setHoleColor(Color.WHITE)
         pieChart!!.setCenterTextSize(25f)
         pieChart!!.transparentCircleRadius = 65f
@@ -69,7 +69,7 @@ class ResultActivity : AppCompatActivity() {
         dataSet.sliceSpace = 8f
         dataSet.selectionShift = 8f
         dataSet.valueTextColor = Color.RED
-        dataSet.setColors(*ColorTemplate.VORDIPLOM_COLORS)
+        dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
 
         val data = PieData(dataSet)
         data.setValueTextSize(25f)

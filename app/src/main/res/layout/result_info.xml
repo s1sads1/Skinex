@@ -15,30 +15,7 @@
     android:background="@color/skinex_background"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:layout_marginLeft="10dp"
-            android:drawableLeft="@drawable/mulm"
-            />
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="Result"
-            android:layout_marginRight="10dp"
-            />
-    </LinearLayout>
+
 
     <!--    <LinearLayout-->
 <!--        android:id="@+id/rootView"-->
@@ -58,29 +35,26 @@
 
 
 
-        <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        <ImageView
             android:id="@+id/longDistanceShot4"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="400dp"
+            android:layout_height="533dp"
+            android:layout_marginTop="50dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-
-            android:rotation="90"
             android:adjustViewBounds= "true"
+            android:background="@drawable/cameraline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" >
-        </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
-
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
         <ImageView
             android:id="@+id/shortDistanceShot2"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_width="400dp"
+            android:layout_height="533dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -90,10 +64,11 @@
 
         <TextView
             android:id="@+id/text"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="170dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@drawable/cameraline"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
             app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
@@ -268,7 +243,6 @@
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:lineHeight="24dp"
             android:text="전체 부위"
             android:textColor="@color/white"
@@ -280,7 +254,7 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="60dp"
             android:lineHeight="24dp"
             android:text="상세 부위"
             android:textColor="@color/white"
@@ -291,7 +265,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -322,9 +296,8 @@
         <Button
             android:id="@+id/btn_recapture1"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="46dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="162dp"
             android:layout_marginBottom="10dp"
             android:text="재촬영"
@@ -337,9 +310,9 @@
         <Button
             android:id="@+id/btn_recapture2"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="47dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="162dp"
             android:layout_marginBottom="10dp"
             android:text="재촬영"
