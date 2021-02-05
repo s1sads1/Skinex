@@ -20,6 +20,7 @@ import com.android.skinex.databinding.ActivityCameraBinding
 import com.android.skinex.databinding.ActivityDetailcameraBinding
 import com.android.skinex.databinding.UserInfoBinding
 import com.android.skinex.publicObject.Visiter
+import com.android.skinex.result_Consulting.ResultImage
 import com.android.skinex.result_Consulting.ResultInfoActivity
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -220,7 +221,7 @@ class CameraXReturn :AppCompatActivity(){
         binding.godetailcamera.setOnClickListener {
 //           var NAME = intent.getStringExtra("NAME")
 //            Intent(this, CameraDetailActivity::class.java).putExtra("NAME", NAME)
-            val intent = Intent(this, ResultInfoActivity::class.java)
+            val intent = Intent(this, ResultImage::class.java)
             startActivity(intent)
 //            startActivityForResult(Intent(this, CameraXDetail::class.java), REQUEST_TAKE_PHOTO_20)
         }

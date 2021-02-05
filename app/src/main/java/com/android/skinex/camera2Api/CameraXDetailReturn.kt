@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.skinex.databinding.ActivityDetailcameraBinding
 import com.android.skinex.publicObject.Visiter
+import com.android.skinex.result_Consulting.ResultDetailImage
 import com.android.skinex.result_Consulting.ResultImage
 import com.android.skinex.result_Consulting.ResultInfoActivity
 import com.google.firebase.storage.FirebaseStorage
@@ -28,7 +29,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class CameraXDetail :AppCompatActivity(){
+class CameraXDetailReturn :AppCompatActivity(){
 
 //   private lateinit var storage: FirebaseStorage
 
@@ -144,7 +145,7 @@ class CameraXDetail :AppCompatActivity(){
     }
 
     private fun startCamera() {
-Log.d("startCamera :", "startCamera")
+        Log.d("startCamera :", "startCamera")
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener(Runnable {
@@ -233,7 +234,7 @@ Log.d("startCamera :", "startCamera")
         binding.godetailcamera.setOnClickListener {
 //           var NAME = intent.getStringExtra("NAME")
 //            Intent(this, CameraDetailActivity::class.java).putExtra("NAME", NAME)
-            val intent = Intent(this, ResultImage::class.java)
+            val intent = Intent(this, ResultDetailImage::class.java)
             startActivity(intent)
 //            startActivityForResult(Intent(this, ResultInfoActivity::class.java), REQUEST_TAKE_PHOTO_10)
         }
