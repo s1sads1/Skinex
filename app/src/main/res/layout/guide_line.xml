@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/skinex_background">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="right"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용 안내 사항"
+        android:layout_gravity="center"
+        android:background="@color/visiter"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:padding="3dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text=" - 제품을 작동하기 전에 본 설명서를\n   읽고 모든 경고 및 주의 사항을 엄격히 \n   준수하십시오"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:text=" - 회원가입 및 비밀번호 변경은 홈페이지\n   에서 가능합니다"
+        android:textColor="@color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:text=" -  부정확한 사진의 촬영시 정확하지 \n    않은 결과가 나올 수 있습니다"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.android.skinex.dataclass
 
+import android.graphics.Bitmap
 import java.io.File
 
 data class VisiterInfo(
@@ -9,5 +10,6 @@ data class VisiterInfo(
     var burndate : String,
     var camerauri1 : String,
     var camerauri2 : String,
-    var firebaseurl : String
+    var firebaseurl : String,
+    var screenshot : String
 )

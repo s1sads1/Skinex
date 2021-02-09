@@ -53,17 +53,15 @@
             android:layout_marginTop="30dp">
 
 
-            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+            <ImageView
                 android:id="@+id/longDistanceShot4"
                 android:layout_width="177dp"
                 android:layout_height="188dp"
                 android:layout_marginTop="24dp"
-                android:rotation="90"
                 app:layout_constraintEnd_toEndOf="@+id/textView18"
                 app:layout_constraintStart_toStartOf="@+id/textView18"
-                app:layout_constraintTop_toBottomOf="@+id/textView18">
+                app:layout_constraintTop_toBottomOf="@+id/textView18"/>
 
-            </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/shortDistanceShot2"

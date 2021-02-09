@@ -233,7 +233,7 @@ Log.d("startCamera :", "startCamera")
         binding.godetailcamera.setOnClickListener {
 //           var NAME = intent.getStringExtra("NAME")
 //            Intent(this, CameraDetailActivity::class.java).putExtra("NAME", NAME)
-            val intent = Intent(this, ResultImage::class.java)
+            val intent = Intent(this, ResultInfoActivity::class.java)
             startActivity(intent)
 //            startActivityForResult(Intent(this, ResultInfoActivity::class.java), REQUEST_TAKE_PHOTO_10)
         }

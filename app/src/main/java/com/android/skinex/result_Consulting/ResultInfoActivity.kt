@@ -3,15 +3,13 @@ package com.android.skinex.result_Consulting
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Matrix
-import android.graphics.PointF
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
+import android.os.Environment
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -23,19 +21,18 @@ import com.android.skinex.publicObject.Analy
 import com.android.skinex.publicObject.Visiter
 import com.android.skinex.restApi.ApiUtill
 import com.davemorrissey.labs.subscaleview.ImageSource
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.guide.*
+import kotlinx.android.synthetic.main.result_info.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
-import kotlin.math.log
 
 
 class ResultInfoActivity : AppCompatActivity() {
@@ -116,9 +113,11 @@ class ResultInfoActivity : AppCompatActivity() {
         resultsubmit()
         sshConnect()
 
-//        var r = Resources.getSystem()
-//        var config = r.getConfiguration()
-//        onConfigurationChanged(config)
+        var r = Resources.getSystem()
+        var config = r.getConfiguration()
+        onConfigurationChanged(config)
+
+
 
     }
 
@@ -219,6 +218,7 @@ class ResultInfoActivity : AppCompatActivity() {
     //촬영 클릭시 전체촬영 이벤트
     fun goguide(){
         binding.save.setOnClickListener {
+            screenShot()
             val intent = Intent(this, ResultActivity::class.java)
             startActivity(intent)
         }
@@ -227,8 +227,63 @@ class ResultInfoActivity : AppCompatActivity() {
     fun imageUp() {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
-   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
+//   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
+
+
     }
+
+  override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+
+        binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+
+
+    }
+fun screenShot() {
+    val v1: View = binding.longDistanceShot4.getRootView()
+    v1.buildDrawingCache()
+    v1.setDrawingCacheEnabled(true)
+
+    val saveBitmap: Bitmap = v1.getDrawingCache()
+    Visiter.Visi.screenshot = saveBitmap.toString()
+
+}
+    private fun takeScreenshot() {
+        val now = Date()
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now)
+        try
+        {
+            // image naming and path to include sd card appending name you choose for file
+            val mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg"
+            // create bitmap screen capture
+            val v1 = getWindow().getDecorView().getRootView()
+            v1.setDrawingCacheEnabled(true)
+            val bitmap = Bitmap.createBitmap(v1.getDrawingCache())
+            v1.setDrawingCacheEnabled(false)
+            val imageFile = File(mPath)
+            val outputStream = FileOutputStream(imageFile)
+            val quality = 100
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+            outputStream.flush()
+            outputStream.close()
+            openScreenshot(imageFile)
+        }
+        catch (e: Throwable) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace()
+        }
+    }
+
+    private fun openScreenshot(imageFile: File) {
+        val intentShot = Intent()
+        intentShot.action = Intent.ACTION_VIEW
+        val uri: Uri = Uri.fromFile(imageFile)
+        intentShot.setDataAndType(uri, "image/*")
+        startActivity(intentShot)
+    }
+
+
 
 //    override fun onConfigurationChanged(newConfig: Configuration) {
 //        super.onConfigurationChanged(newConfig)
@@ -250,8 +305,10 @@ class ResultInfoActivity : AppCompatActivity() {
         binding.resultsubmit.setOnClickListener {
             fileUpload()
 
-            Toast.makeText(this@ResultInfoActivity, "잠시만 기다려주세요",
-                Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this@ResultInfoActivity, "잠시만 기다려주세요",
+                Toast.LENGTH_LONG
+            ).show()
 
         }
     }
@@ -286,10 +343,10 @@ class ResultInfoActivity : AppCompatActivity() {
 //            var YBR  = (binding.textstandard.y - binding.longDistanceShot4.y).toString()
             var YBR ="490"
             Log.d("XTL", XTL)
-            Log.d("binding.longDistanceShot4.left",binding.longDistanceShot4.left.toString())
-            Log.d("binding.longDistanceShot4.right",binding.longDistanceShot4.right.toString())
-            Log.d("binding.longDistanceShot4.top",binding.longDistanceShot4.top.toString())
-            Log.d("binding.longDistanceShot4.bottom",binding.longDistanceShot4.bottom.toString())
+            Log.d("binding.longDistanceShot4.left", binding.longDistanceShot4.left.toString())
+            Log.d("binding.longDistanceShot4.right", binding.longDistanceShot4.right.toString())
+            Log.d("binding.longDistanceShot4.top", binding.longDistanceShot4.top.toString())
+            Log.d("binding.longDistanceShot4.bottom", binding.longDistanceShot4.bottom.toString())
             Log.d("binding.text.x", binding.text.x.toString())
             Log.d("image.text.x", binding.longDistanceShot4.x.toString())
             Log.d("standard.text.x", binding.textstandard.x.toString())

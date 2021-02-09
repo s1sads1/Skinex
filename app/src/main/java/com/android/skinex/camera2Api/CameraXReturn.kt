@@ -221,7 +221,7 @@ class CameraXReturn :AppCompatActivity(){
         binding.godetailcamera.setOnClickListener {
 //           var NAME = intent.getStringExtra("NAME")
 //            Intent(this, CameraDetailActivity::class.java).putExtra("NAME", NAME)
-            val intent = Intent(this, ResultImage::class.java)
+            val intent = Intent(this, ResultInfoActivity::class.java)
             startActivity(intent)
 //            startActivityForResult(Intent(this, CameraXDetail::class.java), REQUEST_TAKE_PHOTO_20)
         }

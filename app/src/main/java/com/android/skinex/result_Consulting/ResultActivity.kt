@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import com.android.skinex.R
 import com.android.skinex.databinding.ResultInfo2Binding
@@ -51,7 +52,7 @@ class ResultActivity : AppCompatActivity() {
         val yValues = ArrayList<PieEntry>()
         yValues.add(PieEntry(Analy.Analy.degree_value.toFloat(), Analy.Analy.degree_key))
         yValues.add(PieEntry(Analy.Analy.degree_value2.toFloat(), Analy.Analy.degree_key2))
-        yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat(),Analy.Analy.degree_key3));
+        yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat(),Analy.Analy.degree_key3))
         yValues.add(PieEntry(Analy.Analy.degree_value4.toFloat(), Analy.Analy.degree_key4))
         yValues.add(PieEntry(Analy.Analy.degree_value5.toFloat(), Analy.Analy.degree_key5))
         yValues.add(PieEntry(Analy.Analy.degree_value6.toFloat(), Analy.Analy.degree_key6))
@@ -90,6 +91,7 @@ class ResultActivity : AppCompatActivity() {
     fun imageUp() {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
-        binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+        Log.d("screenshot", Visiter.Visi.screenshot)
+        binding.longDistanceShot4.setImageBitmap(Visiter.Visi.screenshot.toBitmap())
     }
 }
