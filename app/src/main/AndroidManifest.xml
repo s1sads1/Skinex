@@ -27,10 +27,7 @@
 
         </activity>
         <activity android:name="com.android.skinex.activity.VisiterType">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name="com.android.skinex.user_Consulting.UserInfoActivity"></activity>
         <activity android:name="com.android.skinex.user_Consulting.ReturningInfoActivity"></activity>
@@ -41,7 +38,12 @@
         <activity android:name=".result_Consulting.GuideActivity"></activity>
 
         <activity android:name=".camera2Api.CameraX"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".camera2Api.CameraXDetail"
             android:screenOrientation="portrait"></activity>
 

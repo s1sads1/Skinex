@@ -42,50 +42,50 @@ class ResultInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ResultInfoBinding
 
-//    private lateinit var imageView: ImageView
-    private lateinit var touchMode : TOUCH_MODE
-    private lateinit var matrix: Matrix //기존 매트릭스
-    private lateinit var savedMatrix:Matrix //작업 후 이미지에 매핑할 매트릭스
-    private lateinit var startPoint: PointF //한손가락 터치 이동 포인트
-    private lateinit var midPoint:PointF //두손가락 터치 시 중신 포인트
-    private var oldDistance:Float = 0.toFloat() //터치 시 두손가락 사이의 거리
-    private var oldDegree = 0.0 // 두손가락의 각도
-
-    internal enum class TOUCH_MODE {
-        NONE, // 터치 안했을 때
-        SINGLE, // 한손가락 터치
-        MULTI //두손가락 터치
-    }
-
-    private val onTouch = object: View.OnTouchListener {
-       override fun onTouch(v:View, event:MotionEvent):Boolean {
-            if (v.equals(binding.longDistanceShot4))
-            {
-                val action = event.getAction()
-                when (action and MotionEvent.ACTION_MASK) {
-                    MotionEvent.ACTION_DOWN -> {
-                        touchMode = TOUCH_MODE.SINGLE
-                        donwSingleEvent(event)
-                    }
-                    MotionEvent.ACTION_POINTER_DOWN -> if (event.getPointerCount() === 2)
-                    { // 두손가락 터치를 했을 때
-                        touchMode = TOUCH_MODE.MULTI
-                        downMultiEvent(event)
-                    }
-                    MotionEvent.ACTION_MOVE -> if (touchMode == TOUCH_MODE.SINGLE)
-                    {
-                        moveSingleEvent(event)
-                    }
-                    else if (touchMode == TOUCH_MODE.MULTI)
-                    {
-                        moveMultiEvent(event)
-                    }
-                    MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> touchMode = TOUCH_MODE.NONE
-                }
-            }
-            return true
-        }
-    }
+////    private lateinit var imageView: ImageView
+//    private lateinit var touchMode : TOUCH_MODE
+//    private lateinit var matrix: Matrix //기존 매트릭스
+//    private lateinit var savedMatrix:Matrix //작업 후 이미지에 매핑할 매트릭스
+//    private lateinit var startPoint: PointF //한손가락 터치 이동 포인트
+//    private lateinit var midPoint:PointF //두손가락 터치 시 중신 포인트
+//    private var oldDistance:Float = 0.toFloat() //터치 시 두손가락 사이의 거리
+//    private var oldDegree = 0.0 // 두손가락의 각도
+//
+//    internal enum class TOUCH_MODE {
+//        NONE, // 터치 안했을 때
+//        SINGLE, // 한손가락 터치
+//        MULTI //두손가락 터치
+//    }
+//
+//    private val onTouch = object: View.OnTouchListener {
+//       override fun onTouch(v:View, event:MotionEvent):Boolean {
+//            if (v.equals(binding.longDistanceShot4))
+//            {
+//                val action = event.getAction()
+//                when (event.getAction() and  MotionEvent.ACTION_MASK) {
+//                    MotionEvent.ACTION_DOWN -> {
+//                        touchMode = TOUCH_MODE.SINGLE
+//                        donwSingleEvent(event)
+//                    }
+//                    MotionEvent.ACTION_POINTER_DOWN -> if (event.getPointerCount() === 2)
+//                    { // 두손가락 터치를 했을 때
+//                        touchMode = TOUCH_MODE.MULTI
+//                        downMultiEvent(event)
+//                    }
+//                    MotionEvent.ACTION_MOVE -> if (touchMode == TOUCH_MODE.SINGLE)
+//                    {
+//                        moveSingleEvent(event)
+//                    }
+//                    else if (touchMode == TOUCH_MODE.MULTI)
+//                    {
+//                        moveMultiEvent(event)
+//                    }
+//                    MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> touchMode = TOUCH_MODE.NONE
+//                }
+//            }
+//            return true
+//        }
+//    }
 
         var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
 
@@ -101,11 +101,11 @@ class ResultInfoActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        matrix = Matrix()
-        savedMatrix = Matrix()
-//        imageView = findViewById(R.id.imageView)
-        binding.longDistanceShot4.setOnTouchListener(onTouch)
-        binding.longDistanceShot4.setScaleType(ImageView.ScaleType.MATRIX)
+//        matrix = Matrix()
+//        savedMatrix = Matrix()
+////        imageView = findViewById(R.id.imageView)
+//        binding.longDistanceShot4.setOnTouchListener(onTouch)
+//        binding.longDistanceShot4.setScaleType(ImageView.ScaleType.MATRIX)
 
 
 
@@ -116,57 +116,57 @@ class ResultInfoActivity : AppCompatActivity() {
         resultsubmit()
         sshConnect()
 
-        var r = Resources.getSystem()
-        var config = r.getConfiguration()
-        onConfigurationChanged(config)
+//        var r = Resources.getSystem()
+//        var config = r.getConfiguration()
+//        onConfigurationChanged(config)
 
     }
 
-    private fun getMidPoint(e:MotionEvent):PointF {
-        val x = (e.getX(0) + e.getX(1)) / 2
-        val y = (e.getY(0) + e.getY(1)) / 2
-        return PointF(x, y)
-    }
-    private fun getDistance(e:MotionEvent):Float {
-        val x = e.getX(0) - e.getX(1)
-        val y = e.getY(0) - e.getY(1)
-        return Math.sqrt((x * x + y * y).toDouble()).toFloat()
-    }
-
-    private fun donwSingleEvent(event:MotionEvent) {
-        savedMatrix.set(matrix)
-        startPoint = PointF(event.getX(), event.getY())
-    }
-
-    private fun downMultiEvent(event:MotionEvent) {
-        oldDistance = getDistance(event)
-        if (oldDistance > 5f)
-        {
-            savedMatrix.set(matrix)
-            midPoint = getMidPoint(event)
-            val radian = Math.atan2(event.getY().toDouble() - midPoint.y, event.getX().toDouble() - midPoint.x)
-            oldDegree = (radian * 180) / Math.PI
-        }
-    }
-    private fun moveSingleEvent(event:MotionEvent) {
-        matrix.set(savedMatrix)
-        matrix.postTranslate(event.getX() - startPoint.x, event.getY() - startPoint.y)
-        binding.longDistanceShot4.setImageMatrix(matrix)
-    }
-    private fun moveMultiEvent(event:MotionEvent) {
-        val newDistance = getDistance(event)
-        if (newDistance > 5f)
-        {
-            matrix.set(savedMatrix)
-            val scale = newDistance / oldDistance
-            matrix.postScale(scale, scale, midPoint.x, midPoint.y)
-            val nowRadian = Math.atan2(event.getY().toDouble() - midPoint.y, event.getX().toDouble() - midPoint.x)
-            val nowDegress = (nowRadian * 180) / Math.PI
-            val degree = (nowDegress - oldDegree).toFloat()
-            matrix.postRotate(degree, midPoint.x, midPoint.y)
-            binding.longDistanceShot4.setImageMatrix(matrix)
-        }
-    }
+//    private fun getMidPoint(e:MotionEvent):PointF {
+//        val x = (e.getX(0) + e.getX(1)) / 2
+//        val y = (e.getY(0) + e.getY(1)) / 2
+//        return PointF(x, y)
+//    }
+//    private fun getDistance(e:MotionEvent):Float {
+//        val x = e.getX(0) - e.getX(1)
+//        val y = e.getY(0) - e.getY(1)
+//        return Math.sqrt((x * x + y * y).toDouble()).toFloat()
+//    }
+//
+//    private fun donwSingleEvent(event:MotionEvent) {
+//        savedMatrix.set(matrix)
+//        startPoint = PointF(event.getX(), event.getY())
+//    }
+//
+//    private fun downMultiEvent(event:MotionEvent) {
+//        oldDistance = getDistance(event)
+//        if (oldDistance > 5f)
+//        {
+//            savedMatrix.set(matrix)
+//            midPoint = getMidPoint(event)
+//            val radian = Math.atan2(event.getY().toDouble() - midPoint.y, event.getX().toDouble() - midPoint.x)
+//            oldDegree = (radian * 180) / Math.PI
+//        }
+//    }
+//    private fun moveSingleEvent(event:MotionEvent) {
+//        matrix.set(savedMatrix)
+//        matrix.postTranslate(event.getX() - startPoint.x, event.getY() - startPoint.y)
+//        binding.longDistanceShot4.setImageMatrix(matrix)
+//    }
+//    private fun moveMultiEvent(event:MotionEvent) {
+//        val newDistance = getDistance(event)
+//        if (newDistance > 5f)
+//        {
+//            matrix.set(savedMatrix)
+//            val scale = newDistance / oldDistance
+//            matrix.postScale(scale, scale, midPoint.x, midPoint.y)
+//            val nowRadian = Math.atan2(event.getY().toDouble() - midPoint.y, event.getX().toDouble() - midPoint.x)
+//            val nowDegress = (nowRadian * 180) / Math.PI
+//            val degree = (nowDegress - oldDegree).toFloat()
+//            matrix.postRotate(degree, midPoint.x, midPoint.y)
+//            binding.longDistanceShot4.setImageMatrix(matrix)
+//        }
+//    }
 
 
     fun info() {

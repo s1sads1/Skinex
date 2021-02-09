@@ -37,6 +37,7 @@ class ResultImage :AppCompatActivity() {
         nextBtn()
     }
 
+
     fun info() {
         var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDate.now().toString()

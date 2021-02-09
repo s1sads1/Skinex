@@ -1,18 +1,22 @@
 package com.android.skinex.result_Consulting
 
 import android.content.Intent
+import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import com.android.skinex.camera2Api.CameraXDetailReturn
 import com.android.skinex.databinding.ResultImage2Binding
@@ -26,18 +30,52 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
+import kotlin.math.abs
 
 
 class ResultDetailImage : AppCompatActivity() {
     private lateinit var binding: ResultImage2Binding
 
-    private lateinit var touchMode : ResultInfoActivity.TOUCH_MODE
+    private lateinit var touchMode : TOUCH_MODE
     private lateinit var matrix: Matrix //기존 매트릭스
     private lateinit var savedMatrix:Matrix //작업 후 이미지에 매핑할 매트릭스
     private lateinit var startPoint: PointF //한손가락 터치 이동 포인트
     private lateinit var midPoint:PointF //두손가락 터치 시 중신 포인트
     private var oldDistance:Float = 0.toFloat() //터치 시 두손가락 사이의 거리
     private var oldDegree = 0.0 // 두손가락의 각도
+    private var mScaleFactor = 1f
+
+    private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            mScaleFactor *= detector.scaleFactor
+
+            // Don't let the object get too small or too large.
+            mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f))
+
+
+            return true
+        }
+    }
+
+    private var mScaleDetector = ScaleGestureDetector(this@ResultDetailImage, scaleListener)
+
+    override fun onTouchEvent(ev: MotionEvent): Boolean {
+        // Let the ScaleGestureDetector inspect all events.
+        mScaleDetector.onTouchEvent(ev)
+        return true
+    }
+
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//
+//        canvas.apply {
+//            save()
+//            scale(mScaleFactor, mScaleFactor)
+//            // onDraw() code goes here
+//            restore()
+//        }
+//    }
 
 
     internal enum class TOUCH_MODE {
@@ -80,129 +118,147 @@ class ResultDetailImage : AppCompatActivity() {
         override fun onTouch(v: View, event: MotionEvent): Boolean {
             val parentWidth = (v.getParent() as ViewGroup).getWidth() // 부모 View 의 Width
             val parentHeight = (v.getParent() as ViewGroup).getHeight() // 부모 View 의 Height
-//            if (v.equals(v))
-//            {
-//                val action = event.getAction()
-//                when (action and MotionEvent.ACTION_MASK) {
-//                    MotionEvent.ACTION_DOWN -> {
-//                        touchMode = ResultInfoActivity.TOUCH_MODE.SINGLE
-////                        donwSingleEvent(event)
-//                        var oldXvalue = event.x
-//                        var oldYvalue = event.y
-//                    }
-//                    MotionEvent.ACTION_POINTER_DOWN -> if (event.getPointerCount() === 2) { // 두손가락 터치를 했을 때
-//                        touchMode = ResultInfoActivity.TOUCH_MODE.MULTI
+            if (v.equals(v))
+            {
+                val action = event.getAction()
+                when (action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_DOWN -> {
+                        touchMode = TOUCH_MODE.SINGLE
+//                        donwSingleEvent(event)
+                        var oldXvalue = event.x
+                        var oldYvalue = event.y
+                    }
+                    MotionEvent.ACTION_POINTER_DOWN -> if (event.getPointerCount() === 2) { // 두손가락 터치를 했을 때
+                        touchMode = TOUCH_MODE.MULTI
 //                        downMultiEvent(event)
+                        Log.d("Multi", "Multi")
+                    }
+                    MotionEvent.ACTION_MOVE -> if (touchMode == TOUCH_MODE.SINGLE) {
+                        v.x = (v.x + (event.x) - (v.width / 2))
+                        v.y = (v.y + (event.y) - (v.height / 2))
+                    } else if (event.getPointerCount() === 2) {
+
+                        Log.d("Multi.move", "Multi.move")
+
+
+//                       v.width =(v.width + Math.abs(event.getX(0) - (v.width / 2)) + Math.abs(event.getX(1) - (v.width/2))).toInt()
+                         var x = (v.width + (event.getX(0)-v.x - (v.width / 2)) + (event.getX(1)-v.x - (v.width/2))).toInt()
+                      var y = (v.height + (event.getY(0)-v.y - (v.height / 2)) + (event.getY(1)-v.y - (v.height/2))).toInt()
+                        Log.d("event.getX(0)",event.getX(0).toString())
+
+                        var x2 = (v.width + (event.x) - (v.width / 2))
+                        var y2 = (v.height + (event.y) - (v.height / 2))
+//                        binding.text.layoutParams.width = 100000
+                        binding.text.setLayoutParams(ConstraintLayout.LayoutParams(x2.toInt(),y2.toInt()
+                        ))
+   //
+                    //                        editText.setLayoutParams(LinearLayout.LayoutParams(300, 300))
+
+//                        binding.text.layoutParams.height = (v.height + Math.abs(event.getY(0) - (v.height / 2)) + abs(event.getY(1) - (v.height/2))).toInt()
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP ->
+                    if (touchMode == TOUCH_MODE.SINGLE) {
+                        if (v.x < 0) {
+                            v.x = (0.toFloat())
+                        } else if ((v.x + v.width) > parentWidth) {
+                            v.x = (parentWidth.toFloat() - v.width.toFloat())
+                        }
+                        if (v.y < 0) {
+                            v.y = (0.toFloat())
+                        } else if ((v.y + v.height) > parentHeight) {
+                            v.y = (parentHeight.toFloat() - v.height.toFloat())
+                        }
+                    } else if(touchMode == TOUCH_MODE.MULTI) {
+                        touchMode =
+                            TOUCH_MODE.NONE
+                    }
+                }
+            }
+//            var pointerCount = event.pointerCount
+//
+//            if (pointerCount > 1) {
+//                if (event.action === MotionEvent.ACTION_POINTER_DOWN) {
+//                    Log.d("Click","Click")
+//
+//                    // 뷰 누름
+//                    var X1 = event.getX(0)
+//                    var X2 = event.getX(1)
+//
+//                    var Y1 = event.getY(0)
+//                    var Y2 = event.getY(1)
+//                    Log.d(
+//                        "viewTest2",
+//                        "X1 : " + X1 + " X2 : " +X2 + "Y1 : " + Y1 + " Y2 : " +Y2
+//                    ) // View 내부에서 터치한 지점의 상대 좌표값.
+//                    Log.d("viewTest", "v.getX() : " + v.getX()) // View 의 좌측 상단이 되는 지점의 절대 좌표값.
+//                    Log.d(
+//                        "viewTest2",
+//                        "RawX : " + event.getRawX() + " RawY : " + event.getRawY()
+//                    ) // View 를 터치한 지점의 절대 좌표값.
+//                    Log.d(
+//                        "viewTest2",
+//                        "v.getHeight : " + v.getHeight() + " v.getWidth : " + v.getWidth()
+//                    ) // View 의 Width, Height
+//                } else if (event.action === MotionEvent.ACTION_MOVE) {
+//                    // 뷰 이동 중
+//                    v.x = (v.x + (event.x) - (v.width / 2))
+//                    v.y = (v.y + (event.y) - (v.height / 2))
+//                } else if (event.action === MotionEvent.ACTION_UP) {
+//                    // 뷰에서 손을 뗌
+//                    if (v.x < 0) {
+//                        v.x = (0.toFloat())
+//                    } else if ((v.x + v.width) > parentWidth) {
+//                        v.x = (parentWidth.toFloat() - v.width.toFloat())
 //                    }
-//                    MotionEvent.ACTION_MOVE -> if (touchMode == ResultInfoActivity.TOUCH_MODE.SINGLE) {
-//                        v.x = (v.x + (event.x) - (v.width / 2))
-//                        v.y = (v.y + (event.y) - (v.height / 2))
-//                    } else if (touchMode == ResultInfoActivity.TOUCH_MODE.MULTI) {
-//                        moveMultiEvent(event)
+//                    if (v.y < 0) {
+//                        v.y = (0.toFloat())
+//                    } else if ((v.y + v.height) > parentHeight) {
+//                        v.y = (parentHeight.toFloat() - v.height.toFloat())
 //                    }
-//                    MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP ->
-//                    if (touchMode == ResultInfoActivity.TOUCH_MODE.SINGLE) {
-//                        if (v.x < 0) {
-//                            v.x = (0.toFloat())
-//                        } else if ((v.x + v.width) > parentWidth) {
-//                            v.x = (parentWidth.toFloat() - v.width.toFloat())
-//                        }
-//                        if (v.y < 0) {
-//                            v.y = (0.toFloat())
-//                        } else if ((v.y + v.height) > parentHeight) {
-//                            v.y = (parentHeight.toFloat() - v.height.toFloat())
-//                        }
-//                    } else if(touchMode == ResultInfoActivity.TOUCH_MODE.MULTI) {
-//                        touchMode =
-//                            ResultInfoActivity.TOUCH_MODE.NONE
+//                    Log.d("X.move2", v.x.toString())
+//                    Log.d("Y.move2", v.y.toString())
+//
+//                }
+//            }else {
+//                if (event.action === MotionEvent.ACTION_DOWN) {
+//
+//                    // 뷰 누름
+//                    var oldXvalue = event.x
+//                    var oldYvalue = event.y
+//                    Log.d(
+//                        "viewTest",
+//                        "oldXvalue : " + oldXvalue + " oldYvalue : " + oldYvalue
+//                    ) // View 내부에서 터치한 지점의 상대 좌표값.
+//                    Log.d("viewTest", "v.getX() : " + v.getX()) // View 의 좌측 상단이 되는 지점의 절대 좌표값.
+//                    Log.d(
+//                        "viewTest",
+//                        "RawX : " + event.getRawX() + " RawY : " + event.getRawY()
+//                    ) // View 를 터치한 지점의 절대 좌표값.
+//                    Log.d(
+//                        "viewTest",
+//                        "v.getHeight : " + v.getHeight() + " v.getWidth : " + v.getWidth()
+//                    ) // View 의 Width, Height
+//                } else if (event.action === MotionEvent.ACTION_MOVE) {
+//                    // 뷰 이동 중
+//                    v.x = (v.x + (event.x) - (v.width / 2))
+//                    v.y = (v.y + (event.y) - (v.height / 2))
+//                } else if (event.action === MotionEvent.ACTION_UP) {
+//                    // 뷰에서 손을 뗌
+//                    if (v.x < 0) {
+//                        v.x = (0.toFloat())
+//                    } else if ((v.x + v.width) > parentWidth) {
+//                        v.x = (parentWidth.toFloat() - v.width.toFloat())
 //                    }
+//                    if (v.y < 0) {
+//                        v.y = (0.toFloat())
+//                    } else if ((v.y + v.height) > parentHeight) {
+//                        v.y = (parentHeight.toFloat() - v.height.toFloat())
+//                    }
+//                    Log.d("X.move", v.x.toString())
+//                    Log.d("Y.move", v.y.toString())
+//
 //                }
 //            }
-            var pointerCount = event.pointerCount
-            if (pointerCount === 1) {
-                if (event.action === MotionEvent.ACTION_DOWN) {
-
-                    // 뷰 누름
-                    var oldXvalue = event.x
-                    var oldYvalue = event.y
-                    Log.d(
-                        "viewTest",
-                        "oldXvalue : " + oldXvalue + " oldYvalue : " + oldYvalue
-                    ) // View 내부에서 터치한 지점의 상대 좌표값.
-                    Log.d("viewTest", "v.getX() : " + v.getX()) // View 의 좌측 상단이 되는 지점의 절대 좌표값.
-                    Log.d(
-                        "viewTest",
-                        "RawX : " + event.getRawX() + " RawY : " + event.getRawY()
-                    ) // View 를 터치한 지점의 절대 좌표값.
-                    Log.d(
-                        "viewTest",
-                        "v.getHeight : " + v.getHeight() + " v.getWidth : " + v.getWidth()
-                    ) // View 의 Width, Height
-                } else if (event.action === MotionEvent.ACTION_MOVE) {
-                    // 뷰 이동 중
-                    v.x = (v.x + (event.x) - (v.width / 2))
-                    v.y = (v.y + (event.y) - (v.height / 2))
-                } else if (event.action === MotionEvent.ACTION_UP) {
-                    // 뷰에서 손을 뗌
-                    if (v.x < 0) {
-                        v.x = (0.toFloat())
-                    } else if ((v.x + v.width) > parentWidth) {
-                        v.x = (parentWidth.toFloat() - v.width.toFloat())
-                    }
-                    if (v.y < 0) {
-                        v.y = (0.toFloat())
-                    } else if ((v.y + v.height) > parentHeight) {
-                        v.y = (parentHeight.toFloat() - v.height.toFloat())
-                    }
-                    Log.d("X.move", v.x.toString())
-                    Log.d("Y.move", v.y.toString())
-
-                }
-            }
-
-            if (pointerCount === 2) {
-                if (event.action === MotionEvent.ACTION_POINTER_DOWN) {
-
-                    // 뷰 누름
-                    var X1 = event.getX(0)
-                    var X2 = event.getX(1)
-
-                    var Y1 = event.getX(0)
-                    var Y2 = event.getX(1)
-                    Log.d(
-                        "viewTest",
-                        "X1 : " + X1 + " X2 : " +X2 + "Y1 : " + Y1 + " Y2 : " +Y2
-                    ) // View 내부에서 터치한 지점의 상대 좌표값.
-                    Log.d("viewTest", "v.getX() : " + v.getX()) // View 의 좌측 상단이 되는 지점의 절대 좌표값.
-                    Log.d(
-                        "viewTest",
-                        "RawX : " + event.getRawX() + " RawY : " + event.getRawY()
-                    ) // View 를 터치한 지점의 절대 좌표값.
-                    Log.d(
-                        "viewTest",
-                        "v.getHeight : " + v.getHeight() + " v.getWidth : " + v.getWidth()
-                    ) // View 의 Width, Height
-                } else if (event.action === MotionEvent.ACTION_MOVE) {
-                    // 뷰 이동 중
-                    v.x = (v.x + (event.x) - (v.width / 2))
-                    v.y = (v.y + (event.y) - (v.height / 2))
-                } else if (event.action === MotionEvent.ACTION_UP) {
-                    // 뷰에서 손을 뗌
-                    if (v.x < 0) {
-                        v.x = (0.toFloat())
-                    } else if ((v.x + v.width) > parentWidth) {
-                        v.x = (parentWidth.toFloat() - v.width.toFloat())
-                    }
-                    if (v.y < 0) {
-                        v.y = (0.toFloat())
-                    } else if ((v.y + v.height) > parentHeight) {
-                        v.y = (parentHeight.toFloat() - v.height.toFloat())
-                    }
-                    Log.d("X.move", v.x.toString())
-                    Log.d("Y.move", v.y.toString())
-
-                }
-            }
                 return true
 
         }
