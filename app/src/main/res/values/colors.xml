@@ -45,4 +45,6 @@
     <color name="pale_red">#d23a3a</color>
     <color name="white_three">#DCDCDC</color>
     <color name="ocean_blue">#006fb9</color>
+
+    <color name="screenshot_background">#00000000</color>
 </resources>

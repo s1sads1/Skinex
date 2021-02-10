@@ -4,12 +4,16 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import com.android.skinex.R
 import com.android.skinex.camera2Api.CameraXDetail
 import com.android.skinex.camera2Api.CameraXReturn
 import com.android.skinex.databinding.ResultInfoBinding
@@ -220,10 +224,10 @@ class ResultInfoActivity : AppCompatActivity() {
     }
 
 
-    val bmp: Bitmap? = null
-    val stream = ByteArrayOutputStream()
-
-    var byteArray = stream.toByteArray()
+//    val bmp: Bitmap? = null
+//    val stream = ByteArrayOutputStream()
+//
+//    var byteArray = stream.toByteArray()
 //    fun screenShot() {
 //
 //
@@ -247,6 +251,19 @@ class ResultInfoActivity : AppCompatActivity() {
 //        }
 //    }
 
+    fun getScreenShot(view: View): Bitmap {
+        val returnedBitmap = Bitmap.createBitmap(1000 ,1000,
+            Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(returnedBitmap)
+        val bgDrawable = view.background
+        if (bgDrawable != null) bgDrawable.draw(canvas)
+        else canvas.drawColor(resources.getColor(R.color.screenshot_background))
+       view.draw(canvas)
+        Visiter.Visi.screenshot = returnedBitmap.toString()
+
+        return returnedBitmap
+    }
+
     //촬영 클릭시 전체촬영 이벤트
     fun goguide(){
         binding.save.setOnClickListener {
@@ -259,43 +276,32 @@ class ResultInfoActivity : AppCompatActivity() {
     }
 
     fun imageUp() {
-        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
+//        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
 //   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
 
-    }
-
-  override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-
         binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
-
     }
 
-//    fun getScreenShot(view: View): Bitmap {
-//        val returnedBitmap = Bitmap.createBitmap(300 ,300,
-//            Bitmap.Config.ARGB_8888)
-//        val canvas = Canvas(returnedBitmap)
-//        val bgDrawable = binding.longDistanceShot4.background
-//        if (bgDrawable != null) bgDrawable.draw(canvas)
-//        else canvas.drawColor(Color.WHITE)
-//        binding.longDistanceShot4.draw(canvas)
-//
-//        return returnedBitmap
+//  override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+
+
 //    }
 
 
 
-//    fun screenShot() {
-//    val v1: View = binding.longDistanceShot4.rootView
-//    v1.buildDrawingCache()
-//    v1.setDrawingCacheEnabled(true)
-//
-//    val saveBitmap: Bitmap = v1.getDrawingCache()
-//    Visiter.Visi.screenshot = saveBitmap.toString()
-//
-//}
+
+
+   fun screenShot() {
+    val v1: View = binding.longDistanceShot4.rootView
+    v1.buildDrawingCache()
+    v1.setDrawingCacheEnabled(true)
+
+    val saveBitmap: Bitmap = v1.getDrawingCache()
+    Visiter.Visi.screenshot = saveBitmap.toString()
+
+}
 //    private fun takeScreenshot() {
 //        val now = Date()
 //        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now)
@@ -339,13 +345,17 @@ class ResultInfoActivity : AppCompatActivity() {
 //
 //    }
     fun recapture() {
-        binding.btnRecapture1.setOnClickListener{
-            startActivity(Intent(this, CameraXReturn::class.java))
-        }
+        binding.btnRecapture1.setOnClickListener {
 
-        binding.btnRecapture2.setOnClickListener {
-            startActivity(Intent(this, CameraXDetail::class.java))
+            binding.shortDistanceShot2.setImageBitmap(getScreenShot(findViewById(R.id.screenShotLayout)))
         }
+//        binding.btnRecapture1.setOnClickListener{
+//            startActivity(Intent(this, CameraXReturn::class.java))
+//        }
+//
+//        binding.btnRecapture2.setOnClickListener {
+//            startActivity(Intent(this, CameraXDetail::class.java))
+//        }
     }
 
     fun resultsubmit() {

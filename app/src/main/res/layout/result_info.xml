@@ -34,47 +34,54 @@
         android:layout_marginTop="30dp">
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/screenShotLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-            android:id="@+id/longDistanceShot4"
-            android:layout_width="400dp"
-            android:layout_height="533dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:adjustViewBounds= "true"
-            android:rotation="90"
-            android:background="@drawable/cameraline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" >
+            app:layout_constraintTop_toBottomOf="@+id/textView18">
 
-        </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/cameraline"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
-            app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
+            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+                android:id="@+id/longDistanceShot4"
+                android:layout_width="400dp"
+                android:layout_height="533dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/cameraline"
+                android:rotation="90"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/cameraline"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
+                app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ImageView
             android:id="@+id/shortDistanceShot2"
             android:layout_width="400dp"
             android:layout_height="533dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-
 
 
         <TextView
@@ -84,8 +91,8 @@
             android:layout_marginEnd="108dp"
             android:background="#46E47575"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            app:layout_constraintEnd_toEndOf="@+id/screenShotLayout"
+            app:layout_constraintTop_toBottomOf="@+id/screenShotLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
@@ -117,8 +124,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="이름 :"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/textView21"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -129,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="성별 :"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -153,8 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="수상일 :"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -177,8 +184,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="환자이름"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView20"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -188,8 +195,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="환자성별"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView21"
                 app:layout_constraintTop_toBottomOf="@+id/patientName" />
 
@@ -200,8 +207,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="87dp"
                 android:layout_marginBottom="87dp"
-                android:textColor="@color/black"
                 android:text="20200202"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView22"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -213,8 +220,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:textColor="@color/black"
                 android:text="입력일 :"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -225,8 +232,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="20200202"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/patientGender" />
 
@@ -236,8 +243,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/black"
                 android:text="20200202"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView28"
                 app:layout_constraintTop_toBottomOf="@+id/patientBurnday" />
 
@@ -267,13 +274,14 @@
             app:layout_constraintTop_toBottomOf="@+id/shortDistanceShot2" />
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/longDistanceShot4">
+            app:layout_constraintTop_toBottomOf="@+id/screenShotLayout">
 
             <Button
                 android:id="@+id/btn_ssh"
@@ -321,7 +329,7 @@
             android:layout_marginBottom="10dp"
             android:text="재촬영"
             android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/longDistanceShot4"
+            app:layout_constraintBottom_toTopOf="@+id/screenShotLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/shortDistanceShot2" />
