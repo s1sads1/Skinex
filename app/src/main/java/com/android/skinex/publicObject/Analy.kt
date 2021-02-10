@@ -7,7 +7,7 @@ object Analy {
     var Analy = AnalyText(
         "",
         "",
-        "" ,
+        "",
         "",
         "",
         "",

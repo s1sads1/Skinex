@@ -1,15 +1,22 @@
 package com.android.skinex.result_Consulting
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.AttributeSet
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import com.android.skinex.R
 import com.android.skinex.databinding.ResultInfo2Binding
+import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.publicObject.Analy
 import com.android.skinex.publicObject.Visiter
 import com.davemorrissey.labs.subscaleview.ImageSource
@@ -20,11 +27,14 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import java.text.SimpleDateFormat
-import java.time.LocalDate
+import kotlinx.android.synthetic.main.guide.*
+import kotlinx.android.synthetic.main.guide.longDistanceShot4
+import kotlinx.android.synthetic.main.result_info.*
+import kotlinx.android.synthetic.main.result_info2.*
 import java.util.*
 
-class ResultActivity : AppCompatActivity() {
+
+class ResultActivity : AppCompatActivity()  {
 
     private lateinit var binding: ResultInfo2Binding
 
@@ -35,6 +45,10 @@ class ResultActivity : AppCompatActivity() {
         binding = ResultInfo2Binding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+
+
         //setContentView(R.layout.result_info2)
 
         pieChart = findViewById<View>(R.id.piechart) as PieChart?
@@ -52,7 +66,7 @@ class ResultActivity : AppCompatActivity() {
         val yValues = ArrayList<PieEntry>()
         yValues.add(PieEntry(Analy.Analy.degree_value.toFloat(), Analy.Analy.degree_key))
         yValues.add(PieEntry(Analy.Analy.degree_value2.toFloat(), Analy.Analy.degree_key2))
-        yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat(),Analy.Analy.degree_key3))
+        yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat(), Analy.Analy.degree_key3))
         yValues.add(PieEntry(Analy.Analy.degree_value4.toFloat(), Analy.Analy.degree_key4))
         yValues.add(PieEntry(Analy.Analy.degree_value5.toFloat(), Analy.Analy.degree_key5))
         yValues.add(PieEntry(Analy.Analy.degree_value6.toFloat(), Analy.Analy.degree_key6))
@@ -81,6 +95,8 @@ class ResultActivity : AppCompatActivity() {
         imageUp()
     }
 
+
+
     fun info() {
         binding.patientName77.setText(Visiter.Visi.name)
         binding.patientGender77.setText(Visiter.Visi.gender)
@@ -89,9 +105,15 @@ class ResultActivity : AppCompatActivity() {
     }
 
     fun imageUp() {
+
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
-        Log.d("screenshot", Visiter.Visi.screenshot)
-        binding.longDistanceShot4.setImageBitmap(Visiter.Visi.screenshot.toBitmap())
+//        Log.d("screenshot", Visiter.Visi.screenshot.toString())
+        binding.longDistanceShot4.setImageURI(Visiter.Visi.screenshot.toUri())
+//        getScreenShot(binding.longDistanceShot4)
+//        view_result.getScreenShot(binding.longDistanceShot4)
+//        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Visiter.Visi.screenshot.toUri())
     }
+
+
 }

@@ -4,12 +4,9 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -20,13 +17,16 @@ import com.android.skinex.dataclass.AnalyInfo
 import com.android.skinex.publicObject.Analy
 import com.android.skinex.publicObject.Visiter
 import com.android.skinex.restApi.ApiUtill
+import com.android.skinex.util.ScreenCapture
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.guide.*
+import kotlinx.android.synthetic.main.result_info.*
 import kotlinx.android.synthetic.main.result_info.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -92,11 +92,15 @@ class ResultInfoActivity : AppCompatActivity() {
     var MYday = 0
 
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ResultInfoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
 
 //        matrix = Matrix()
 //        savedMatrix = Matrix()
@@ -215,20 +219,49 @@ class ResultInfoActivity : AppCompatActivity() {
         )
     }
 
+
+    val bmp: Bitmap? = null
+    val stream = ByteArrayOutputStream()
+
+    var byteArray = stream.toByteArray()
+//    fun screenShot() {
+//
+//
+//        bmp!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//
+//        var fileInputStream: FileInputStream? = null
+//        val file = File("yourfile")
+//        byteArray = ByteArray(file.length().toInt())
+//        try {
+//            //convert file into array of bytes
+//            fileInputStream = FileInputStream(file)
+//            fileInputStream.read(bFile)
+//            fileInputStream.close()
+//            //convert array of bytes into file
+//            val fileOuputStream = FileOutputStream("C:\\testing2.txt")
+//            fileOuputStream.write(bFile)
+//            fileOuputStream.close()
+//            println("Done")
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
+
     //촬영 클릭시 전체촬영 이벤트
     fun goguide(){
         binding.save.setOnClickListener {
-            screenShot()
+
             val intent = Intent(this, ResultActivity::class.java)
             startActivity(intent)
+            ScreenCapture.captureView(findViewById(com.android.skinex.R.id.longDistanceShot4))
         }
+
     }
 
     fun imageUp() {
         binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
 //   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
-
 
     }
 
@@ -238,50 +271,64 @@ class ResultInfoActivity : AppCompatActivity() {
 
         binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
 
-
-    }
-fun screenShot() {
-    val v1: View = binding.longDistanceShot4.getRootView()
-    v1.buildDrawingCache()
-    v1.setDrawingCacheEnabled(true)
-
-    val saveBitmap: Bitmap = v1.getDrawingCache()
-    Visiter.Visi.screenshot = saveBitmap.toString()
-
-}
-    private fun takeScreenshot() {
-        val now = Date()
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now)
-        try
-        {
-            // image naming and path to include sd card appending name you choose for file
-            val mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg"
-            // create bitmap screen capture
-            val v1 = getWindow().getDecorView().getRootView()
-            v1.setDrawingCacheEnabled(true)
-            val bitmap = Bitmap.createBitmap(v1.getDrawingCache())
-            v1.setDrawingCacheEnabled(false)
-            val imageFile = File(mPath)
-            val outputStream = FileOutputStream(imageFile)
-            val quality = 100
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
-            outputStream.flush()
-            outputStream.close()
-            openScreenshot(imageFile)
-        }
-        catch (e: Throwable) {
-            // Several error may come out with file handling or DOM
-            e.printStackTrace()
-        }
     }
 
-    private fun openScreenshot(imageFile: File) {
-        val intentShot = Intent()
-        intentShot.action = Intent.ACTION_VIEW
-        val uri: Uri = Uri.fromFile(imageFile)
-        intentShot.setDataAndType(uri, "image/*")
-        startActivity(intentShot)
-    }
+//    fun getScreenShot(view: View): Bitmap {
+//        val returnedBitmap = Bitmap.createBitmap(300 ,300,
+//            Bitmap.Config.ARGB_8888)
+//        val canvas = Canvas(returnedBitmap)
+//        val bgDrawable = binding.longDistanceShot4.background
+//        if (bgDrawable != null) bgDrawable.draw(canvas)
+//        else canvas.drawColor(Color.WHITE)
+//        binding.longDistanceShot4.draw(canvas)
+//
+//        return returnedBitmap
+//    }
+
+
+
+//    fun screenShot() {
+//    val v1: View = binding.longDistanceShot4.rootView
+//    v1.buildDrawingCache()
+//    v1.setDrawingCacheEnabled(true)
+//
+//    val saveBitmap: Bitmap = v1.getDrawingCache()
+//    Visiter.Visi.screenshot = saveBitmap.toString()
+//
+//}
+//    private fun takeScreenshot() {
+//        val now = Date()
+//        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now)
+//        try
+//        {
+//            // image naming and path to include sd card appending name you choose for file
+//            val mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg"
+//            // create bitmap screen capture
+//            val v1 = getWindow().getDecorView().getRootView()
+//            v1.setDrawingCacheEnabled(true)
+//            val bitmap = Bitmap.createBitmap(v1.getDrawingCache())
+//            v1.setDrawingCacheEnabled(false)
+//            val imageFile = File(mPath)
+//            val outputStream = FileOutputStream(imageFile)
+//            val quality = 100
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+//            outputStream.flush()
+//            outputStream.close()
+//            openScreenshot(imageFile)
+//        }
+//        catch (e: Throwable) {
+//            // Several error may come out with file handling or DOM
+//            e.printStackTrace()
+//        }
+//    }
+//
+//    private fun openScreenshot(imageFile: File) {
+//        val intentShot = Intent()
+//        intentShot.action = Intent.ACTION_VIEW
+//        val uri: Uri = Uri.fromFile(imageFile)
+//        intentShot.setDataAndType(uri, "image/*")
+//        startActivity(intentShot)
+//    }
 
 
 

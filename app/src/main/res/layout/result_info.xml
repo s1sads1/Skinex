@@ -48,7 +48,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintTop_toBottomOf="@+id/textView18" >
+
+        </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/cameraline"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
+            app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
         <ImageView
             android:id="@+id/shortDistanceShot2"
             android:layout_width="400dp"
@@ -63,16 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/cameraline"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
-            app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
+
 
         <TextView
             android:id="@+id/textstandard"
