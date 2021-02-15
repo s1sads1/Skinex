@@ -1,5 +1,6 @@
 package com.android.skinex.result_Consulting
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -8,8 +9,11 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -23,10 +27,12 @@ import com.android.skinex.publicObject.Visiter
 import com.android.skinex.restApi.ApiUtill
 import com.android.skinex.util.ScreenCapture
 import com.davemorrissey.labs.subscaleview.ImageSource
+import com.github.mikephil.charting.utils.Utils
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.guide.*
 import kotlinx.android.synthetic.main.result_info.*
 import kotlinx.android.synthetic.main.result_info.view.*
+import okio.ByteString.decodeBase64
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -106,6 +112,9 @@ class ResultInfoActivity : AppCompatActivity() {
         setContentView(view)
 
 
+
+
+
 //        matrix = Matrix()
 //        savedMatrix = Matrix()
 ////        imageView = findViewById(R.id.imageView)
@@ -174,6 +183,45 @@ class ResultInfoActivity : AppCompatActivity() {
 //            binding.longDistanceShot4.setImageMatrix(matrix)
 //        }
 //    }
+
+    fun getScreenShot(view: View): Bitmap {
+        val returnedBitmap = Bitmap.createBitmap( 1300,1200,
+            Bitmap.Config.ARGB_8888)
+        Log.d("getScreenShot: ", binding.longDistanceShot4.height.toString()+":" + binding.longDistanceShot4.width.toString() )
+        val canvas = Canvas(returnedBitmap)
+        val bgDrawable = view.background
+        if (bgDrawable != null) bgDrawable.draw(canvas)
+        else canvas.drawColor(resources.getColor(R.color.screenshot_background))
+        view.draw(canvas)
+
+        return returnedBitmap
+
+    }
+
+    fun bitmapToFile(bitmap: Bitmap, fileNameToSave: String): File? { // File name like "image.png"
+        //create a file to write bitmap data
+        var file: File? = null
+        return try {
+            file = File(Environment.getExternalStorageDirectory().toString() + File.separator + fileNameToSave)
+            file.createNewFile()
+
+            //Convert bitmap to byte array
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bos) // YOU can also save it in JPEG
+            val bitmapdata = bos.toByteArray()
+
+            //write the bytes in file
+            val fos = FileOutputStream(file)
+            fos.write(bitmapdata)
+            fos.flush()
+            fos.close()
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            file // it will return null
+        }
+    }
+
 
 
     fun info() {
@@ -251,32 +299,27 @@ class ResultInfoActivity : AppCompatActivity() {
 //        }
 //    }
 
-    fun getScreenShot(view: View): Bitmap {
-        val returnedBitmap = Bitmap.createBitmap(1000 ,1000,
-            Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(returnedBitmap)
-        val bgDrawable = view.background
-        if (bgDrawable != null) bgDrawable.draw(canvas)
-        else canvas.drawColor(resources.getColor(R.color.screenshot_background))
-       view.draw(canvas)
-        Visiter.Visi.screenshot = returnedBitmap.toString()
 
-        return returnedBitmap
-    }
 
     //촬영 클릭시 전체촬영 이벤트
     fun goguide(){
+
+
         binding.save.setOnClickListener {
+
+            var bitmap: Bitmap = getScreenShot(binding.longDistanceShot4)
+            var fileToBitmap :File = bitmapToFile(bitmap, "screenShot")!!
+
+            Visiter.Visi.screenshot = bitmap
 
             val intent = Intent(this, ResultActivity::class.java)
             startActivity(intent)
-            ScreenCapture.captureView(findViewById(com.android.skinex.R.id.longDistanceShot4))
+//            ScreenCapture.captureView(findViewById(com.android.skinex.R.id.longDistanceShot4))
         }
-
     }
 
     fun imageUp() {
-//        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
+        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
 //   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
 
@@ -299,7 +342,6 @@ class ResultInfoActivity : AppCompatActivity() {
     v1.setDrawingCacheEnabled(true)
 
     val saveBitmap: Bitmap = v1.getDrawingCache()
-    Visiter.Visi.screenshot = saveBitmap.toString()
 
 }
 //    private fun takeScreenshot() {
@@ -345,17 +387,17 @@ class ResultInfoActivity : AppCompatActivity() {
 //
 //    }
     fun recapture() {
-        binding.btnRecapture1.setOnClickListener {
-
-            binding.shortDistanceShot2.setImageBitmap(getScreenShot(findViewById(R.id.screenShotLayout)))
-        }
-//        binding.btnRecapture1.setOnClickListener{
-//            startActivity(Intent(this, CameraXReturn::class.java))
-//        }
+//        binding.btnRecapture1.setOnClickListener {
 //
-//        binding.btnRecapture2.setOnClickListener {
-//            startActivity(Intent(this, CameraXDetail::class.java))
+//            binding.shortDistanceShot2.setImageBitmap(getScreenShot(findViewById(R.id.screenShotLayout)))
 //        }
+        binding.btnRecapture1.setOnClickListener{
+            startActivity(Intent(this, CameraXReturn::class.java))
+        }
+
+        binding.btnRecapture2.setOnClickListener {
+            startActivity(Intent(this, CameraXDetail::class.java))
+        }
     }
 
     fun resultsubmit() {

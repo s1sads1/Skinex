@@ -30,7 +30,6 @@ object ScreenCapture {
         val fileCacheItem = File(strFilePath)
         Log.d("ScreenCapture", "strFilePath: "+ strFilePath)
         Log.d("ScreenCapture", "fileCacheItem: " +fileCacheItem)
-        Visiter.Visi.screenshot = fileCacheItem.toString()
         try
         {
             fos = FileOutputStream(fileCacheItem)

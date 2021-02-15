@@ -53,15 +53,26 @@
             android:layout_marginTop="30dp">
 
 
+            <TextView
+                android:id="@+id/redbox"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/cameraline"
+                app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
+                app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
+                app:layout_constraintStart_toStartOf="@+id/longDistanceShot4"
+                app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
+
             <ImageView
                 android:id="@+id/longDistanceShot4"
-                android:layout_width="177dp"
-                android:layout_height="188dp"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
                 android:layout_marginTop="24dp"
+                android:rotation="90"
                 app:layout_constraintEnd_toEndOf="@+id/textView18"
+                app:layout_constraintHorizontal_bias="0.435"
                 app:layout_constraintStart_toStartOf="@+id/textView18"
-                app:layout_constraintTop_toBottomOf="@+id/textView18"/>
-
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/shortDistanceShot2"

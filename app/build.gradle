@@ -131,6 +131,12 @@ dependencies {
     // 그래프
     implementation 'com.github.PhilJay:MpAndroidChart:v3.0.2'
 
+    //qr관련
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

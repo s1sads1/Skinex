@@ -11,5 +11,5 @@ data class VisiterInfo(
     var camerauri1 : String,
     var camerauri2 : String,
     var firebaseurl : String,
-    var screenshot : String
+    var screenshot : Bitmap
 )

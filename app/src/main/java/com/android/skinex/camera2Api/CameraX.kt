@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
+import com.google.zxing.integration.android.IntentIntegrator
 //import kotlinx.android.synthetic.main.camera.*
 import kotlinx.android.synthetic.main.camera.view.*
 import java.io.ByteArrayOutputStream
@@ -58,6 +59,9 @@ class CameraX :AppCompatActivity(){
         val view = binding.root
         setContentView(view)
         getinfo()
+
+
+
 
 //        // 카메라 권한 요청
 //        if (allPermissionsGranted()) {
@@ -104,8 +108,6 @@ class CameraX :AppCompatActivity(){
 
     fun getinfo() {
         binding.getgendermsg.setText(Visiter.Visi.gender)
-
-
     }
 
     private fun takePhoto() {

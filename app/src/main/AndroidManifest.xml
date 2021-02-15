@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.skinex">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,6 +16,7 @@
 <!--    <uses-feature android:name="android.hardware.camera" />-->
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,25 +25,29 @@
         android:theme="@style/Theme.Skinex"
         android:hardwareAccelerated="true"
         android:networkSecurityConfig="@xml/network_security_config">
+
         <activity android:name="com.android.skinex.activity.LoginActivity">
+
+        </activity>
+        <activity android:name="com.android.skinex.activity.VisiterType">
+
+        </activity>
+        <activity android:name="com.android.skinex.user_Consulting.UserInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.android.skinex.activity.VisiterType">
-
-        </activity>
-        <activity android:name="com.android.skinex.user_Consulting.UserInfoActivity"></activity>
         <activity android:name="com.android.skinex.user_Consulting.ReturningInfoActivity"></activity>
         <activity android:name="com.android.skinex.activity.SeclectVisiter"></activity>
         <activity android:name=".result_Consulting.ResultInfoActivity"></activity>
         <activity android:name=".result_Consulting.ResultImage"></activity>
         <activity android:name=".result_Consulting.ResultDetailImage"></activity>
         <activity android:name=".result_Consulting.GuideActivity"></activity>
-
         <activity android:name=".camera2Api.CameraX"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation">
+
         </activity>
         <activity android:name=".camera2Api.CameraXDetail"
             android:screenOrientation="portrait"></activity>
