@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.android.skinex.R
 import com.android.skinex.activity.GuideLine
+import com.android.skinex.publicObject.Visiter
 import com.android.skinex.result_Consulting.ResultInfoActivity
 
 //import com.google.zxing.client.android.R;
@@ -29,6 +30,7 @@ open class CaptureActivity : Activity() {
         capture = CaptureManager(this, barcodeScannerView!!)
         capture!!.initializeFromIntent(intent, savedInstanceState)
         capture!!.decode()
+
         //버튼
         val imageButton = findViewById<View>(R.id.godetailcamera) as Button
         imageButton.setOnClickListener {
@@ -62,6 +64,8 @@ open class CaptureActivity : Activity() {
     override fun onResume() {
         super.onResume()
         capture!!.onResume()
+        findViewById<TextView>(R.id.getgendermsg).setText("${Visiter.Visi.name} - ${Visiter.Visi.gender} - ${Visiter.Visi.birth}")
+
     }
 
     override fun onPause() {

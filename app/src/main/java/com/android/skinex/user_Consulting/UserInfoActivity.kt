@@ -175,6 +175,10 @@ class  UserInfoActivity : AppCompatActivity() {
 
         }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
+
     fun guide(){
         val intent = Intent(this, GuideLine::class.java)
         startActivity(intent)

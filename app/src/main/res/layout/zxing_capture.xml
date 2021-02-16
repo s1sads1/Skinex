@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:gravity="bottom"
-                android:text="O"
+                android:text="●"
                 android:textColor="@color/pale_red"
                 android:textSize="50dp" />
         </com.journeyapps.barcodescanner.DecoratedBarcodeView>

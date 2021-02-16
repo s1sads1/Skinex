@@ -254,6 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:visibility="invisible"
                 android:text="분석값 받아오기" />
 
             <Button
@@ -261,14 +262,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="사진 저장" />
+                android:text="결과 저장및 분석" />
 
             <Button
-                android:id="@+id/save"
+                android:id="@+id/goguide"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="결과 값 보기" />
+                android:text="안내" />
         </LinearLayout>
 
         <Button

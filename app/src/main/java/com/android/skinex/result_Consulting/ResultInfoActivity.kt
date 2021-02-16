@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.android.skinex.R
+import com.android.skinex.activity.Guide
 import com.android.skinex.camera2Api.CameraXDetail
 import com.android.skinex.camera2Api.CameraXReturn
 import com.android.skinex.databinding.ResultInfoBinding
@@ -131,11 +132,12 @@ class ResultInfoActivity : AppCompatActivity() {
 
 
         info()
-        goguide()
+//        goguide()
         imageUp()
         recapture()
         resultsubmit()
-        sshConnect()
+//        sshConnect()
+        guide()
 
         var r = Resources.getSystem()
         var config = r.getConfiguration()
@@ -230,6 +232,9 @@ class ResultInfoActivity : AppCompatActivity() {
     }
 
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
 
     fun info() {
         var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -308,22 +313,7 @@ class ResultInfoActivity : AppCompatActivity() {
 
 
 
-    //촬영 클릭시 전체촬영 이벤트
-    fun goguide(){
 
-
-        binding.save.setOnClickListener {
-
-            var bitmap: Bitmap = getScreenShot(binding.longDistanceShot4)
-            var fileToBitmap :File = bitmapToFile(bitmap, "screenShot")!!
-
-            Visiter.Visi.screenshot = bitmap
-
-            val intent = Intent(this, ResultActivity::class.java)
-            startActivity(intent)
-//            ScreenCapture.captureView(findViewById(com.android.skinex.R.id.longDistanceShot4))
-        }
-    }
 
     fun imageUp() {
 //        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
@@ -422,7 +412,24 @@ class ResultInfoActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
 
+
         }
+    }
+    //촬영 클릭시 전체촬영 이벤트
+    fun goguide(){
+
+
+//        binding.save.setOnClickListener {
+
+            var bitmap: Bitmap = getScreenShot(binding.longDistanceShot4)
+            var fileToBitmap :File = bitmapToFile(bitmap, "screenShot")!!
+
+            Visiter.Visi.screenshot = bitmap
+
+            val intent = Intent(this, ResultActivity::class.java)
+            startActivity(intent)
+//            ScreenCapture.captureView(findViewById(com.android.skinex.R.id.longDistanceShot4))
+//        }
     }
 
 //    fun onTouchXY() {
@@ -443,7 +450,7 @@ class ResultInfoActivity : AppCompatActivity() {
 
     fun sshConnect() {
 
-        binding.btnSsh.setOnClickListener {
+//        binding.btnSsh.setOnClickListener {
 
 
 //            var XTL  = (binding.text.x - binding.longDistanceShot4.x).toString()
@@ -542,6 +549,7 @@ class ResultInfoActivity : AppCompatActivity() {
                             Log.d("degree: ", degree_output_key2 + degree_output2)
                             Toast.makeText(this@ResultInfoActivity, "성공!!", Toast.LENGTH_SHORT)
                                 .show()
+                            goguide()
                         } else {
                             Toast.makeText(this@ResultInfoActivity, "실패", Toast.LENGTH_SHORT)
                                 .show()
@@ -558,6 +566,13 @@ class ResultInfoActivity : AppCompatActivity() {
                         ).show()
                     }
                 })
+//        }
+    }
+
+    fun guide() {
+        binding.goguide.setOnClickListener {
+            val intent = Intent(this, Guide::class.java)
+            startActivity(intent)
         }
     }
 
@@ -587,6 +602,7 @@ class ResultInfoActivity : AppCompatActivity() {
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
         }
+        sshConnect()
 //        // Points to the root reference
 //       val storageRef = storage.reference
 //

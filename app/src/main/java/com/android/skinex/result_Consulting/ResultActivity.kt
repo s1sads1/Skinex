@@ -1,9 +1,11 @@
 package com.android.skinex.result_Consulting
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.AttributeSet
@@ -15,6 +17,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.android.skinex.R
+import com.android.skinex.activity.Guide
 import com.android.skinex.databinding.ResultInfo2Binding
 import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.publicObject.Analy
@@ -31,12 +34,19 @@ import kotlinx.android.synthetic.main.guide.*
 import kotlinx.android.synthetic.main.guide.longDistanceShot4
 import kotlinx.android.synthetic.main.result_info.*
 import kotlinx.android.synthetic.main.result_info2.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 
 class ResultActivity : AppCompatActivity()  {
 
     private lateinit var binding: ResultInfo2Binding
+
+
+    var MYyear = 0
+    var MYmonth = 0
+    var MYday = 0
 
     var pieChart: PieChart? = null
 
@@ -49,6 +59,7 @@ class ResultActivity : AppCompatActivity()  {
         binding.redbox.bringToFront()
 
 
+        guide()
 
 
         //setContentView(R.layout.result_info2)
@@ -97,14 +108,51 @@ class ResultActivity : AppCompatActivity()  {
         imageUp()
     }
 
+    fun guide() {
+        binding.mulm.setOnClickListener {
+            val intent = Intent(this, Guide::class.java)
+            startActivity(intent)
+        }
+    }
 
 
     fun info() {
+        var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate.now().toString()
+        } else {
+            SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
+        }
+
+        var year = now.split("-")[0]
+        var month = (now.split("-")[1]).padStart(2, '0')
+        var day = now.split("-")[2].padStart(2, '0')
+
+        MYyear = year.toInt()
+        MYmonth = month.toInt()
+        MYday = day.toInt()
+
         binding.patientName77.setText(Visiter.Visi.name)
         binding.patientGender77.setText(Visiter.Visi.gender)
         binding.patientBirth77.setText(Visiter.Visi.birth)
         binding.patientBurnday77.setText(Visiter.Visi.burndate)
+
+        var idBirth = Visiter.Visi.birth
+        idBirth = idBirth.replace("-", "")
+        var reMYyear = MYyear.toString()
+        reMYyear = reMYyear.replace("20", "")
+        reMYyear = reMYyear.replace("19", "")
+        Log.d("xxoo년도 중 xx를 잘라서 받아옴 : ", reMYyear)
+        binding.patientNum.setText(
+            idBirth + "$reMYyear${MYmonth.toString().padStart(2, '0')}${
+                MYday.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
     }
+
+
 
     fun imageUp() {
 

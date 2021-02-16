@@ -97,6 +97,10 @@ class SeclectVisiter : AppCompatActivity() {
         binding.layoutSelect.setOnClickListener{ hideKeyboard() }
     }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
+
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.edName.windowToken, 0)

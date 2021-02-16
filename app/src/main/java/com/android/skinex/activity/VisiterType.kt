@@ -34,6 +34,10 @@ class VisiterType : AppCompatActivity() {
         startActivity(intent)
     }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
+
 
    private fun firstClick() {
        Visiter.Visi.name = ""

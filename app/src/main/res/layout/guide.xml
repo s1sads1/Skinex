@@ -17,12 +17,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/goresultinfo2"
+            android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="5"
-            android:drawableLeft="@drawable/goback" />
+            android:drawableLeft="@drawable/icon_back" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"
