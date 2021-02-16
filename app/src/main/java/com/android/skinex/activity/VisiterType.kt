@@ -25,8 +25,14 @@ class VisiterType : AppCompatActivity() {
         binding.btn1.setOnClickListener{ firstClick() }
 //        Log.d("test",binding.root.toString() )
         binding.btn2.setOnClickListener {  returningClick() }
+
+        binding.mulm.setOnClickListener { guide() }
     }
 
+    fun guide(){
+        val intent = Intent(this, GuideLine::class.java)
+        startActivity(intent)
+    }
 
 
    private fun firstClick() {

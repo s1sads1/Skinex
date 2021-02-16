@@ -19,13 +19,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.skinex.R
+import com.android.skinex.activity.GuideLine
+import com.android.skinex.activity.LoginActivity
+import com.android.skinex.activity.VisiterType
 import com.android.skinex.camera2Api.CameraX
 import com.android.skinex.databinding.*
 import com.android.skinex.publicObject.Location
 import com.android.skinex.publicObject.Validation
 import com.android.skinex.publicObject.Visiter
+import com.android.skinex.qrscanner.QrScanner
 import com.android.skinex.user_Consulting.adapters.CauseOfBurnedAdapter
 import com.android.skinex.user_Consulting.adapters.PartListAdapter
+import com.google.zxing.integration.android.IntentIntegrator
 import java.io.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate.*
@@ -164,7 +169,17 @@ class  UserInfoActivity : AppCompatActivity() {
             radiobuutonset()
             returningset()
 
+            binding.back.setOnClickListener { back() }
+
+            binding.mulm.setOnClickListener { guide() }
+
         }
+
+    fun guide(){
+        val intent = Intent(this, GuideLine::class.java)
+        startActivity(intent)
+        finish()
+    }
 
     fun genderset() {
         if(Visiter.Visi.gender =="남성"|| Visiter.Visi.gender == "") {
@@ -502,6 +517,11 @@ class  UserInfoActivity : AppCompatActivity() {
             }
         }
 
+    fun back() {
+        val intent = Intent(this, VisiterType::class.java)
+        startActivity(intent)
+    }
+
 
     //라디오버튼 성별 클릭시 하나만 나머지 해제
     fun genderTouch() {
@@ -519,30 +539,55 @@ class  UserInfoActivity : AppCompatActivity() {
 
     //촬영 클릭시 전체촬영 이벤트
     fun photoGraphingAlert(){
-
         m_testMap["NAME"] = binding.userInfoText1.text.toString()
 //        m_testMap["BIRTH"] = binding.birth.text.toString()
 //        m_testMap["BRUNDATE"] = binding.whenBurned.text.toString()
-
-
         binding.longDistanceShot.setOnClickListener {
-            longDistancePopup()
-
-            var intent0 = Intent(this, CameraX::class.java) // 다음 화면으로 이동하기 위한 인텐트 객체 생성
-            intent0.putExtra("username", binding.userInfoText1.text.toString()) // 입력해준 텍스트 값을 담은 뒤 username라는 키로
+            //카메라x부분 - > QR로 수정
+            //longDistancePopup()
+            //var intent0 = Intent(this, CameraX::class.java) // 다음 화면으로 이동하기 위한 인텐트 객체 생성
+            //intent0.putExtra("username", binding.userInfoText1.text.toString()) // 입력해준 텍스트 값을 담은 뒤 username라는 키로
+            val integrator = IntentIntegrator(this)
+            integrator.setBarcodeImageEnabled(true)
+            integrator.setBeepEnabled(false)
+            integrator.captureActivity = QrScanner::class.java
+            integrator.setOrientationLocked(false) //세로모드
+            integrator.initiateScan()
             Visiter.Visi.name = binding.userInfoText1.text.toString()
-//            Visiter.Visi.gender = binding.genderRadioGroup.checkedRadioButtonId
             Visiter.Visi.birth = binding.birth.text.toString()
             Visiter.Visi.burndate = binding.whenBurned.text.toString()
-            startActivity(intent0)
-
+            //startActivity(intent0)
             //사진나오는 화면에 유저 정보를 담아서 보내주기위함
 //            var intent3 = Intent(this, ResultInfoActivity::class.java) // 다음 화면으로 이동하기 위한 인텐트 객체 생성
 //            intent3.putExtra("username", binding.userInfoText1.text.toString()) // 입력해준 텍스트 값을 담은 뒤 username라는 키로
 //            startActivity(intent3)
-
         }
     }
+//    fun photoGraphingAlert(){
+//
+//        m_testMap["NAME"] = binding.userInfoText1.text.toString()
+////        m_testMap["BIRTH"] = binding.birth.text.toString()
+////        m_testMap["BRUNDATE"] = binding.whenBurned.text.toString()
+//
+//
+//        binding.longDistanceShot.setOnClickListener {
+//            longDistancePopup()
+//
+//            var intent0 = Intent(this, CameraX::class.java) // 다음 화면으로 이동하기 위한 인텐트 객체 생성
+//            intent0.putExtra("username", binding.userInfoText1.text.toString()) // 입력해준 텍스트 값을 담은 뒤 username라는 키로
+//            Visiter.Visi.name = binding.userInfoText1.text.toString()
+////            Visiter.Visi.gender = binding.genderRadioGroup.checkedRadioButtonId
+//            Visiter.Visi.birth = binding.birth.text.toString()
+//            Visiter.Visi.burndate = binding.whenBurned.text.toString()
+//            startActivity(intent0)
+//
+//            //사진나오는 화면에 유저 정보를 담아서 보내주기위함
+////            var intent3 = Intent(this, ResultInfoActivity::class.java) // 다음 화면으로 이동하기 위한 인텐트 객체 생성
+////            intent3.putExtra("username", binding.userInfoText1.text.toString()) // 입력해준 텍스트 값을 담은 뒤 username라는 키로
+////            startActivity(intent3)
+//
+//        }
+//    }
 
     //전체촬영
     @SuppressLint("SetTextI18n")

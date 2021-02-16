@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/mulm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -374,28 +375,26 @@
 
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:id="@+id/back"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="이전"
-            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="@+id/bodyPartDetailRecyclerView"
             app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
 
         <Button
             android:id="@+id/longDistanceShot"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="41dp"
-            android:layout_marginTop="20dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:layout_marginEnd="120dp"
             android:text="촬영시작"
-            app:layout_constraintStart_toEndOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="@+id/bodyPartDetailRecyclerView"
             app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/bodyPartRecyclerView"-->

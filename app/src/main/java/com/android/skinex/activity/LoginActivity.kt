@@ -38,11 +38,17 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener{ Login() }
 
         binding.layoutSkinex.setOnClickListener{ hideKeyboard() }
+        binding.btnMulm.setOnClickListener { guide() }
     }
 
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etId.windowToken, 0)
+    }
+
+    fun guide(){
+        val intent = Intent(this, GuideLine::class.java)
+        startActivity(intent)
     }
 
     //로그인 기능

@@ -109,7 +109,7 @@ class ResultActivity : AppCompatActivity()  {
     fun imageUp() {
 
         Log.d("screenshot" , Visiter.Visi.camerauri1)
-        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
+//        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
         Log.d("screenshot:.screenshot", Visiter.Visi.screenshot.toString())
 

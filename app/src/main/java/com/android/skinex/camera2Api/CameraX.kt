@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -28,6 +29,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.storage.ktx.storageMetadata
 import com.google.zxing.integration.android.IntentIntegrator
+import com.journeyapps.barcodescanner.CaptureActivity
 //import kotlinx.android.synthetic.main.camera.*
 import kotlinx.android.synthetic.main.camera.view.*
 import java.io.ByteArrayOutputStream
@@ -40,7 +42,7 @@ import java.util.concurrent.Executors
 
 class CameraX :AppCompatActivity(){
 
-//   private lateinit var storage: FirebaseStorage
+    //   private lateinit var storage: FirebaseStorage
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
@@ -61,6 +63,12 @@ class CameraX :AppCompatActivity(){
         getinfo()
 
 
+        var   integrator = IntentIntegrator(this) //바코드 안의 텍스트
+        integrator.setPrompt("바코드를 사각형 안에 비춰주세요") //바코드 인식시 소리 여부
+        integrator.setBeepEnabled(false)
+        integrator.setBarcodeImageEnabled(true)
+        integrator.setCaptureActivity(CaptureActivity::class.java) //바코드 스캐너 시작
+        integrator.initiateScan()
 
 
 //        // 카메라 권한 요청
@@ -80,16 +88,37 @@ class CameraX :AppCompatActivity(){
 //        goDetailCamera()
         info()
     }
+
     fun info() {
         binding.getgendermsg.text = "${Visiter.Visi.name} - ${Visiter.Visi.gender} - ${Visiter.Visi.birth}"
-       }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null)
+        {
+            if (result.getContents() == null)
+            {}
+            else
+            { //qr코드를 읽어서 EditText에 입력해줍니다.
+
+                binding.cameraCaptureButton.callOnClick()
+                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_SHORT).show()
+            }
+        }
+        else
+        {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 
 
     override fun onStart() {
         super.onStart()
 
         if (allPermissionsGranted()) {
-            startCamera()
+//            startCamera()
         } else {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
@@ -108,10 +137,10 @@ class CameraX :AppCompatActivity(){
 
     fun getinfo() {
         binding.getgendermsg.setText(Visiter.Visi.gender)
+
     }
 
     private fun takePhoto() {
-
 
         // 수정 가능한 이미지 캡처 사용 사례에 대한 안정적인 참조 얻기
         val imageCapture = imageCapture ?: return
@@ -150,45 +179,45 @@ class CameraX :AppCompatActivity(){
 
     }
 
-    private fun startCamera() {
-
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
-        cameraProviderFuture.addListener(Runnable {
-            // 카메라의 수명주기를 수명주기 소유자에게 연결하는 데 사용됩니다.
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
-            // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.createSurfaceProvider())
-                }
-
-            // 기본으로 후면 카메라 선택
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            try {
-                // 리바인딩하기 전에 사용 사례 바인딩 해제
-                cameraProvider.unbindAll()
-
-                // 사용 사례를 카메라에 바인딩
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview)
-
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture)
-
-            } catch(exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
-            }
-
-        }, ContextCompat.getMainExecutor(this))
-
-        imageCapture = ImageCapture.Builder()
-            .build()
-
-    }
+//    private fun startCamera() {
+//
+//        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+//
+//        cameraProviderFuture.addListener(Runnable {
+//            // 카메라의 수명주기를 수명주기 소유자에게 연결하는 데 사용됩니다.
+//            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+//
+//            // Preview
+//            val preview = Preview.Builder()
+//                .build()
+//                .also {
+//                    it.setSurfaceProvider(binding.viewFinder.createSurfaceProvider())
+//                }
+//
+//            // 기본으로 후면 카메라 선택
+//            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+//
+//            try {
+//                // 리바인딩하기 전에 사용 사례 바인딩 해제
+//                cameraProvider.unbindAll()
+//
+//                // 사용 사례를 카메라에 바인딩
+//                cameraProvider.bindToLifecycle(
+//                    this, cameraSelector, preview)
+//
+//                cameraProvider.bindToLifecycle(
+//                    this, cameraSelector, preview, imageCapture)
+//
+//            } catch(exc: Exception) {
+//                Log.e(TAG, "Use case binding failed", exc)
+//            }
+//
+//        }, ContextCompat.getMainExecutor(this))
+//
+//        imageCapture = ImageCapture.Builder()
+//            .build()
+//
+//    }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
@@ -219,7 +248,7 @@ class CameraX :AppCompatActivity(){
         IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                startCamera()
+//                startCamera()
             } else {
                 Toast.makeText(this,
                     "카메라 접근 권한이 부여되지 않았습니다",

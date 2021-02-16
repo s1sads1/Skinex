@@ -23,12 +23,15 @@ import com.android.skinex.camera2Api.CameraXReturn
 import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.dataclass.AnalyInfo
 import com.android.skinex.publicObject.Analy
+import com.android.skinex.publicObject.Camera
 import com.android.skinex.publicObject.Visiter
+import com.android.skinex.qrscanner.QrScanner
 import com.android.skinex.restApi.ApiUtill
 import com.android.skinex.util.ScreenCapture
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.github.mikephil.charting.utils.Utils
 import com.google.firebase.storage.FirebaseStorage
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.guide.*
 import kotlinx.android.synthetic.main.result_info.*
 import kotlinx.android.synthetic.main.result_info.view.*
@@ -94,9 +97,13 @@ class ResultInfoActivity : AppCompatActivity() {
 //        }
 //    }
 
-        var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
+//        var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
 
-    var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F${Visiter.Visi.firebaseurl}.jpg?alt=media"
+//    var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F${Visiter.Visi.firebaseurl}.jpg?alt=media"
+
+    var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/data%2Fuser%2F0%2Fcom.android.skinex%2Fcache%2F" +
+            "${Camera.cam.camerauri2}?alt=media"
+
     var MYyear = 0
     var MYmonth = 0
     var MYday = 0
@@ -319,11 +326,11 @@ class ResultInfoActivity : AppCompatActivity() {
     }
 
     fun imageUp() {
-        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
+//        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
 //   binding.longDistanceShot4.setImageURI(Visiter.Visi.camerauri2.toUri())
 
-        binding.longDistanceShot4.setImage(ImageSource.uri(Visiter.Visi.camerauri2))
+        binding.longDistanceShot4.setImage(ImageSource.uri(Camera.cam.camerauri1))
     }
 
 //  override fun onConfigurationChanged(newConfig: Configuration) {
@@ -391,12 +398,18 @@ class ResultInfoActivity : AppCompatActivity() {
 //
 //            binding.shortDistanceShot2.setImageBitmap(getScreenShot(findViewById(R.id.screenShotLayout)))
 //        }
-        binding.btnRecapture1.setOnClickListener{
-            startActivity(Intent(this, CameraXReturn::class.java))
-        }
+//        binding.btnRecapture1.setOnClickListener{
+//            startActivity(Intent(this, CameraXReturn::class.java))
+//        }
 
         binding.btnRecapture2.setOnClickListener {
-            startActivity(Intent(this, CameraXDetail::class.java))
+
+            val integrator = IntentIntegrator(this)
+            integrator.setBarcodeImageEnabled(true)
+            integrator.setBeepEnabled(false)
+            integrator.captureActivity = QrScanner::class.java
+            integrator.setOrientationLocked(false) //세로모드
+            integrator.initiateScan()
         }
     }
 
@@ -448,11 +461,11 @@ class ResultInfoActivity : AppCompatActivity() {
             Log.d("binding.longDistanceShot4.bottom", binding.longDistanceShot4.bottom.toString())
             Log.d("binding.text.x", binding.text.x.toString())
             Log.d("image.text.x", binding.longDistanceShot4.x.toString())
-            Log.d("standard.text.x", binding.textstandard.x.toString())
+//            Log.d("standard.text.x", binding.textstandard.x.toString())
             Log.d("YTL", YTL)
             Log.d("binding.text.y", binding.text.y.toString())
             Log.d("image.text.y", binding.longDistanceShot4.y.toString())
-            Log.d("standard.text.y", binding.textstandard.y.toString())
+//            Log.d("standard.text.y", binding.textstandard.y.toString())
             ApiUtill().getSshConnection().sshConnect(storageUrl, XTL, YTL, XBR, YBR)
                 .enqueue(object : Callback<AnalyInfo> {
 
@@ -550,22 +563,22 @@ class ResultInfoActivity : AppCompatActivity() {
 
     fun fileUpload() {
 //Log.d("Basic", savedUri.toString() + photoFile.toString())
-        val stream = FileInputStream(File(Visiter.Visi.camerauri1))
-        val stream2 = FileInputStream(File(Visiter.Visi.camerauri2))
+//        val stream = FileInputStream(File(Visiter.Visi.camerauri1))
+        val stream2 = FileInputStream(File(Camera.cam.camerauri1))
 
-        val storageRef = FirebaseStorage.getInstance().reference
+//        val storageRef = FirebaseStorage.getInstance().reference
         val storageRef2 = FirebaseStorage.getInstance().reference
 
-        val mountainsRef = storageRef.child(Visiter.Visi.camerauri1)
-        val mountainsRef2 = storageRef2.child(Visiter.Visi.camerauri2)
+//        val mountainsRef = storageRef.child(Visiter.Visi.camerauri1)
+        val mountainsRef2 = storageRef2.child(Camera.cam.camerauri1)
 
-        val uploadTask = mountainsRef.putStream(stream)
-        uploadTask.addOnFailureListener {
-            // Handle unsuccessful uploads
-        }.addOnSuccessListener { taskSnapshot ->
-            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-            // ...
-        }
+//        val uploadTask = mountainsRef.putStream(stream)
+//        uploadTask.addOnFailureListener {
+//            // Handle unsuccessful uploads
+//        }.addOnSuccessListener { taskSnapshot ->
+//            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+//            // ...
+//        }
 
         val uploadTask2 = mountainsRef2.putStream(stream2)
         uploadTask2.addOnFailureListener {

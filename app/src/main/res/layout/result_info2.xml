@@ -65,23 +65,13 @@
 
             <ImageView
                 android:id="@+id/longDistanceShot4"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
+                android:layout_width="210dp"
+                android:layout_height="208dp"
                 android:layout_marginTop="24dp"
-                android:rotation="90"
                 app:layout_constraintEnd_toEndOf="@+id/textView18"
                 app:layout_constraintHorizontal_bias="0.435"
                 app:layout_constraintStart_toStartOf="@+id/textView18"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/shortDistanceShot2"
-                android:layout_width="175dp"
-                android:layout_height="192dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView17"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -241,24 +231,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
-                android:layout_marginTop="16dp"
-                android:lineHeight="24dp"
-                android:text="전체 부위"
-                android:textColor="@color/white"
-                android:textSize="25dp"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout11"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
-
-            <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="168dp"
                 android:lineHeight="24dp"
                 android:text="상세 부위"
                 android:textColor="@color/white"

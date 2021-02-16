@@ -49,8 +49,6 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/cameraline"
-                android:rotation="90"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -71,28 +69,6 @@
                 app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/shortDistanceShot2"
-            android:layout_width="400dp"
-            android:layout_height="533dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-
-        <TextView
-            android:id="@+id/textstandard"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="108dp"
-            android:background="#46E47575"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/screenShotLayout"
-            app:layout_constraintTop_toBottomOf="@+id/screenShotLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
@@ -251,27 +227,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineHeight="24dp"
-            android:text="전체 부위"
-            android:textColor="@color/white"
-            android:textSize="25dp"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout11"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
-
-        <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="39dp"
             android:lineHeight="24dp"
             android:text="상세 부위"
             android:textColor="@color/white"
             android:textSize="25dp"
-            app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/shortDistanceShot2" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -306,33 +272,18 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_recapture1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="46dp"
-            android:layout_marginEnd="162dp"
-            android:layout_marginBottom="10dp"
-            android:text="재촬영"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/shortDistanceShot2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
-
-        <Button
             android:id="@+id/btn_recapture2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="47dp"
-            android:layout_marginTop="60dp"
             android:layout_marginEnd="162dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:text="재촬영"
             android:textSize="15dp"
             app:layout_constraintBottom_toTopOf="@+id/screenShotLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintTop_toBottomOf="@+id/shortDistanceShot2" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView18" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
