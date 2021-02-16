@@ -182,7 +182,6 @@ class  UserInfoActivity : AppCompatActivity() {
     fun guide(){
         val intent = Intent(this, GuideLine::class.java)
         startActivity(intent)
-        finish()
     }
 
     fun genderset() {

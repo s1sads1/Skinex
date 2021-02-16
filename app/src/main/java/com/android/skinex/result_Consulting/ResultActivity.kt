@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.android.skinex.R
 import com.android.skinex.activity.Guide
+import com.android.skinex.activity.GuideLine
 import com.android.skinex.databinding.ResultInfo2Binding
 import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.publicObject.Analy
@@ -75,6 +76,7 @@ class ResultActivity : AppCompatActivity()  {
         pieChart!!.setHoleColor(Color.WHITE)
         pieChart!!.setCenterTextSize(25f)
         pieChart!!.transparentCircleRadius = 65f
+        pieChart!!.legend.isEnabled = false
 
         val yValues = ArrayList<PieEntry>()
         yValues.add(PieEntry(Analy.Analy.degree_value.toFloat(), Analy.Analy.degree_key))
@@ -94,8 +96,8 @@ class ResultActivity : AppCompatActivity()  {
         pieChart!!.animateY(1000, Easing.EasingOption.EaseInOutCubic) //애니메이션
 
         val dataSet = PieDataSet(yValues, "화상심도")
-        dataSet.sliceSpace = 8f
-        dataSet.selectionShift = 8f
+        dataSet.sliceSpace = 5f
+        dataSet.selectionShift = 5f
         dataSet.valueTextColor = Color.RED
         dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
 
@@ -110,7 +112,7 @@ class ResultActivity : AppCompatActivity()  {
 
     fun guide() {
         binding.mulm.setOnClickListener {
-            val intent = Intent(this, Guide::class.java)
+            val intent = Intent(this, GuideLine::class.java)
             startActivity(intent)
         }
     }
@@ -144,6 +146,15 @@ class ResultActivity : AppCompatActivity()  {
         Log.d("xxoo년도 중 xx를 잘라서 받아옴 : ", reMYyear)
         binding.patientNum.setText(
             idBirth + "$reMYyear${MYmonth.toString().padStart(2, '0')}${
+                MYday.toString().padStart(
+                    2,
+                    '0'
+                )
+            }"
+        )
+
+        binding.patientInputDay.setText(
+            "$MYyear-${MYmonth.toString().padStart(2, '0')}-${
                 MYday.toString().padStart(
                     2,
                     '0'

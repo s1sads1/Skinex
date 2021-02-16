@@ -194,7 +194,7 @@ class ResultInfoActivity : AppCompatActivity() {
 //    }
 
     fun getScreenShot(view: View): Bitmap {
-        val returnedBitmap = Bitmap.createBitmap( 1300,1200,
+        val returnedBitmap = Bitmap.createBitmap( 1500,1500,
             Bitmap.Config.ARGB_8888)
         Log.d("getScreenShot: ", binding.longDistanceShot4.height.toString()+":" + binding.longDistanceShot4.width.toString() )
         val canvas = Canvas(returnedBitmap)

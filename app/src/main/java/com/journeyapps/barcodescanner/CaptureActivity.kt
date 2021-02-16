@@ -39,6 +39,7 @@ open class CaptureActivity : Activity() {
                 ResultInfoActivity::class.java
             )
             startActivity(intent)
+            finish()
         }
         val guide = findViewById<TextView>(R.id.mulm)
         guide.setOnClickListener {

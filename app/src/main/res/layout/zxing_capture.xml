@@ -88,9 +88,9 @@
 
 
         <com.journeyapps.barcodescanner.DecoratedBarcodeView
+            android:id="@+id/zxing_barcode_scanner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/zxing_barcode_scanner"
             app:zxing_preview_scaling_strategy="centerCrop"
             app:zxing_use_texture_view="false">
 
@@ -108,20 +108,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/godetailcamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="8dp"
-        android:text="다음"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_capture_button"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/guidetext"
@@ -132,17 +119,29 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="#FFFFFF"
-        android:textSize="18dp"
         android:foregroundGravity="center"
+        android:gravity="center"
         android:text="큐알코드가 선명하게 나오게 해주세요\n
        인식 후 사진이 자동으로 촬영됩니다"
-        android:gravity="center"
         android:textColor="@color/pale_red"
-        app:layout_constraintBottom_toTopOf="@+id/camera_capture_button"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/godetailcamera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout44">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout44"></TextView>
+    <Button
+        android:id="@+id/godetailcamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guidetext"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
