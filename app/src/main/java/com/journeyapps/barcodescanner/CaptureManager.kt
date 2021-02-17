@@ -23,10 +23,16 @@ import android.graphics.Color
 import android.os.Handler
 import android.util.Log
 import android.view.Surface
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.skinex.activity.GuideLine
 import com.android.skinex.publicObject.Camera
+import com.android.skinex.qrscanner.QrScanner
 import com.android.skinex.user_Consulting.UserInfoActivity
 import com.google.zxing.ResultMetadataType
 import com.google.zxing.client.android.BeepManager
@@ -315,9 +321,15 @@ class CaptureManager(
             .setText("사진 촬영이 완료되었습니다")
         (activity as CaptureActivity).findViewById<TextView>(com.android.skinex.R.id.guidetext)
             .setTextColor(Color.GREEN)
+        (activity as CaptureActivity).findViewById<Button>(com.android.skinex.R.id.recapture).visibility = View.VISIBLE
+
+
 
         return barcodeImagePath
     }
+
+
+
 
     private fun finish() {
         activity.finish()

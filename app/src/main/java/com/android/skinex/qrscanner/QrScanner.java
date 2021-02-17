@@ -9,4 +9,5 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class QrScanner extends CaptureActivity {
 
+
 }

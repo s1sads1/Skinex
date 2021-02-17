@@ -43,8 +43,8 @@ class SeclectVisiter : AppCompatActivity() {
             GlobalScope.launch {
                 db.VisitDao().insertAll(
                     Visit(
-                        "202101221515",
-                        "임용환",
+                        "20210217210212",
+                        "박선호",
                         "남성",
                         "1994-08-17",
                         "2021-01-22",

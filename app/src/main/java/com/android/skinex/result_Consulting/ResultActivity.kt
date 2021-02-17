@@ -57,6 +57,8 @@ class ResultActivity : AppCompatActivity()  {
         val view = binding.root
         setContentView(view)
 
+
+
         binding.redbox.bringToFront()
 
 
@@ -78,13 +80,14 @@ class ResultActivity : AppCompatActivity()  {
         pieChart!!.transparentCircleRadius = 65f
         pieChart!!.legend.isEnabled = false
 
+
         val yValues = ArrayList<PieEntry>()
-        yValues.add(PieEntry(Analy.Analy.degree_value.toFloat(), Analy.Analy.degree_key))
-        yValues.add(PieEntry(Analy.Analy.degree_value2.toFloat(), Analy.Analy.degree_key2))
-        yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat(), Analy.Analy.degree_key3))
-        yValues.add(PieEntry(Analy.Analy.degree_value4.toFloat(), Analy.Analy.degree_key4))
-        yValues.add(PieEntry(Analy.Analy.degree_value5.toFloat(), Analy.Analy.degree_key5))
-        yValues.add(PieEntry(Analy.Analy.degree_value6.toFloat(), Analy.Analy.degree_key6))
+        yValues.add(PieEntry(Analy.Analy.degree_value.toFloat()*1000f, Analy.Analy.degree_key))
+        yValues.add(PieEntry(Analy.Analy.degree_value2.toFloat()*1000f, Analy.Analy.degree_key2))
+        yValues.add(PieEntry(Analy.Analy.degree_value3.toFloat()*1000f, Analy.Analy.degree_key3))
+        yValues.add(PieEntry(Analy.Analy.degree_value4.toFloat()*1000f, Analy.Analy.degree_key4))
+        yValues.add(PieEntry(Analy.Analy.degree_value5.toFloat()*1000f, Analy.Analy.degree_key5))
+        yValues.add(PieEntry(Analy.Analy.degree_value6.toFloat()*1000f, Analy.Analy.degree_key6))
         //        yValues.add(new PieEntry(40f,"Korea"));
 
         val description = Description()
@@ -99,10 +102,13 @@ class ResultActivity : AppCompatActivity()  {
         dataSet.sliceSpace = 5f
         dataSet.selectionShift = 5f
         dataSet.valueTextColor = Color.RED
-        dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+        dataSet.setColors(*ColorTemplate.PASTEL_COLORS)
 
         val data = PieData(dataSet)
         data.setValueTextSize(25f)
+
+        Log.d("dataset:",data.dataSet.toString())
+        Log.d("dataset:",data.dataSet.yValuePosition.toString())
         data.setValueTextColor(Color.BLACK)
         pieChart!!.data = data
 
