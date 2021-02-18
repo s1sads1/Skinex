@@ -14,6 +14,7 @@ android {
         applicationId "com.android.skinex"
         minSdkVersion 24
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
@@ -49,11 +50,9 @@ android {
 }
 
 dependencies {
+
     // 그래프
     implementation 'com.github.PhilJay:MpAndroidChart:v3.0.2'
-
-    // zxing 이거 추가
-    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.0"
@@ -126,16 +125,23 @@ dependencies {
     implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+//    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
     // 그래프
-    implementation 'com.github.PhilJay:MpAndroidChart:v3.0.2'
+//    implementation 'com.github.PhilJay:MpAndroidChart:v3.0.2'
 
     //qr관련
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation('com.journeyapps:zxing-android-embedded:4.1.0')
 
+//    implementation ('com.journeyapps:zxing-android-embedded:3.6.0') { // groupName : moduleName : version
+//
+//        exclude group:'com.journeyapps', module:'zxing-android-embedded'
+//
+//    }
 
+//    configurations.all {
+//        resolutionStrategy.force 'com.android.support:support-annotations:23.4.0'
+//    }
 
 }
 

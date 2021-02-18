@@ -43,6 +43,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.lang.Exception
+import java.util.*
 import kotlin.coroutines.coroutineContext
 
 /**
@@ -80,6 +81,7 @@ class CaptureManager(
             beepManager.playBeepSoundAndVibrate()
             handler.post { getBarcodeImagePath(result) }
         }
+
 
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }

@@ -16,6 +16,8 @@
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/mulm" />
 
+
+
     <ImageView
         android:id="@+id/iv_skinex"
         android:layout_width="match_parent"
@@ -86,9 +88,18 @@
         android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:gravity="center"
         android:text="회원가입 또는 문의사항은 웹사이트 이용 부탁드립니다"
         android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="ver1.0"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:layout_gravity="right"
+        android:gravity="bottom"/>
 
 </LinearLayout>
