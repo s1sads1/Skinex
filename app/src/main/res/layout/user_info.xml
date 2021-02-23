@@ -42,12 +42,12 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="환자정보 입력"
-        android:textSize="20dp"
-        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        android:layout_marginTop="50dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textColor="@color/white"
-        android:background="@color/visiter"
+        android:background="@drawable/edit_shape_tag"
         android:gravity="center_horizontal"
         android:layout_gravity="center"
         />
@@ -375,25 +375,50 @@
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="이전"
-            app:layout_constraintStart_toStartOf="@+id/bodyPartDetailRecyclerView"
-            app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
-
-        <Button
-            android:id="@+id/longDistanceShot"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:layout_marginEnd="120dp"
-            android:text="촬영시작"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:gravity="bottom"
             app:layout_constraintEnd_toEndOf="@+id/bodyPartDetailRecyclerView"
-            app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
+            app:layout_constraintStart_toStartOf="@+id/bodyPartDetailRecyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView">
 
+            <Button
+                android:id="@+id/back"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:text="이전"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_shape"
+                app:layout_constraintStart_toStartOf="@+id/bodyPartDetailRecyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
+
+            <Button
+                android:id="@+id/longDistanceShot"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_shape"
+                android:text="촬영시작"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="@+id/bodyPartDetailRecyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
+
+            <Button
+                android:id="@+id/gallery"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:text="사진 가져오기"
+                android:textColor="@color/black"
+                android:background="@drawable/edit_shape"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

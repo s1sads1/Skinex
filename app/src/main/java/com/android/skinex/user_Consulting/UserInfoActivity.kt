@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.*
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -28,10 +29,12 @@ import com.android.skinex.publicObject.Location
 import com.android.skinex.publicObject.Validation
 import com.android.skinex.publicObject.Visiter
 import com.android.skinex.qrscanner.QrScanner
+import com.android.skinex.result_Consulting.ResultInfoActivity
 import com.android.skinex.user_Consulting.adapters.CauseOfBurnedAdapter
 import com.android.skinex.user_Consulting.adapters.PartListAdapter
 import com.google.zxing.integration.android.IntentIntegrator
 import java.io.*
+import java.net.URI
 import java.text.SimpleDateFormat
 import java.time.LocalDate.*
 import java.util.*
@@ -42,35 +45,37 @@ class  UserInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: UserInfoBinding
 
+    val REQUEST_CODE = 0
+
     //on Activity Result Request Code 상수
     val REQUEST_TAKE_PHOTO_10 = 1
     val REQUEST_TAKE_PHOTO_20 = 2
 
-        //storage 문자열
-        val storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storagewpias;AccountKey=G+ZyYwRLvxTFebMpLqsSeNI/V+1ALImJqs1MAG1rD315BN1TRO7Q8CpcKv0KOmRB9hasKF4pJqZkTEJ3TEAlPw=="
+    //storage 문자열
+    val storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storagewpias;AccountKey=G+ZyYwRLvxTFebMpLqsSeNI/V+1ALImJqs1MAG1rD315BN1TRO7Q8CpcKv0KOmRB9hasKF4pJqZkTEJ3TEAlPw=="
 
-        //AzureAsyncTask에 들어가는 image uri 및 input stream 배열
+    //AzureAsyncTask에 들어가는 image uri 및 input stream 배열
 //        lateinit var imageUri: Uri
 //        lateinit var imageUri2: Uri
 //        var inputStreamArr = ArrayList<InputStream>()
 //        var imageLengthArr = ArrayList<Int>()
 
-        //사진 원본파일 이미지 저장용 path
+    //사진 원본파일 이미지 저장용 path
 //        var currentPhotoPath = ""
 
-        //촬영 모드 구분용도
-        var cameraMode = ""
+    //촬영 모드 구분용도
+    var cameraMode = ""
 
-        var MYyear = 0
-        var MYmonth = 0
-        var MYday = 0
+    var MYyear = 0
+    var MYmonth = 0
+    var MYday = 0
 
 //        var popup = false
 
-        var bodyPartFront = arrayListOf("머리", "어깨", "가슴", "배", "팔", "손", "음부", "다리", "발", "호흡기")
-        var bodyPartBack = arrayListOf("머리", "어깨", "등", "허리", "팔", "손", "엉덩이", "다리", "발")
-        var causeCategory = arrayListOf("열탕", "화염", "전기", "접촉", "저온", "화학", "증기", "마찰", "햇빛", "흡입")
-        var arr = ArrayList<String>()
+    var bodyPartFront = arrayListOf("머리", "어깨", "가슴", "배", "팔", "손", "음부", "다리", "발", "호흡기")
+    var bodyPartBack = arrayListOf("머리", "어깨", "등", "허리", "팔", "손", "엉덩이", "다리", "발")
+    var causeCategory = arrayListOf("열탕", "화염", "전기", "접촉", "저온", "화학", "증기", "마찰", "햇빛", "흡입")
+    var arr = ArrayList<String>()
 
     var fHead = arrayListOf("이마", "눈", "코", "입", "귀", "볼", "목", "뒤통수", "목덜미", "기타")
     var bHead = arrayListOf("이마", "눈", "코", "입", "귀", "볼", "목", "뒤통수", "목덜미", "기타")
@@ -142,41 +147,83 @@ class  UserInfoActivity : AppCompatActivity() {
     )
     var respiratory = arrayListOf("호흡기", "기타")
     var m_insertUserMap = HashMap<String, String>()
-        //액티비티 초기화될때 validation 전역 변수들을 초기화 시켜준다
-        init {
-            Validation.valiInit()
-            Location.init()
+    //액티비티 초기화될때 validation 전역 변수들을 초기화 시켜준다
+    init {
+        Validation.valiInit()
+        Location.init()
 //            print("testprint")
-        }
+    }
     var m_testMap = HashMap<String, String>()
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-            binding = UserInfoBinding.inflate(layoutInflater)
-            val view = binding.root
-            setContentView(view)
+        binding = UserInfoBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-            birthCalendar()
-            popupCalendar()
-            bodyPartCheck()
-            genderTouch()
-            causeRecyclerViewActivated()
-            photoGraphingAlert()
-            setDescendentViews(window.decorView.rootView)
-            eventInit()
-            Setting()
-            radiobuutonset()
-            returningset()
+        birthCalendar()
+        popupCalendar()
+        bodyPartCheck()
+        genderTouch()
+        causeRecyclerViewActivated()
+        photoGraphingAlert()
+        setDescendentViews(window.decorView.rootView)
+        eventInit()
+        Setting()
+        radiobuutonset()
+        returningset()
 
-            binding.back.setOnClickListener { back() }
+        binding.back.setOnClickListener { back() }
 
-            binding.mulm.setOnClickListener { guide() }
+        binding.mulm.setOnClickListener { guide() }
 
-        }
+        binding.gallery.setOnClickListener { gallery() }
+    }
 
     override fun onBackPressed() {
 //        super.onBackPressed()
+    }
+
+    fun gallery() {
+        val intent = Intent()
+        intent.setType("image/*")
+        intent.setAction(Intent.ACTION_GET_CONTENT)
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                try
+                {
+                    var path:Uri = data!!.data!!
+                    var input = getContentResolver().openInputStream(data!!.getData()!!)
+                    val img = BitmapFactory.decodeStream(input)
+                    input!!.close()
+                    Log.d("onActivityResultinput", input.toString())
+                    Log.d("onActivityResultimg", img.toString())
+                    Log.d("onActivityResult", path.toString())
+
+                    Visiter.Visi.camerauri = img
+                    Visiter.Visi.gallary = path.toString()
+
+                    val intent = Intent(this, ResultInfoActivity::class.java)
+                    intent.putExtra("gallary", "gallary")
+                    startActivity(intent)
+
+                }
+                catch (e:Exception) {
+                }
+            }
+            else if (resultCode == RESULT_CANCELED)
+            {
+                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     fun guide(){
@@ -203,7 +250,7 @@ class  UserInfoActivity : AppCompatActivity() {
     //라디오버튼 성별 클릭시 하나만 나머지 해제
     fun radiobuutonset() {
         binding.genderRadioGroup.setOnCheckedChangeListener{
-            radioGroup, checkId ->
+                radioGroup, checkId ->
             when(checkId) {
                 R.id.genderMan ->{}
                 R.id.genderWoman ->{}
@@ -212,20 +259,20 @@ class  UserInfoActivity : AppCompatActivity() {
         }
     }
 
-        //신체 부위 리싸이클러뷰 활성화 및 부위 버튼 활성화
-        //validation을 위한 이벤트 이 펑션에 등록
-        //액티비티 시작될때 초기화될 설정들 정리
-        @SuppressLint("SimpleDateFormat")
-        fun eventInit() {
+    //신체 부위 리싸이클러뷰 활성화 및 부위 버튼 활성화
+    //validation을 위한 이벤트 이 펑션에 등록
+    //액티비티 시작될때 초기화될 설정들 정리
+    @SuppressLint("SimpleDateFormat")
+    fun eventInit() {
 
 
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-            binding.bodyFront.isChecked = true
+        binding.bodyFront.isChecked = true
 
-            Log.d("Check", binding.bodyFront.isChecked.toString())
+        Log.d("Check", binding.bodyFront.isChecked.toString())
 
-        }
+    }
 
     //생년월일 시기 캘린더 팝업 이벤트
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -314,104 +361,104 @@ class  UserInfoActivity : AppCompatActivity() {
     }
 
 
-        fun bodyPartCheck() {
-            Log.d("오나", "왔다")
+    fun bodyPartCheck() {
+        Log.d("오나", "왔다")
 
-            binding.bodyFront.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) {
-                    buttonView.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.white
-                        )
+        binding.bodyFront.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.white
                     )
-                    binding.bodyBack.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.ocean_blue
-                        )
+                )
+                binding.bodyBack.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.ocean_blue
                     )
-                    frontActivated()
-                } else {
-                    buttonView.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.ocean_blue
-                        )
+                )
+                frontActivated()
+            } else {
+                buttonView.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.ocean_blue
                     )
-                    binding.bodyBack.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.white
-                        )
+                )
+                binding.bodyBack.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.white
                     )
-                }
-            }
-
-            binding.bodyBack.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) {
-                    buttonView.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.white
-                        )
-                    )
-                    binding.bodyFront.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.ocean_blue
-                        )
-                    )
-                    backActivated()
-                } else {
-                    buttonView.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.ocean_blue
-                        )
-                    )
-                    binding.bodyFront.setTextColor(
-                        ContextCompat.getColor(
-                            this,
-                            R.color.white
-                        )
-                    )
-                }
+                )
             }
         }
 
+        binding.bodyBack.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.white
+                    )
+                )
+                binding.bodyFront.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.ocean_blue
+                    )
+                )
+                backActivated()
+            } else {
+                buttonView.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.ocean_blue
+                    )
+                )
+                binding.bodyFront.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.white
+                    )
+                )
+            }
+        }
+    }
+
     //앞 버튼 터치시 실행되는 리싸이클러 뷰
-        fun frontActivated() {
-            var partListAdapter =
-                    PartListAdapter(bodyPartFront)
-            binding.bodyPartRecyclerView.layoutManager = LinearLayoutManager(
-                this,
-                RecyclerView.VERTICAL,
-                false
-            )
-            binding.bodyPartRecyclerView.adapter = partListAdapter
+    fun frontActivated() {
+        var partListAdapter =
+            PartListAdapter(bodyPartFront)
+        binding.bodyPartRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.VERTICAL,
+            false
+        )
+        binding.bodyPartRecyclerView.adapter = partListAdapter
 
         binding.bodyImage.setImageResource(R.drawable.f)
 
-        }
+    }
 
 
 
-        //뒤 버튼 터치시 실행되는 리싸이클러 뷰
-        fun backActivated() {
-            var partListAdapter =
-                    PartListAdapter(bodyPartBack)
+    //뒤 버튼 터치시 실행되는 리싸이클러 뷰
+    fun backActivated() {
+        var partListAdapter =
+            PartListAdapter(bodyPartBack)
 
-            binding.bodyPartRecyclerView.layoutManager = LinearLayoutManager(
-                this,
-                RecyclerView.VERTICAL,
-                false
-            )
-            binding.bodyPartRecyclerView.adapter = partListAdapter
+        binding.bodyPartRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.VERTICAL,
+            false
+        )
+        binding.bodyPartRecyclerView.adapter = partListAdapter
 
-            binding.bodyImage.setImageResource(R.drawable.b)
+        binding.bodyImage.setImageResource(R.drawable.b)
 
-        }
+    }
 
 
     fun Setting() {
@@ -430,18 +477,18 @@ class  UserInfoActivity : AppCompatActivity() {
 
     }
 
-        //화상 원인 버튼 카테고리 뿌려주는 펑션
-        fun causeRecyclerViewActivated() {
-            binding.causeOfBurnedRecyclerView.layoutManager = GridLayoutManager(this, 4)
-            binding.causeOfBurnedRecyclerView.adapter =
-                CauseOfBurnedAdapter(
-                    causeCategory
-                )
-        }
+    //화상 원인 버튼 카테고리 뿌려주는 펑션
+    fun causeRecyclerViewActivated() {
+        binding.causeOfBurnedRecyclerView.layoutManager = GridLayoutManager(this, 4)
+        binding.causeOfBurnedRecyclerView.adapter =
+            CauseOfBurnedAdapter(
+                causeCategory
+            )
+    }
 
-        //업로드 실패 알럿
-        fun failAlert(ment: String) {
-            Toast.makeText(this, ment, Toast.LENGTH_SHORT).show()
+    //업로드 실패 알럿
+    fun failAlert(ment: String) {
+        Toast.makeText(this, ment, Toast.LENGTH_SHORT).show()
 //            var dialog = Dialog(this)
 //            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //            dialog.setContentView(R.layout.custom_alert)
@@ -476,49 +523,49 @@ class  UserInfoActivity : AppCompatActivity() {
 //
 //            dialog.show()
 
+    }
+
+
+    //에딧 텍스트 아닌 부분 클릭시 키보드 사라지는 펑션
+    fun hideKeyboard() {
+        var imm = (this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
+
+        imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+        window?.decorView?.clearFocus()
+    }
+
+    //최상위 뷰 태그 및 하위 뷰 태그에 hideKeboard를 적용하는 펑션
+    fun setDescendentViews(view: View) {
+
+        if (view !is EditText) {
+            view.setOnTouchListener { v, event ->
+                hideKeyboard()
+                return@setOnTouchListener false
+            }
         }
 
-
-        //에딧 텍스트 아닌 부분 클릭시 키보드 사라지는 펑션
-        fun hideKeyboard() {
-            var imm = (this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
-
-            imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
-            window?.decorView?.clearFocus()
-        }
-
-        //최상위 뷰 태그 및 하위 뷰 태그에 hideKeboard를 적용하는 펑션
-        fun setDescendentViews(view: View) {
-
-            if (view !is EditText) {
-                view.setOnTouchListener { v, event ->
+        if (view is RecyclerView) {
+            view.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
                     hideKeyboard()
-                    return@setOnTouchListener false
                 }
-            }
 
-            if (view is RecyclerView) {
-                view.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-                    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                        hideKeyboard()
-                    }
-
-                    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                        hideKeyboard()
-                        return false
-                    }
-
-                    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                    }
-                })
-            }
-
-            if (view is ViewGroup) {
-                for (innerview in view) {
-                    setDescendentViews(innerview)
+                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                    hideKeyboard()
+                    return false
                 }
+
+                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+                }
+            })
+        }
+
+        if (view is ViewGroup) {
+            for (innerview in view) {
+                setDescendentViews(innerview)
             }
         }
+    }
 
     fun back() {
         val intent = Intent(this, VisiterType::class.java)
@@ -603,6 +650,6 @@ class  UserInfoActivity : AppCompatActivity() {
     //촬영 모드 구분
     private fun dispatchTakePictureIntent() {
         startActivityForResult(
-           Intent(this, CameraX::class.java), REQUEST_TAKE_PHOTO_20)
+            Intent(this, CameraX::class.java), REQUEST_TAKE_PHOTO_20)
     }
 }

@@ -104,6 +104,7 @@ class ResultActivity : AppCompatActivity()  {
         dataSet.valueTextColor = Color.RED
         dataSet.setColors(*ColorTemplate.PASTEL_COLORS)
 
+
         val data = PieData(dataSet)
         data.setValueTextSize(25f)
 

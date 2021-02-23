@@ -19,7 +19,7 @@
             android:id="@+id/mulm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="5"
             android:drawableLeft="@drawable/mulm" />
 
@@ -121,8 +121,7 @@
         android:background="#FFFFFF"
         android:foregroundGravity="center"
         android:gravity="center"
-        android:text="큐알코드가 선명하게 나오게 해주세요\n
-       인식 후 사진이 자동으로 촬영됩니다"
+        android:text="마커가 선명하게 나오게 해주세요\n인식 후 사진이 자동으로 촬영됩니다"
         android:textColor="@color/pale_red"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/godetailcamera"
@@ -132,10 +131,12 @@
 
     <Button
         android:id="@+id/godetailcamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="5dp"
         android:text="다음"
+        android:textSize="18dp"
+        android:background="@drawable/edit_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -145,13 +146,17 @@
 
     <Button
         android:id="@+id/recapture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="14dp"
         android:text="재촬영"
         android:textColor="@color/black"
+        android:textSize="18dp"
+        android:background="@drawable/edit_shape"
         android:visibility="invisible"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/godetailcamera"
         app:layout_constraintStart_toStartOf="@+id/guidetext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

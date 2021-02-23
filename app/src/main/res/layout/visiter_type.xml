@@ -15,64 +15,71 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:drawableLeft="@drawable/mulm"
             android:layout_weight="1"
-            />
+            android:drawableLeft="@drawable/mulm" />
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="20"/>
+            android:layout_weight="20" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
-            android:text="Result"
             android:layout_weight="1"
-            android:visibility="invisible"/>
+            android:text="Result"
+            android:visibility="invisible" />
     </LinearLayout>
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:text="방문 유형"
-        android:textSize="20dp"
+        android:layout_gravity="center"
         android:layout_marginStart="70dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginTop="50dp"
+        android:background="@drawable/edit_shape_tag"
+        android:gravity="center_horizontal"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:text="방문 유형"
         android:textColor="@color/white"
-        android:background="@color/visiter"
-        android:gravity="center_horizontal"
-        />
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/btn_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="70dp"
+        android:background="@drawable/edit_shape"
+        android:gravity="center"
         android:text="초진"
         android:textSize="35dp" />
 
     <Button
         android:id="@+id/btn_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
         android:layout_marginStart="70dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginTop="10dp"
-        android:textSize="35dp"
+        android:background="@drawable/edit_shape"
+        android:baselineAligned="false"
         android:text="재진"
-        />
+        android:textSize="35dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="ver1.0"
-        android:textColor="@color/white"
         android:layout_gravity="right"
-        android:gravity="bottom"/>
+        android:gravity="bottom"
+        android:text="ver1.0"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

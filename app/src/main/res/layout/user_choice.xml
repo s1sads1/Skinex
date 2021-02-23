@@ -29,19 +29,19 @@
             android:layout_marginRight="10dp"
             />
     </LinearLayout>
+
     <TextView
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="환자 선택"
-        android:textSize="20dp"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColor="@color/white"
         android:background="@color/visiter"
         android:gravity="center_horizontal"
-        android:layout_gravity="center"
-        />
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="환자 선택"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
