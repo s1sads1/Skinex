@@ -21,17 +21,19 @@
     <ImageView
         android:id="@+id/iv_skinex"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="70dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="200dp"
         android:src="@drawable/logo_color" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="700dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="130dp"
         android:layout_marginStart="75dp"
         android:layout_marginEnd="75dp"
+        android:layout_gravity="center"
         android:hint="아이디"
+        android:gravity="center"
         app:hintTextColor="@color/white"
         android:textColorHint="@color/white"
 
@@ -39,47 +41,51 @@
 
         <EditText
             android:id="@+id/et_id"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="500dp"
+            android:layout_height="80dp"
             android:background="@drawable/edit_text_shape"
             android:drawableLeft="@drawable/icon_id_2"
             android:inputType="textEmailAddress"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:hintTextColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="700dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="75dp"
         android:layout_marginEnd="75dp"
         android:hint="비밀번호"
+        android:gravity="center"
+        android:layout_gravity="center"
         app:hintTextColor="@color/white"
         android:textColorHint="@color/white"
 
         >
         <EditText
             android:id="@+id/et_pw"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="500dp"
+            android:layout_height="80dp"
             android:background="@drawable/edit_text_shape"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:drawableLeft="@drawable/icon_pw_2"
             android:inputType="textPassword"
-            android:textSize="16dp"
+            android:textSize="20sp"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="75dp"
+        android:layout_gravity="center"
+        android:textSize="18dp"
         android:background="@drawable/button_shape"
         android:textColor="@color/white"
         android:text="로그인" />
@@ -91,6 +97,7 @@
         android:layout_marginTop="130dp"
         android:gravity="center"
         android:text="회원가입 또는 문의사항은 웹사이트 이용 부탁드립니다"
+        android:textSize="18dp"
         android:textColor="@color/white" />
 
     <TextView

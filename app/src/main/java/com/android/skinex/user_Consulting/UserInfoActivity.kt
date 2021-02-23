@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -208,8 +211,14 @@ class  UserInfoActivity : AppCompatActivity() {
                     Log.d("onActivityResultimg", img.toString())
                     Log.d("onActivityResult", path.toString())
 
+//                    var uri = getImageUri(applicationContext, img)
+//                    Log.d("onActivityResultUri", uri.toString())
+                    Log.d("onActivitypath: ", path.path.toString())
+                    var realPath = getRealPathFromURI(path)
+                    Log.d("onActivity: ", realPath)
+
                     Visiter.Visi.camerauri = img
-                    Visiter.Visi.gallary = path.toString()
+                    Visiter.Visi.gallary = realPath.toString()
 
                     val intent = Intent(this, ResultInfoActivity::class.java)
                     intent.putExtra("gallary", "gallary")
@@ -224,6 +233,35 @@ class  UserInfoActivity : AppCompatActivity() {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun getRealPathFromURI(contentUri:Uri):String {
+        if (contentUri.getPath()!!.startsWith("/storage")) {
+            return contentUri.getPath().toString()
+        }
+        val id = DocumentsContract.getDocumentId(contentUri).split(":")[1]
+        val columns = arrayOf<String>(MediaStore.Files.FileColumns.DATA)
+        val selection = MediaStore.Files.FileColumns._ID + " = " + id
+        val cursor = getContentResolver().query(MediaStore.Files.getContentUri("external"), columns, selection, null, null)
+        try
+        {
+            val columnIndex = cursor!!.getColumnIndex(columns[0])
+            if (cursor.moveToFirst()) {
+                return cursor.getString(columnIndex)
+            }
+        }
+        finally
+        {
+            cursor!!.close()
+        }
+        return ""
+    }
+
+    fun getImageUri(inContext: Context, inImage:Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
+        return Uri.parse(path)
     }
 
     fun guide(){

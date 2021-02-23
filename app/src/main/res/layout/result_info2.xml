@@ -73,9 +73,9 @@
                 android:id="@+id/longDistanceShot4"
                 android:layout_width="500dp"
                 android:layout_height="500dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView18"
-                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintHorizontal_bias="0.468"
                 app:layout_constraintStart_toStartOf="@+id/textView18"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 

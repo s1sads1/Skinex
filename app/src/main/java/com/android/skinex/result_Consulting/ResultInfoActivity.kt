@@ -1,12 +1,16 @@
 package com.android.skinex.result_Consulting
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -14,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.android.skinex.R
 import com.android.skinex.activity.Guide
+import com.android.skinex.camera2Api.CameraX
 import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.dataclass.AnalyInfo
 import com.android.skinex.publicObject.Analy
@@ -21,6 +26,7 @@ import com.android.skinex.publicObject.Camera
 import com.android.skinex.publicObject.Visiter
 import com.android.skinex.qrscanner.QrScanner
 import com.android.skinex.restApi.ApiUtill
+import com.davemorrissey.labs.subscaleview.ImageSource
 import com.google.firebase.storage.FirebaseStorage
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.guide.*
@@ -90,7 +96,9 @@ class ResultInfoActivity : AppCompatActivity() {
 
     var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/data%2Fuser%2F0%2Fcom.android.skinex%2Fcache%2F" +
             "${Camera.cam.camerauri2}?alt=media"
-
+    var storageUrl_galley= "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/Skinex%2F" +
+            "${Visiter.Visi.firebaseurl}?alt=media"
+    var testUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/data%2Fuser%2F0%2Fcom.android.skinex%2Fcache%2Fbarcodeimage1093808898579003250.jpg?alt=media&token=f7a193e9-876e-49f8-8745-52c4e842757f"
     var MYyear = 0
     var MYmonth = 0
     var MYday = 0
@@ -261,9 +269,9 @@ class ResultInfoActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-//        super.onBackPressed()
-    }
+//    override fun onBackPressed() {
+////        super.onBackPressed()
+//    }
 
     fun info() {
         var now = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -353,11 +361,14 @@ class ResultInfoActivity : AppCompatActivity() {
         var secondIntent = getIntent()
         var gallary = secondIntent.getStringExtra("gallary")
         if(gallary =="gallary") {
-            binding.longDistanceShot4.setImageURI(Visiter.Visi.gallary.toUri())
+            binding.longDistanceShot4.setImage(ImageSource.bitmap(Visiter.Visi.camerauri))
+
+//            binding.longDistanceShot4.setImageBitmap(Visiter.Visi.camerauri)
 
         }else {
-            val photoView = binding.longDistanceShot4
-            photoView.setImageURI(Camera.cam.camerauri1.toUri())
+//            val photoView = binding.longDistanceShot4
+//            photoView.setImageURI(Camera.cam.camerauri1.toUri())
+            binding.longDistanceShot4.setImage(ImageSource.bitmap(Visiter.Visi.camerauri))
         }
     }
 
@@ -446,7 +457,7 @@ class ResultInfoActivity : AppCompatActivity() {
     fun resultsubmit() {
         binding.resultsubmit.setOnClickListener {
             bitmap()
-Log.d("bitmaptupload", Visiter.Visi.gallary)
+//Log.d("bitmaptupload", Visiter.Visi.gallary)
             fileUpload()
 
             Toast.makeText(
@@ -469,7 +480,7 @@ Log.d("bitmaptupload", Visiter.Visi.gallary)
         ).format(System.currentTimeMillis())
         var btf = saveBitmaptoJpeg(bitmap, "screenshot", time)
         Visiter.Visi.screenshot = bitmap
-        Visiter.Visi.gallary = btf
+        Visiter.Visi.capture = btf
         binding.screenShot.setImageURI(btf.toUri())
         Log.d("bitmap: ", btf)
     }
@@ -505,13 +516,13 @@ Log.d("bitmaptupload", Visiter.Visi.gallary)
 
 
 //            var XTL  = (binding.text.x - binding.longDistanceShot4.x).toString()
-        var XTL  = "150"
+        var XTL  = "5"
 //            var YTL  = (binding.text.y - binding.longDistanceShot4.y).toString()
-        var YTL = "260"
+        var YTL = "5"
 //            var XBR  = (binding.textstandard.x - binding.longDistanceShot4.x).toString()
-        var XBR = "410"
+        var XBR = "10"
 //            var YBR  = (binding.textstandard.y - binding.longDistanceShot4.y).toString()
-        var YBR ="490"
+        var YBR ="10"
         Log.d("XTL", XTL)
         Log.d("binding.longDistanceShot4.left", binding.longDistanceShot4.left.toString())
         Log.d("binding.longDistanceShot4.right", binding.longDistanceShot4.right.toString())
@@ -524,7 +535,7 @@ Log.d("bitmaptupload", Visiter.Visi.gallary)
         Log.d("binding.text.y", binding.text.y.toString())
         Log.d("image.text.y", binding.longDistanceShot4.y.toString())
 //            Log.d("standard.text.y", binding.textstandard.y.toString())
-        ApiUtill().getSshConnection().sshConnect(storageUrl, XTL, YTL, XBR, YBR)
+        ApiUtill().getSshConnection().sshConnect(storageUrl_galley, XTL, YTL, XBR, YBR)
             .enqueue(object : Callback<AnalyInfo> {
 
                 override fun onResponse(call: Call<AnalyInfo>, response: Response<AnalyInfo>) {
@@ -620,6 +631,13 @@ Log.d("bitmaptupload", Visiter.Visi.gallary)
 //        }
     }
 
+    fun getImageUri(inContext: Context, inImage:Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
+        return Uri.parse(path)
+    }
+
     fun guide() {
         binding.goguide.setOnClickListener {
             val intent = Intent(this, Guide::class.java)
@@ -632,16 +650,44 @@ Log.d("bitmaptupload", Visiter.Visi.gallary)
         var secondIntent = getIntent()
         var gallary = secondIntent.getStringExtra("gallary")
         if(gallary =="gallary") {
-            val stream3 = FileInputStream(File(Visiter.Visi.gallary))
-            val storageRef3 = FirebaseStorage.getInstance().reference
-            val mountainsRef3 = storageRef3.child(Visiter.Visi.gallary)
-            val uploadTask3 = mountainsRef3.putStream(stream3)
-            uploadTask3.addOnFailureListener {
+            // Create a storage reference from our app
+            val storageRef = FirebaseStorage.getInstance().reference
+
+// Create a reference to "mountains.jpg"
+            var time = SimpleDateFormat(
+                FILENAME_FORMAT, Locale.US
+            ).format(System.currentTimeMillis())
+            Visiter.Visi.firebaseurl = time
+            val mountainsRef = storageRef.child("Skinex/${time}")
+
+// Create a reference to 'images/mountains.jpg'
+//            val mountainImagesRef = storageRef.child("images/mountains.jpg")
+
+            binding.longDistanceShot4.isDrawingCacheEnabled = true
+            binding.longDistanceShot4.buildDrawingCache()
+//            val bitmap = (binding.longDistanceShot4.drawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
+            Visiter.Visi.camerauri.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            var uploadTask = mountainsRef.putBytes(data)
+            uploadTask.addOnFailureListener {
                 // Handle unsuccessful uploads
-            }.addOnSuccessListener { taskSnapshot3 ->
+            }.addOnSuccessListener { taskSnapshot ->
                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                 // ...
             }
+//            val stream3 = FileInputStream(File(Visiter.Visi.gallary))
+//            val storageRef3 = FirebaseStorage.getInstance().reference
+//            val mountainsRef3 = storageRef3.child(Visiter.Visi.gallary)
+//            val uploadTask3 = mountainsRef3.putStream(stream3)
+//            uploadTask3.addOnFailureListener {
+//                // Handle unsuccessful uploads
+//            }.addOnSuccessListener { taskSnapshot3 ->
+//                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+//                // ...
+//            }
+            sshConnect()
         }else {
 //Log.d("Basic", savedUri.toString() + photoFile.toString())
 //        val stream = FileInputStream(File(Visiter.Visi.camerauri1))
@@ -672,9 +718,9 @@ Log.d("bitmaptupload", Visiter.Visi.gallary)
                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                 // ...
             }
+            sshConnect()
         }
 
-        sshConnect()
     }
 
 

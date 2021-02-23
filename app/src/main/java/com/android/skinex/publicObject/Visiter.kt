@@ -18,6 +18,7 @@ object Visiter {
         "",
      Bitmap.createBitmap(100, 100 ,Bitmap.Config.ARGB_8888),
         Bitmap.createBitmap(100, 100 ,Bitmap.Config.ARGB_8888),
+        "",
         ""
     )
 }

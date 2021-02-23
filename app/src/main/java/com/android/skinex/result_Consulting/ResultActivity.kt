@@ -179,7 +179,7 @@ class ResultActivity : AppCompatActivity()  {
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
         Log.d("screenshot:.screenshot", Visiter.Visi.screenshot.toString())
 
-        binding.longDistanceShot4.setImageBitmap(Visiter.Visi.screenshot)
+        binding.longDistanceShot4.setImageBitmap(Visiter.Visi.camerauri)
 //        getScreenShot(binding.longDistanceShot4)
 //        view_result.getScreenShot(binding.longDistanceShot4)
 //        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Visiter.Visi.screenshot.toUri())
