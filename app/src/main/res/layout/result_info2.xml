@@ -56,19 +56,6 @@
             android:layout_marginTop="30dp">
 
 
-            <TextView
-                android:id="@+id/redbox"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginEnd="220dp"
-                android:layout_marginBottom="120dp"
-                android:background="@drawable/cameralineresult"
-                app:layout_constraintBottom_toBottomOf="@+id/longDistanceShot4"
-                app:layout_constraintEnd_toEndOf="@+id/longDistanceShot4"
-                app:layout_constraintStart_toStartOf="@+id/longDistanceShot4"
-                app:layout_constraintTop_toTopOf="@+id/longDistanceShot4" />
-
-
             <ImageView
                 android:id="@+id/longDistanceShot4"
                 android:layout_width="500dp"

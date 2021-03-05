@@ -98,7 +98,8 @@ class ResultInfoActivity : AppCompatActivity() {
             "${Camera.cam.camerauri2}?alt=media"
     var storageUrl_galley= "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/Skinex%2F" +
             "${Visiter.Visi.firebaseurl}?alt=media"
-    var testUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/data%2Fuser%2F0%2Fcom.android.skinex%2Fcache%2Fbarcodeimage1093808898579003250.jpg?alt=media&token=f7a193e9-876e-49f8-8745-52c4e842757f"
+    var testUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/Compare%2F%EC%A0%91%EC%B4%89%ED%99%94%EC%83%81%2F%E1%84%8B%E1%85%A3%E1%87%80%E1%84%8B%E1%85%B3%E1%86%AB2%E1%84%83%E1%85%A902.png?alt=media&token=76e9986b-95f4-4876-91d5-6932dff7b4a4"
+
     var MYyear = 0
     var MYmonth = 0
     var MYday = 0
@@ -516,13 +517,13 @@ class ResultInfoActivity : AppCompatActivity() {
 
 
 //            var XTL  = (binding.text.x - binding.longDistanceShot4.x).toString()
-        var XTL  = "5"
+        var XTL  = "172"
 //            var YTL  = (binding.text.y - binding.longDistanceShot4.y).toString()
-        var YTL = "5"
+        var YTL = "135"
 //            var XBR  = (binding.textstandard.x - binding.longDistanceShot4.x).toString()
-        var XBR = "10"
+        var XBR = "352"
 //            var YBR  = (binding.textstandard.y - binding.longDistanceShot4.y).toString()
-        var YBR ="10"
+        var YBR ="265"
         Log.d("XTL", XTL)
         Log.d("binding.longDistanceShot4.left", binding.longDistanceShot4.left.toString())
         Log.d("binding.longDistanceShot4.right", binding.longDistanceShot4.right.toString())
@@ -535,7 +536,7 @@ class ResultInfoActivity : AppCompatActivity() {
         Log.d("binding.text.y", binding.text.y.toString())
         Log.d("image.text.y", binding.longDistanceShot4.y.toString())
 //            Log.d("standard.text.y", binding.textstandard.y.toString())
-        ApiUtill().getSshConnection().sshConnect(storageUrl_galley, XTL, YTL, XBR, YBR)
+        ApiUtill().getSshConnection().sshConnect(testUrl, XTL, YTL, XBR, YBR)
             .enqueue(object : Callback<AnalyInfo> {
 
                 override fun onResponse(call: Call<AnalyInfo>, response: Response<AnalyInfo>) {
@@ -658,7 +659,7 @@ class ResultInfoActivity : AppCompatActivity() {
                 FILENAME_FORMAT, Locale.US
             ).format(System.currentTimeMillis())
             Visiter.Visi.firebaseurl = time
-            val mountainsRef = storageRef.child("Skinex/${time}")
+            val mountainsRef = storageRef.child("Skinex/${Visiter.Visi.firebaseurl}")
 
 // Create a reference to 'images/mountains.jpg'
 //            val mountainImagesRef = storageRef.child("images/mountains.jpg")

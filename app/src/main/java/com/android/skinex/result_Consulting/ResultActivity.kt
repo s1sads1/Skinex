@@ -59,7 +59,7 @@ class ResultActivity : AppCompatActivity()  {
 
 
 
-        binding.redbox.bringToFront()
+//        binding.redbox.bringToFront()
 
 
         guide()

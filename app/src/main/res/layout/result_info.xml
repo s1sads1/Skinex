@@ -244,6 +244,7 @@
                 android:text="재촬영"
                 android:textSize="18dp"
                 android:background="@drawable/edit_shape"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/screenShotLayout"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout11"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout11"

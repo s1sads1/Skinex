@@ -396,17 +396,6 @@
                 app:layout_constraintStart_toStartOf="@+id/bodyPartDetailRecyclerView"
                 app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
 
-            <Button
-                android:id="@+id/longDistanceShot"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/edit_shape"
-                android:text="촬영시작"
-                android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="@+id/bodyPartDetailRecyclerView"
-                app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
 
             <Button
                 android:id="@+id/gallery"
@@ -418,6 +407,19 @@
                 android:textColor="@color/black"
                 android:background="@drawable/edit_shape"
                 android:layout_marginBottom="5dp"/>
+            <Button
+                android:id="@+id/longDistanceShot"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_shape"
+                android:text="촬영시작"
+                android:textSize="18dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/bodyPartDetailRecyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/bodyPartDetailRecyclerView" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
