@@ -48,8 +48,7 @@ import com.android.skinex.databinding.*
 import com.android.skinex.publicObject.Location
 import com.android.skinex.publicObject.Validation
 import com.android.skinex.publicObject.Visiter
-import com.android.skinex.room.UserDatabase
-import com.android.skinex.room.User
+
 import com.android.skinex.room.Visit
 import com.android.skinex.room.VisitDatabase
 import com.android.skinex.user_Consulting.adapters.CauseOfBurnedAdapter

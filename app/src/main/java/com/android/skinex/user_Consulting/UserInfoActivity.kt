@@ -184,12 +184,12 @@ class  UserInfoActivity : AppCompatActivity() {
         binding.gallery.setOnClickListener { gallery() }
     }
 
-    override fun onBackPressed() {
-//        super.onBackPressed()
-    }
+//    override fun onBackPressed() {
+////        super.onBackPressed()
+//    }
 
     fun gallery() {
-        val intent = Intent()
+        var intent = Intent()
         intent.setType("image/*")
         intent.setAction(Intent.ACTION_GET_CONTENT)
         startActivityForResult(intent, REQUEST_CODE)
@@ -214,15 +214,22 @@ class  UserInfoActivity : AppCompatActivity() {
 //                    var uri = getImageUri(applicationContext, img)
 //                    Log.d("onActivityResultUri", uri.toString())
                     Log.d("onActivitypath: ", path.path.toString())
-                    var realPath = getRealPathFromURI(path)
-                    Log.d("onActivity: ", realPath)
+                    Log.d("onActivity_test2", "test")
+//                    var realPath = getRealPathFromURI(path)
+                    Log.d("onActivity_test: ", path.toString())
+                    Log.d("intent_test2", "intent_test2")
 
                     Visiter.Visi.camerauri = img
-                    Visiter.Visi.gallary = realPath.toString()
 
-                    val intent = Intent(this, ResultInfoActivity::class.java)
-                    intent.putExtra("gallary", "gallary")
-                    startActivity(intent)
+//                    Visiter.Visi.gallary = realPath.toString()
+
+                    Log.d("intent_test", "intent_test")
+
+                   var intent_result = Intent(this, ResultInfoActivity ::class.java)
+                    intent_result.putExtra("gallary", "gallary")
+                    startActivity(intent_result)
+                    Log.d("intent", "intent")
+
 
                 }
                 catch (e:Exception) {

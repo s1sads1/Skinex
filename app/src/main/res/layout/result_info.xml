@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="1095dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="30dp">
 
 
@@ -34,8 +34,8 @@
 
                 <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                     android:id="@+id/longDistanceShot4"
-                    android:layout_width="400dp"
-                    android:layout_height="533dp"
+                    android:layout_width="291dp"
+                    android:layout_height="360dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:adjustViewBounds="true"
@@ -43,8 +43,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+                    app:layout_constraintTop_toTopOf="parent"></com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
 
                 <TextView
                     android:id="@+id/text"
@@ -75,11 +74,10 @@
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:text="환자번호 :"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintBottom_toTopOf="@+id/textView20"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -88,11 +86,10 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:text="이름 :"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintBottom_toTopOf="@+id/textView21"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -101,11 +98,10 @@
                     android:id="@+id/textView21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:text="성별 :"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -113,23 +109,21 @@
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="33dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="92dp"
                     android:text="생년월일 :"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
-                    app:layout_constraintStart_toEndOf="@+id/patientNum"
+                    app:layout_constraintStart_toEndOf="@+id/patientGender"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:text="수상일 :"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -141,7 +135,6 @@
                     android:layout_marginTop="16dp"
                     android:text="생일과 입력일을 합쳐서 입력"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.061"
                     app:layout_constraintStart_toEndOf="@+id/textView19"
@@ -151,11 +144,10 @@
                     android:id="@+id/patientName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
+                    android:layout_marginStart="50dp"
                     android:layout_marginTop="16dp"
                     android:text="환자이름"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/textView20"
                     app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -163,11 +155,10 @@
                     android:id="@+id/patientGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="15dp"
                     android:text="환자성별"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/textView21"
                     app:layout_constraintTop_toBottomOf="@+id/patientName" />
 
@@ -175,11 +166,10 @@
                     android:id="@+id/patientBirth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="43dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="92dp"
                     android:text="20200202"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/textView22"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -187,12 +177,11 @@
                     android:id="@+id/textView28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="입력일 :"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView23"
@@ -202,11 +191,10 @@
                     android:id="@+id/patientBurnday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="18dp"
                     android:text="20200202"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/textView23"
                     app:layout_constraintTop_toBottomOf="@+id/patientGender" />
 
@@ -214,11 +202,10 @@
                     android:id="@+id/patientInputDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="16dp"
                     android:text="20200202"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/textView28"
                     app:layout_constraintTop_toBottomOf="@+id/patientBurnday" />
 
@@ -233,16 +220,16 @@
                 android:lineHeight="24dp"
                 android:text="상세 부위"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
 
             <Button
                 android:id="@+id/btn_recapture2"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:text="재촬영"
-                android:textSize="18dp"
+                android:textSize="15dp"
                 android:background="@drawable/edit_shape"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/screenShotLayout"
@@ -265,34 +252,32 @@
                 android:layout_height="15dp"/>
             <Button
                 android:id="@+id/btn_ssh"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/edit_shape"
                 android:layout_marginBottom="5dp"
                 android:text="분석값 받아오기"
-                android:textSize="20dp"
                 android:visibility="invisible" />
 
             <Button
                 android:id="@+id/resultsubmit"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:text="결과 저장및 분석"
                 android:background="@drawable/edit_shape"
-                android:textSize="18dp" />
+                />
 
             <Button
                 android:id="@+id/goguide"
-                android:layout_width="110dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/edit_shape"
-                android:text="안내"
-                android:textSize="18dp" />
+                android:text="안내" />
 
         </LinearLayout>
     </LinearLayout>

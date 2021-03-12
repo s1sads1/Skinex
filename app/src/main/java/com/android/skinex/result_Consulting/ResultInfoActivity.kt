@@ -45,55 +45,6 @@ class ResultInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ResultInfoBinding
 
-////    private lateinit var imageView: ImageView
-//    private lateinit var touchMode : TOUCH_MODE
-//    private lateinit var matrix: Matrix //기존 매트릭스
-//    private lateinit var savedMatrix:Matrix //작업 후 이미지에 매핑할 매트릭스
-//    private lateinit var startPoint: PointF //한손가락 터치 이동 포인트
-//    private lateinit var midPoint:PointF //두손가락 터치 시 중신 포인트
-//    private var oldDistance:Float = 0.toFloat() //터치 시 두손가락 사이의 거리
-//    private var oldDegree = 0.0 // 두손가락의 각도
-//
-//    internal enum class TOUCH_MODE {
-//        NONE, // 터치 안했을 때
-//        SINGLE, // 한손가락 터치
-//        MULTI //두손가락 터치
-//    }
-//
-//    private val onTouch = object: View.OnTouchListener {
-//       override fun onTouch(v:View, event:MotionEvent):Boolean {
-//            if (v.equals(binding.longDistanceShot4))
-//            {
-//                val action = event.getAction()
-//                when (event.getAction() and  MotionEvent.ACTION_MASK) {
-//                    MotionEvent.ACTION_DOWN -> {
-//                        touchMode = TOUCH_MODE.SINGLE
-//                        donwSingleEvent(event)
-//                    }
-//                    MotionEvent.ACTION_POINTER_DOWN -> if (event.getPointerCount() === 2)
-//                    { // 두손가락 터치를 했을 때
-//                        touchMode = TOUCH_MODE.MULTI
-//                        downMultiEvent(event)
-//                    }
-//                    MotionEvent.ACTION_MOVE -> if (touchMode == TOUCH_MODE.SINGLE)
-//                    {
-//                        moveSingleEvent(event)
-//                    }
-//                    else if (touchMode == TOUCH_MODE.MULTI)
-//                    {
-//                        moveMultiEvent(event)
-//                    }
-//                    MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> touchMode = TOUCH_MODE.NONE
-//                }
-//            }
-//            return true
-//        }
-//    }
-
-//        var firebaseString :String = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F2021-01-26-17-14-12-332.jpg?alt=media&token=b1c15a56-1e72-415c-a4eb-1e7870f2bdf8"
-
-//    var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/storage%2Femulated%2F0%2FAndroid%2Fmedia%2Fcom.android.skinex%2FSkinex%2F${Visiter.Visi.firebaseurl}.jpg?alt=media"
-
     var storageUrl = "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/data%2Fuser%2F0%2Fcom.android.skinex%2Fcache%2F" +
             "${Camera.cam.camerauri2}?alt=media"
     var storageUrl_galley= "https://firebasestorage.googleapis.com/v0/b/wpias-94d18.appspot.com/o/Skinex%2F" +
@@ -104,27 +55,11 @@ class ResultInfoActivity : AppCompatActivity() {
     var MYmonth = 0
     var MYday = 0
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ResultInfoBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-
-
-
-
-//        matrix = Matrix()
-//        savedMatrix = Matrix()
-////        imageView = findViewById(R.id.imageView)
-//        binding.longDistanceShot4.setOnTouchListener(onTouch)
-//        binding.longDistanceShot4.setScaleType(ImageView.ScaleType.MATRIX)
-
-
 
         info()
 //        goguide()
@@ -138,73 +73,14 @@ class ResultInfoActivity : AppCompatActivity() {
         var config = r.getConfiguration()
         onConfigurationChanged(config)
 
-
-
     }
 
-//    private fun getMidPoint(e:MotionEvent):PointF {
-//        val x = (e.getX(0) + e.getX(1)) / 2
-//        val y = (e.getY(0) + e.getY(1)) / 2
-//        return PointF(x, y)
-//    }
-//    private fun getDistance(e:MotionEvent):Float {
-//        val x = e.getX(0) - e.getX(1)
-//        val y = e.getY(0) - e.getY(1)
-//        return Math.sqrt((x * x + y * y).toDouble()).toFloat()
-//    }
-//
-//    private fun donwSingleEvent(event:MotionEvent) {
-//        savedMatrix.set(matrix)
-//        startPoint = PointF(event.getX(), event.getY())
-//    }
-//
-//    private fun downMultiEvent(event:MotionEvent) {
-//        oldDistance = getDistance(event)
-//        if (oldDistance > 5f)
-//        {
-//            savedMatrix.set(matrix)
-//            midPoint = getMidPoint(event)
-//            val radian = Math.atan2(event.getY().toDouble() - midPoint.y, event.getX().toDouble() - midPoint.x)
-//            oldDegree = (radian * 180) / Math.PI
-//        }
-//    }
-//    private fun moveSingleEvent(event:MotionEvent) {
-//        matrix.set(savedMatrix)
-//        matrix.postTranslate(event.getX() - startPoint.x, event.getY() - startPoint.y)
-//        binding.longDistanceShot4.setImageMatrix(matrix)
-//    }
-//    private fun moveMultiEvent(event:MotionEvent) {
-//        val newDistance = getDistance(event)
-//        if (newDistance > 5f)
-//        {
-//            matrix.set(savedMatrix)
-//            val scale = newDistance / oldDistance
-//            matrix.postScale(scale, scale, midPoint.x, midPoint.y)
-//            val nowRadian = Math.atan2(event.getY().toDouble() - midPoint.y, event.getX().toDouble() - midPoint.x)
-//            val nowDegress = (nowRadian * 180) / Math.PI
-//            val degree = (nowDegress - oldDegree).toFloat()
-//            matrix.postRotate(degree, midPoint.x, midPoint.y)
-//            binding.longDistanceShot4.setImageMatrix(matrix)
-//        }
-//    }
+
 
     fun getScreenShot(view: View): Bitmap {
 
         view.setDrawingCacheEnabled(true)
         val bmp: Bitmap = view.getDrawingCache()
-        /*
-        //val returnedBitmap = Bitmap.createBitmap( 1500,1500,
-        //    Bitmap.Config.ARGB_8888)
-        Log.d(
-            "getScreenShot: ",
-            binding.longDistanceShot4.height.toString() + ":" + binding.longDistanceShot4.width.toString()
-        )
-        val canvas = Canvas(returnedBitmap)
-        val bgDrawable = view.background
-        if (bgDrawable != null) bgDrawable.draw(canvas)
-        else canvas.drawColor(resources.getColor(R.color.screenshot_background))
-        view.draw(canvas)
-        */
 
         return bmp
 
@@ -321,38 +197,6 @@ class ResultInfoActivity : AppCompatActivity() {
         )
     }
 
-
-//    val bmp: Bitmap? = null
-//    val stream = ByteArrayOutputStream()
-//
-//    var byteArray = stream.toByteArray()
-//    fun screenShot() {
-//
-//
-//        bmp!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//
-//        var fileInputStream: FileInputStream? = null
-//        val file = File("yourfile")
-//        byteArray = ByteArray(file.length().toInt())
-//        try {
-//            //convert file into array of bytes
-//            fileInputStream = FileInputStream(file)
-//            fileInputStream.read(bFile)
-//            fileInputStream.close()
-//            //convert array of bytes into file
-//            val fileOuputStream = FileOutputStream("C:\\testing2.txt")
-//            fileOuputStream.write(bFile)
-//            fileOuputStream.close()
-//            println("Done")
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//    }
-
-
-
-
-
     fun imageUp() {
 //        binding.shortDistanceShot2.setImageURI(Visiter.Visi.camerauri1.toUri())
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
@@ -369,7 +213,7 @@ class ResultInfoActivity : AppCompatActivity() {
         }else {
 //            val photoView = binding.longDistanceShot4
 //            photoView.setImageURI(Camera.cam.camerauri1.toUri())
-            binding.longDistanceShot4.setImage(ImageSource.bitmap(Visiter.Visi.camerauri))
+            binding.longDistanceShot4.setImage(ImageSource.uri(Camera.cam.camerauri1))
         }
     }
 
@@ -378,10 +222,6 @@ class ResultInfoActivity : AppCompatActivity() {
 
 
 //    }
-
-
-
-
 
     fun screenShot() {
         val v1: View = binding.longDistanceShot4.rootView
@@ -694,15 +534,15 @@ class ResultInfoActivity : AppCompatActivity() {
 //        val stream = FileInputStream(File(Visiter.Visi.camerauri1))
             //val stream2 = FileInputStream(File(Visiter.Visi.gallary))
             var test = "/storage/emulated/0/test/Screenshot_20190514-223031_Agreement.jpg"
-            val stream2 = FileInputStream(File(Visiter.Visi.gallary))
-            Log.d("file", Visiter.Visi.gallary)
+            val stream2 = FileInputStream(File(Camera.cam.camerauri1))
+            Log.d("file", Camera.cam.camerauri1)
 //            Log.d("uri: ",Camera.cam.camerauri1)
 
 //        val storageRef = FirebaseStorage.getInstance().reference
             val storageRef2 = FirebaseStorage.getInstance().reference
 
 //        val mountainsRef = storageRef.child(Visiter.Visi.camerauri1)
-            val mountainsRef2 = storageRef2.child(Visiter.Visi.gallary)
+            val mountainsRef2 = storageRef2.child(Camera.cam.camerauri1)
 
 
 //        val uploadTask = mountainsRef.putStream(stream)

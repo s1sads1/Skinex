@@ -22,6 +22,7 @@ import com.android.skinex.activity.GuideLine
 import com.android.skinex.databinding.ResultInfo2Binding
 import com.android.skinex.databinding.ResultInfoBinding
 import com.android.skinex.publicObject.Analy
+import com.android.skinex.publicObject.Camera
 import com.android.skinex.publicObject.Visiter
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.github.mikephil.charting.animation.Easing
@@ -179,7 +180,7 @@ class ResultActivity : AppCompatActivity()  {
 //        Glide.with(this).load(Visiter.Visi.camerauri2).into(findViewById<ImageView>(R.id.longDistanceShot4))
         Log.d("screenshot:.screenshot", Visiter.Visi.screenshot.toString())
 
-        binding.longDistanceShot4.setImageBitmap(Visiter.Visi.camerauri)
+        binding.longDistanceShot4.setImageBitmap(Visiter.Visi.screenshot)
 //        getScreenShot(binding.longDistanceShot4)
 //        view_result.getScreenShot(binding.longDistanceShot4)
 //        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Visiter.Visi.screenshot.toUri())
